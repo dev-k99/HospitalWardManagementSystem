@@ -1,0 +1,81 @@
+@model WardSystemProject.Models.MedicalCondition
+
+@{
+    ViewData["Title"] = "Edit Medical Condition Record";
+}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card">
+                <div class="card-header bg-info text-white">
+                    <h4 class="mb-0">
+                        <i class="bi bi-heart-pulse"></i> Edit Medical Condition Record
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <form asp-action="EditMedicalCondition" method="post" class="needs-validation" novalidate>
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+                        <input type="hidden" asp-for="Id" />
+                        
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">
+                                <i class="bi bi-person"></i> Patient
+                            </label>
+                            <p class="form-control-plaintext">@Model.Patient?.FirstName @Model.Patient?.LastName</p>
+                            <div class="form-text">Patient cannot be changed</div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="ConditionName" class="form-label fw-bold">
+                                <i class="bi bi-heart-pulse"></i> Medical Condition
+                            </label>
+                            <input asp-for="ConditionName" class="form-control" placeholder="Enter medical condition (e.g., Diabetes, Hypertension)" required />
+                            <span asp-validation-for="ConditionName" class="text-danger"></span>
+                            <div class="form-text">Enter the name of the medical condition (e.g., Diabetes, Hypertension, Asthma)</div>
+                        </div>
+
+                        <div class="mb-3">
+                            <div class="form-check">
+                                <input asp-for="IsActive" class="form-check-input" type="checkbox" />
+                                <label asp-for="IsActive" class="form-check-label fw-bold">
+                                    <i class="bi bi-toggle-on"></i> Active Status
+                                </label>
+                            </div>
+                            <div class="form-text">Uncheck to deactivate this medical condition record</div>
+                        </div>
+
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <a asp-action="ManageMedicalConditions" class="btn btn-secondary me-md-2">
+                                <i class="bi bi-arrow-left"></i> Back to List
+                            </a>
+                            <button type="submit" class="btn btn-info">
+                                <i class="bi bi-check-circle"></i> Update Medical Condition Record
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        // Client-side validation
+        (function () {
+            'use strict'
+            var forms = document.querySelectorAll('.needs-validation')
+            Array.prototype.slice.call(forms).forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+                    form.classList.add('was-validated')
+                }, false)
+            })
+        })()
+    </script>
+} 

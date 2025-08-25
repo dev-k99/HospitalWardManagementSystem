@@ -1,0 +1,120 @@
+@model WardSystemProject.Models.Staff
+
+@{
+    ViewData["Title"] = "Delete Staff Member";
+}
+
+<div class="container-fluid">
+    <div class="row mb-4">
+        <div class="col-md-8">
+            <h2 class="text-danger">
+                <i class="bi bi-person-x"></i> Delete Staff Member
+            </h2>
+            <p class="text-muted">Remove a staff member from the system</p>
+        </div>
+        <div class="col-md-4 text-end">
+            <a asp-action="ManageStaff" class="btn btn-outline-secondary">
+                <i class="bi bi-arrow-left"></i> Back to Staff List
+            </a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-8">
+            <div class="alert alert-warning">
+                <i class="bi bi-exclamation-triangle"></i>
+                <strong>Warning:</strong> This action will deactivate the staff member. They will no longer have access to the system.
+            </div>
+
+            <div class="card shadow-sm">
+                <div class="card-header bg-danger text-white">
+                    <h5 class="mb-0">
+                        <i class="bi bi-person-badge"></i> Staff Information
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <dl class="row">
+                        <dt class="col-sm-3">Name</dt>
+                        <dd class="col-sm-9">@Model.FirstName @Model.LastName</dd>
+
+                        <dt class="col-sm-3">Role</dt>
+                        <dd class="col-sm-9">
+                            @switch (Model.Role)
+                            {
+                                case "Doctor":
+                                    <span class="badge bg-info">Doctor</span>
+                                    break;
+                                case "Nurse":
+                                    <span class="badge bg-warning">Nurse</span>
+                                    break;
+                                case "Nursing Sister":
+                                    <span class="badge bg-warning">Nursing Sister</span>
+                                    break;
+                                case "Administrator":
+                                    <span class="badge bg-primary">Administrator</span>
+                                    break;
+                                case "Ward Admin":
+                                    <span class="badge bg-success">Ward Admin</span>
+                                    break;
+                                default:
+                                    <span class="badge bg-secondary">@Model.Role</span>
+                                    break;
+                            }
+                        </dd>
+
+                        <dt class="col-sm-3">Email</dt>
+                        <dd class="col-sm-9">@Model.Email</dd>
+
+                        <dt class="col-sm-3">Status</dt>
+                        <dd class="col-sm-9">
+                            @if (Model.IsActive)
+                            {
+                                <span class="badge bg-success">Active</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-secondary">Inactive</span>
+                            }
+                        </dd>
+                    </dl>
+
+                    <form asp-action="DeleteStaff" method="post">
+                        <input type="hidden" asp-for="Id" />
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <a asp-action="ManageStaff" class="btn btn-outline-secondary me-md-2">
+                                <i class="bi bi-x-circle"></i> Cancel
+                            </a>
+                            <button type="submit" class="btn btn-danger">
+                                <i class="bi bi-trash"></i> Delete Staff Member
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow-sm">
+                <div class="card-header bg-warning text-dark">
+                    <h6 class="mb-0">
+                        <i class="bi bi-exclamation-triangle"></i> Important Notice
+                    </h6>
+                </div>
+                <div class="card-body">
+                    <p class="small text-muted">
+                        <strong>What happens when you delete a staff member:</strong>
+                    </p>
+                    <ul class="small text-muted">
+                        <li>The staff member will be marked as inactive</li>
+                        <li>They will lose access to the system</li>
+                        <li>Their historical data will be preserved</li>
+                        <li>You can reactivate them later if needed</li>
+                    </ul>
+                    <hr />
+                    <p class="small text-muted">
+                        <strong>Note:</strong> This action is reversible. You can edit the staff member later to reactivate them.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 

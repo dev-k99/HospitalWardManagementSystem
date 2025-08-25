@@ -1,0 +1,314 @@
+@{
+    ViewData["Title"] = "Patient Care Dashboard";
+}
+
+<div class="container-fluid">
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1 class="h3 mb-0 text-gray-800">
+                <i class="bi bi-heart-pulse text-primary me-2"></i>Patient Care Dashboard
+            </h1>
+            <p class="text-muted">Monitor patient care activities and recent updates</p>
+        </div>
+        <div class="d-flex gap-2">
+            <a asp-controller="PatientCare" asp-action="CreateVitalSign" class="btn btn-primary">
+                <i class="bi bi-plus-circle me-2"></i>Record Vital Signs
+            </a>
+            <a asp-controller="PatientCare" asp-action="CreateMedicationAdministration" class="btn btn-success">
+                <i class="bi bi-capsule me-2"></i>Administer Medication
+            </a>
+            <a asp-controller="PatientCare" asp-action="CreateDoctorInstruction" class="btn btn-info">
+                <i class="bi bi-clipboard-text me-2"></i>Add Instruction
+            </a>
+        </div>
+    </div>
+
+    <!-- Statistics Cards -->
+    <div class="row mb-4">
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-start-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col me-2">
+                            <div class="text-xs fw-bold text-primary text-uppercase mb-1">
+                                Admitted Patients
+                            </div>
+                            <div class="h5 mb-0 fw-bold text-gray-800">
+                                @(ViewBag.Patients?.Count ?? 0)
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="bi bi-people-fill fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-start-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col me-2">
+                            <div class="text-xs fw-bold text-success text-uppercase mb-1">
+                                Recent Vital Signs
+                            </div>
+                            <div class="h5 mb-0 fw-bold text-gray-800">
+                                @(ViewBag.RecentVitalSigns?.Count ?? 0)
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="bi bi-activity fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-start-info shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col me-2">
+                            <div class="text-xs fw-bold text-info text-uppercase mb-1">
+                                Medications Administered
+                            </div>
+                            <div class="h5 mb-0 fw-bold text-gray-800">
+                                @(ViewBag.RecentMedications?.Count ?? 0)
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="bi bi-capsule fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-start-warning shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col me-2">
+                            <div class="text-xs fw-bold text-warning text-uppercase mb-1">
+                                Doctor Instructions
+                            </div>
+                            <div class="h5 mb-0 fw-bold text-gray-800">
+                                @(ViewBag.RecentInstructions?.Count ?? 0)
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="bi bi-clipboard-check fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="row">
+        <!-- Recent Vital Signs -->
+        <div class="col-lg-6 mb-4">
+            <div class="card shadow">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 fw-bold text-primary">
+                        <i class="bi bi-activity me-2"></i>Recent Vital Signs
+                    </h6>
+                    <a asp-controller="PatientCare" asp-action="ManageVitalSigns" class="btn btn-sm btn-outline-primary">View All</a>
+                </div>
+                <div class="card-body">
+                    @if (ViewBag.RecentVitalSigns != null && ((IEnumerable<dynamic>)ViewBag.RecentVitalSigns).Any())
+                    {
+                        <div class="table-responsive">
+                            <table class="table table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Patient</th>
+                                        <th>Temperature</th>
+                                        <th>Pulse</th>
+                                        <th>Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var vital in ViewBag.RecentVitalSigns)
+                                    {
+                                        <tr>
+                                            <td>
+                                                <a asp-controller="PatientManagement" asp-action="DetailsPatient" asp-route-id="@vital.PatientId">
+                                                    @vital.Patient?.FullName
+                                                </a>
+                                            </td>
+                                            <td>@vital.Temperature°C</td>
+                                            <td>@vital.Pulse bpm</td>
+                                            <td>@vital.RecordDate.ToString("dd/MM/yyyy HH:mm")</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                    else
+                    {
+                        <p class="text-muted text-center mb-0">No recent vital signs recorded</p>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Medications -->
+        <div class="col-lg-6 mb-4">
+            <div class="card shadow">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 fw-bold text-success">
+                        <i class="bi bi-capsule me-2"></i>Recent Medications
+                    </h6>
+                    <a asp-controller="PatientCare" asp-action="ManageMedicationAdministrations" class="btn btn-sm btn-outline-success">View All</a>
+                </div>
+                <div class="card-body">
+                    @if (ViewBag.RecentMedications != null && ((IEnumerable<dynamic>)ViewBag.RecentMedications).Any())
+                    {
+                        <div class="table-responsive">
+                            <table class="table table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Patient</th>
+                                        <th>Medication</th>
+                                        <th>Dosage</th>
+                                        <th>Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var med in ViewBag.RecentMedications)
+                                    {
+                                        <tr>
+                                            <td>
+                                                <a asp-controller="PatientManagement" asp-action="DetailsPatient" asp-route-id="@med.PatientId">
+                                                    @med.Patient?.FullName
+                                                </a>
+                                            </td>
+                                            <td>@med.Medication?.Name</td>
+                                            <td>@med.Dosage</td>
+                                            <td>@med.AdministrationDate.ToString("dd/MM/yyyy HH:mm")</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                    else
+                    {
+                        <p class="text-muted text-center mb-0">No recent medications administered</p>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Doctor Instructions -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card shadow">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 fw-bold text-info">
+                        <i class="bi bi-clipboard-text me-2"></i>Recent Doctor Instructions
+                    </h6>
+                    <a asp-controller="PatientCare" asp-action="ManageDoctorInstructions" class="btn btn-sm btn-outline-info">View All</a>
+                </div>
+                <div class="card-body">
+                    @if (ViewBag.RecentInstructions != null && ((IEnumerable<dynamic>)ViewBag.RecentInstructions).Any())
+                    {
+                        <div class="table-responsive">
+                            <table class="table table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Patient</th>
+                                        <th>Doctor</th>
+                                        <th>Instruction</th>
+                                        <th>Date</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var instruction in ViewBag.RecentInstructions)
+                                    {
+                                        <tr>
+                                            <td>
+                                                <a asp-controller="PatientManagement" asp-action="DetailsPatient" asp-route-id="@instruction.PatientId">
+                                                    @instruction.Patient?.FullName
+                                                </a>
+                                            </td>
+                                            <td>@instruction.Doctor?.FullName</td>
+                                            <td>@instruction.Details</td>
+                                            <td>@instruction.InstructionDate.ToString("dd/MM/yyyy HH:mm")</td>
+                                            <td>
+                                                <span class="badge bg-@(instruction.Status?.ToLower() == "completed" ? "success" : instruction.Status?.ToLower() == "in progress" ? "warning" : "secondary")">
+                                                    @instruction.Status
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                    else
+                    {
+                        <p class="text-muted text-center mb-0">No recent doctor instructions</p>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="card shadow">
+                <div class="card-header py-3">
+                    <h6 class="m-0 fw-bold text-primary">
+                        <i class="bi bi-lightning me-2"></i>Quick Actions
+                    </h6>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-3 mb-3">
+                            <a asp-controller="PatientCare" asp-action="CreateVitalSign" class="btn btn-outline-primary w-100 h-100 d-flex flex-column align-items-center justify-content-center p-3">
+                                <i class="bi bi-activity fa-2x mb-2"></i>
+                                <span>Record Vital Signs</span>
+                            </a>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <a asp-controller="PatientCare" asp-action="CreateMedicationAdministration" class="btn btn-outline-success w-100 h-100 d-flex flex-column align-items-center justify-content-center p-3">
+                                <i class="bi bi-capsule fa-2x mb-2"></i>
+                                <span>Administer Medication</span>
+                            </a>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <a asp-controller="PatientCare" asp-action="CreateDoctorInstruction" class="btn btn-outline-info w-100 h-100 d-flex flex-column align-items-center justify-content-center p-3">
+                                <i class="bi bi-clipboard-text fa-2x mb-2"></i>
+                                <span>Add Instruction</span>
+                            </a>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <a asp-controller="PatientCare" asp-action="ManageVitalSigns" class="btn btn-outline-secondary w-100 h-100 d-flex flex-column align-items-center justify-content-center p-3">
+                                <i class="bi bi-list-ul fa-2x mb-2"></i>
+                                <span>View All Records</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Auto-refresh dashboard every 5 minutes
+        setTimeout(function() {
+            location.reload();
+        }, 300000);
+    </script>
+}

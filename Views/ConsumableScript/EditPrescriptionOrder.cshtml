@@ -1,0 +1,142 @@
+﻿@model WardSystemProject.Models.PrescriptionOrder
+
+@{
+    ViewData["Title"] = "Edit Prescription Order";
+}
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title text-primary mb-0">
+                        <i class="bi bi-pencil"></i> Edit Prescription Order
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <form asp-action="EditPrescriptionOrder" method="post" class="needs-validation" novalidate>
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" asp-for="Id" />
+                        
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+                        
+                        <div class="mb-3">
+                            <label asp-for="PrescriptionId" class="form-label fw-bold">
+                                <i class="bi bi-file-medical"></i> Prescription
+                            </label>
+                            @if (ViewBag.PrescriptionId != null)
+                            {
+                                @Html.DropDownListFor(model => model.PrescriptionId, 
+                                    (SelectList)ViewBag.PrescriptionId, 
+                                    "Select a prescription", 
+                                    new { @class = "form-select", required = "required" })
+                            }
+                            else
+                            {
+                                <select asp-for="PrescriptionId" class="form-select" required>
+                                    <option value="">Select a prescription</option>
+                                </select>
+                            }
+                            <span asp-validation-for="PrescriptionId" class="text-danger"></span>
+                            <div class="form-text">
+                                Choose the prescription for this order
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label asp-for="ScriptManagerId" class="form-label fw-bold">
+                                <i class="bi bi-person-badge"></i> Script Manager
+                            </label>
+                            @if (ViewBag.ScriptManagerId != null)
+                            {
+                                @Html.DropDownListFor(model => model.ScriptManagerId, 
+                                    (SelectList)ViewBag.ScriptManagerId, 
+                                    "Select a script manager", 
+                                    new { @class = "form-select", required = "required" })
+                            }
+                            else
+                            {
+                                <select asp-for="ScriptManagerId" class="form-select" required>
+                                    <option value="">Select a script manager</option>
+                                </select>
+                            }
+                            <span asp-validation-for="ScriptManagerId" class="text-danger"></span>
+                            <div class="form-text">
+                                Choose the staff member managing this order
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label asp-for="Status" class="form-label fw-bold">
+                                <i class="bi bi-flag"></i> Status
+                            </label>
+                            <select asp-for="Status" class="form-select" required>
+                                <option value="">Select status</option>
+                                <option value="Pending">Pending</option>
+                                <option value="In Progress">In Progress</option>
+                                <option value="Completed">Completed</option>
+                                <option value="Cancelled">Cancelled</option>
+                            </select>
+                            <span asp-validation-for="Status" class="text-danger"></span>
+                            <div class="form-text">
+                                Set the current status of this order
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label asp-for="SentToPharmacy" class="form-label fw-bold">
+                                <i class="bi bi-calendar-check"></i> Sent To Pharmacy
+                            </label>
+                            <input asp-for="SentToPharmacy" type="datetime-local" class="form-control" />
+                            <span asp-validation-for="SentToPharmacy" class="text-danger"></span>
+                            <div class="form-text">
+                                Date and time when order was sent to pharmacy (optional)
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label asp-for="ReceivedInWard" class="form-label fw-bold">
+                                <i class="bi bi-calendar-check"></i> Received In Ward
+                            </label>
+                            <input asp-for="ReceivedInWard" type="datetime-local" class="form-control" />
+                            <span asp-validation-for="ReceivedInWard" class="text-danger"></span>
+                            <div class="form-text">
+                                Date and time when order was received in ward (optional)
+                            </div>
+                        </div>
+                        
+                        <div class="mt-4">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-check-circle"></i> Save Changes
+                            </button>
+                            <a asp-action="ManagePrescriptionOrders" class="btn btn-secondary ms-2">
+                                <i class="bi bi-arrow-left"></i> Back to List
+                            </a>
+                            <a asp-action="DetailsPrescriptionOrder" asp-route-id="@Model.Id" class="btn btn-info ms-2">
+                                <i class="bi bi-info-circle"></i> View Details
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        // Custom validation
+        $(document).ready(function() {
+            $('form').on('submit', function() {
+                if (!$(this)[0].checkValidity()) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+                $(this).addClass('was-validated');
+            });
+        });
+    </script>
+}

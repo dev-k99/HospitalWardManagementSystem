@@ -1,0 +1,77 @@
+@model WardSystemProject.Models.DoctorInstruction
+
+@{
+    ViewData["Title"] = "Create Doctor Instruction";
+}
+
+<div class="container mt-4">
+
+
+    <h2 class="mb-4 text-primary">Create New Doctor Instruction</h2>
+
+    <form asp-action="CreateInstruction" method="post" class="needs-validation" novalidate>
+        @Html.AntiForgeryToken()
+        
+        <div class="form-group">
+            <label asp-for="PatientId" class="control-label text-dark fw-bold"></label>
+            @Html.DropDownListFor(model => model.PatientId, (SelectList)ViewBag.PatientId, "Select Patient", new { @class = "form-control custom-select", required = "required" })
+            <span asp-validation-for="PatientId" class="text-danger"></span>
+        </div>
+        
+        <div class="form-group">
+            <label asp-for="InstructionType" class="control-label text-dark fw-bold"></label>
+            <select asp-for="InstructionType" class="form-control" required>
+                <option value="">Select Instruction Type</option>
+                <option value="Treatment">Treatment</option>
+                <option value="Medication">Medication</option>
+                <option value="Diet">Diet</option>
+                <option value="Exercise">Exercise</option>
+                <option value="Monitoring">Monitoring</option>
+                <option value="Follow-up">Follow-up</option>
+                <option value="Other">Other</option>
+            </select>
+            <span asp-validation-for="InstructionType" class="text-danger"></span>
+        </div>
+        
+        <div class="form-group">
+            <label asp-for="Instructions" class="control-label text-dark fw-bold"></label>
+            <textarea asp-for="Instructions" class="form-control" rows="4" required placeholder="Enter detailed instructions for the patient..."></textarea>
+            <span asp-validation-for="Instructions" class="text-danger"></span>
+        </div>
+        
+        <div class="form-group">
+            <label asp-for="Priority" class="control-label text-dark fw-bold"></label>
+            <select asp-for="Priority" class="form-control" required>
+                <option value="">Select Priority</option>
+                <option value="Low">Low</option>
+                <option value="Medium">Medium</option>
+                <option value="High">High</option>
+                <option value="Urgent">Urgent</option>
+            </select>
+            <span asp-validation-for="Priority" class="text-danger"></span>
+        </div>
+        
+        <div class="form-group">
+            <label asp-for="Status" class="control-label text-dark fw-bold"></label>
+            <select asp-for="Status" class="form-control" required>
+                <option value="">Select Status</option>
+                <option value="Pending">Pending</option>
+                <option value="In Progress">In Progress</option>
+                <option value="Completed">Completed</option>
+                <option value="Cancelled">Cancelled</option>
+            </select>
+            <span asp-validation-for="Status" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <input type="submit" value="Create Instruction" class="btn btn-success" />
+            <a asp-action="Index" class="btn btn-secondary ms-2">Back to Dashboard</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -1,0 +1,35 @@
+@model WardSystemProject.Models.DoctorInstruction
+
+@{
+    ViewData["Title"] = "Doctor Instruction Details";
+}
+
+<div class="container mt-4">
+    <h2 class="mb-4 text-primary">Doctor Instruction Details</h2>
+
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Instruction #@Model.Id</h5>
+            <hr />
+            <dl class="row">
+                <dt class="col-sm-3 text-dark fw-bold">@Html.DisplayNameFor(model => model.Patient.FirstName)</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Patient.FirstName)</dd>
+                <dt class="col-sm-3 text-dark fw-bold">@Html.DisplayNameFor(model => model.Patient.LastName)</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Patient.LastName)</dd>
+                <dt class="col-sm-3 text-dark fw-bold">@Html.DisplayNameFor(model => model.Doctor.FirstName)</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Doctor.FirstName)</dd>
+                <dt class="col-sm-3 text-dark fw-bold">@Html.DisplayNameFor(model => model.Doctor.LastName)</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Doctor.LastName)</dd>
+                <dt class="col-sm-3 text-dark fw-bold">@Html.DisplayNameFor(model => model.InstructionDate)</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.InstructionDate)</dd>
+                <dt class="col-sm-3 text-dark fw-bold">@Html.DisplayNameFor(model => model.Details)</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Details)</dd>
+            </dl>
+        </div>
+    </div>
+
+    <div class="mt-3">
+        <a asp-action="EditDoctorInstruction" asp-route-id="@Model.Id" class="btn btn-primary">Edit</a>
+        <a asp-action="ManageDoctorInstructions" class="btn btn-secondary ms-2">Back to List</a>
+    </div>
+</div>

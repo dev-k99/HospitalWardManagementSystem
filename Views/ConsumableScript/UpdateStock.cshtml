@@ -1,0 +1,86 @@
+﻿@model WardSystemProject.Models.Consumable
+
+@{
+    ViewData["Title"] = "Update Stock";
+}
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title text-primary mb-0">
+                        <i class="bi bi-box-seam"></i> Update Stock Level
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <form asp-action="UpdateStock" method="post" class="needs-validation" novalidate>
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" asp-for="Id" />
+                        
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">
+                                <i class="bi bi-box"></i> Consumable Name
+                            </label>
+                            <input value="@Model.Name" class="form-control" readonly />
+                            <div class="form-text">
+                                This is the consumable item being updated
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">
+                                <i class="bi bi-hospital"></i> Ward
+                            </label>
+                            <input value="@Model.Ward?.Name" class="form-control" readonly />
+                            <div class="form-text">
+                                Ward where this consumable is stored
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label asp-for="QuantityOnHand" class="form-label fw-bold">
+                                <i class="bi bi-hash"></i> Current Stock Quantity
+                            </label>
+                            <input asp-for="QuantityOnHand" type="number" min="0" class="form-control" 
+                                   placeholder="Enter new stock quantity" required />
+                            <span asp-validation-for="QuantityOnHand" class="text-danger"></span>
+                            <div class="form-text">
+                                Update the current stock level for this consumable
+                            </div>
+                        </div>
+                        
+                        <div class="mt-4">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-check-circle"></i> Update Stock
+                            </button>
+                            <a asp-action="CheckStock" class="btn btn-secondary ms-2">
+                                <i class="bi bi-arrow-left"></i> Back to Stock List
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        // Custom validation
+        $(document).ready(function() {
+            $('form').on('submit', function() {
+                if (!$(this)[0].checkValidity()) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+                $(this).addClass('was-validated');
+            });
+        });
+    </script>
+}

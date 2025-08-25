@@ -1,0 +1,56 @@
+@model WardSystemProject.Models.Prescription
+
+@{
+    ViewData["Title"] = "Create Prescription";
+}
+
+<div class="container mt-4">
+
+
+    <h2 class="mb-4 text-primary">Create New Prescription</h2>
+
+    <form asp-action="CreatePrescription" method="post" class="needs-validation" novalidate>
+        @Html.AntiForgeryToken()
+        
+        <div class="form-group">
+            <label asp-for="PatientId" class="control-label text-dark fw-bold"></label>
+            @Html.DropDownListFor(model => model.PatientId, (SelectList)ViewBag.PatientId, "Select Patient", new { @class = "form-control custom-select", required = "required" })
+            <span asp-validation-for="PatientId" class="text-danger"></span>
+        </div>
+        
+        <div class="form-group">
+            <label asp-for="MedicationId" class="control-label text-dark fw-bold"></label>
+            @Html.DropDownListFor(model => model.MedicationId, (SelectList)ViewBag.MedicationId, "Select Medication", new { @class = "form-control custom-select", required = "required" })
+            <span asp-validation-for="MedicationId" class="text-danger"></span>
+        </div>
+        
+        <div class="form-group">
+            <label asp-for="DosageInstructions" class="control-label text-dark fw-bold"></label>
+            <textarea asp-for="DosageInstructions" class="form-control" rows="3" required placeholder="Enter detailed dosage instructions..."></textarea>
+            <span asp-validation-for="DosageInstructions" class="text-danger"></span>
+        </div>
+        
+        <div class="form-group">
+            <label asp-for="Duration" class="control-label text-dark fw-bold"></label>
+            <input asp-for="Duration" class="form-control" placeholder="e.g., 7 days, 2 weeks" required />
+            <span asp-validation-for="Duration" class="text-danger"></span>
+        </div>
+        
+        <div class="form-group">
+            <label asp-for="Instructions" class="control-label text-dark fw-bold"></label>
+            <textarea asp-for="Instructions" class="form-control" rows="2" placeholder="Additional instructions for the patient"></textarea>
+            <span asp-validation-for="Instructions" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <input type="submit" value="Create Prescription" class="btn btn-success" />
+            <a asp-action="Index" class="btn btn-secondary ms-2">Back to Dashboard</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

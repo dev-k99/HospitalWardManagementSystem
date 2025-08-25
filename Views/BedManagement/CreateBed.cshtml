@@ -1,0 +1,88 @@
+@model WardSystemProject.Models.Bed
+
+@{
+    ViewData["Title"] = "Create Bed";
+}
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title text-primary mb-0">
+                        <i class="bi bi-bed"></i> Create New Bed
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <form asp-action="CreateBed" method="post" class="needs-validation" novalidate>
+                        @Html.AntiForgeryToken()
+                        
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+                        
+                        <div class="mb-3">
+                            <label asp-for="BedNumber" class="form-label fw-bold">
+                                <i class="bi bi-hash"></i> Bed Number
+                            </label>
+                            <input asp-for="BedNumber" class="form-control" 
+                                   placeholder="Enter bed number (e.g., A1, B2, etc.)" required />
+                            <span asp-validation-for="BedNumber" class="text-danger"></span>
+                            <div class="form-text">
+                                Enter a unique identifier for this bed (max 20 characters)
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label asp-for="RoomId" class="form-label fw-bold">
+                                <i class="bi bi-door-open"></i> Room
+                            </label>
+                            @if (ViewBag.RoomId != null)
+                            {
+                                @Html.DropDownListFor(model => model.RoomId, 
+                                    (SelectList)ViewBag.RoomId, 
+                                    "Select a room", 
+                                    new { @class = "form-select", required = "required" })
+                            }
+                            else
+                            {
+                                <select asp-for="RoomId" class="form-select" required>
+                                    <option value="">Select a room</option>
+                                </select>
+                            }
+                            <span asp-validation-for="RoomId" class="text-danger"></span>
+                            <div class="form-text">
+                                Choose which room this bed belongs to
+                            </div>
+                        </div>
+                        
+                        <div class="mt-4">
+                            <button type="submit" class="btn btn-success">
+                                <i class="bi bi-check-circle"></i> Create Bed
+                            </button>
+                            <a asp-action="Index" class="btn btn-secondary ms-2">
+                                <i class="bi bi-arrow-left"></i> Back to List
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        // Custom validation
+        $(document).ready(function() {
+            $('form').on('submit', function() {
+                if (!$(this)[0].checkValidity()) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+                $(this).addClass('was-validated');
+            });
+        });
+    </script>
+} 

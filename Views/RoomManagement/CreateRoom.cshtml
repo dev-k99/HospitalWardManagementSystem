@@ -1,0 +1,33 @@
+@model WardSystemProject.Models.Room
+
+@{
+    ViewData["Title"] = "Create Room";
+}
+
+<div class="container mt-4">
+    <h2 class="mb-4 text-primary">Create New Room</h2>
+
+    <form asp-action="CreateRoom" method="post" class="needs-validation" novalidate>
+        @Html.AntiForgeryToken()
+        <div class="form-group">
+            <label asp-for="RoomNumber" class="control-label text-dark fw-bold"></label>
+            <input asp-for="RoomNumber" class="form-control" required />
+            <span asp-validation-for="RoomNumber" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="WardId" class="control-label text-dark fw-bold"></label>
+            @Html.DropDownListFor(model => model.WardId, (SelectList)ViewBag.WardId, "Select Ward", new { @class = "form-control custom-select", required = "required" })
+            <span asp-validation-for="WardId" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Create" class="btn btn-success" />
+            <a asp-action="ManageRooms" class="btn btn-secondary ms-2">Back to List</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

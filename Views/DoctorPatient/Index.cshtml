@@ -1,0 +1,185 @@
+@model WardSystemProject.Models.DoctorDashboardViewModel
+
+@{
+    ViewData["Title"] = "Doctor Dashboard";
+}
+
+<div class="container-fluid">
+
+
+    <div class="row mb-4">
+        <div class="col-md-8">
+            <h2 class="text-info">
+                <i class="bi bi-stethoscope"></i> Doctor Dashboard
+            </h2>
+            <p class="text-muted">Manage your patients and medical activities</p>
+        </div>
+        <div class="col-md-4 text-end">
+            <a asp-controller="DoctorPatient" asp-action="MyPatients" class="btn btn-primary">
+                <i class="bi bi-people"></i> My Patients
+            </a>
+        </div>
+    </div>
+
+    <!-- Statistics Cards -->
+    <div class="row mb-4">
+        <div class="col-md-3">
+            <div class="card bg-primary text-white">
+                <div class="card-body text-center">
+                    <i class="bi bi-people fs-1"></i>
+                    <h3 class="card-title">@Model.TotalPatients</h3>
+                    <p class="card-text">Active Patients</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card bg-success text-white">
+                <div class="card-body text-center">
+                    <i class="bi bi-calendar-check fs-1"></i>
+                    <h3 class="card-title">@Model.RecentVisits.Count</h3>
+                    <p class="card-text">Recent Visits</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card bg-warning text-dark">
+                <div class="card-body text-center">
+                    <i class="bi bi-clipboard-check fs-1"></i>
+                    <h3 class="card-title">@Model.PendingInstructions.Count</h3>
+                    <p class="card-text">Pending Instructions</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card bg-info text-white">
+                <div class="card-body text-center">
+                    <i class="bi bi-calendar-plus fs-1"></i>
+                    <h3 class="card-title">Today</h3>
+                    <p class="card-text">Schedule</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Recent Doctor Visits -->
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-header bg-success text-white">
+                    <h5 class="mb-0">
+                        <i class="bi bi-calendar-check"></i> Recent Visits
+                    </h5>
+                </div>
+                <div class="card-body">
+                    @if (Model.RecentVisits.Any())
+                    {
+                        <div class="list-group list-group-flush">
+                            @foreach (var visit in Model.RecentVisits)
+                            {
+                                <div class="list-group-item">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <strong>@visit.Patient?.FullName</strong>
+                                            <br />
+                                            <small class="text-muted">
+                                                Visit - @visit.VisitDate.ToString("dd/MM/yyyy HH:mm")
+                                            </small>
+                                        </div>
+                                        <div class="text-end">
+                                            <a asp-controller="DoctorPatient" asp-action="ViewPatientFolder" asp-route-id="@visit.PatientId" class="btn btn-sm btn-outline-success">
+                                                <i class="bi bi-folder2-open"></i> View Patient
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <p class="text-muted">No recent visits recorded</p>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <!-- Pending Instructions -->
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-header bg-warning text-dark">
+                    <h5 class="mb-0">
+                        <i class="bi bi-clipboard-check"></i> Pending Instructions
+                    </h5>
+                </div>
+                <div class="card-body">
+                    @if (Model.PendingInstructions.Any())
+                    {
+                        <div class="list-group list-group-flush">
+                            @foreach (var instruction in Model.PendingInstructions)
+                            {
+                                <div class="list-group-item">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <strong>@instruction.Patient?.FullName</strong>
+                                            <br />
+                                            <small class="text-muted">
+                                                @instruction.InstructionType - @instruction.InstructionDate.ToString("dd/MM/yyyy")
+                                            </small>
+                                        </div>
+                                        <div class="text-end">
+                                            <span class="badge bg-danger">@instruction.Priority</span>
+                                            <a asp-controller="DoctorPatient" asp-action="ViewPatientFolder" asp-route-id="@instruction.PatientId" class="btn btn-sm btn-outline-warning ms-1">
+                                                <i class="bi bi-eye"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <p class="text-muted">No pending instructions</p>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">
+                        <i class="bi bi-lightning"></i> Quick Actions
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <a asp-controller="DoctorPatient" asp-action="MyPatients" class="btn btn-outline-primary w-100 mb-2">
+                                <i class="bi bi-people"></i> View My Patients
+                            </a>
+                        </div>
+                        <div class="col-md-3">
+                            <a asp-controller="DoctorPatient" asp-action="CreateVisit" class="btn btn-outline-success w-100 mb-2">
+                                <i class="bi bi-calendar-plus"></i> Record Visit
+                            </a>
+                        </div>
+                        <div class="col-md-3">
+                            <a asp-controller="DoctorPatient" asp-action="CreatePrescription" class="btn btn-outline-warning w-100 mb-2">
+                                <i class="bi bi-capsule"></i> Prescribe Medication
+                            </a>
+                        </div>
+                        <div class="col-md-3">
+                            <a asp-controller="DoctorPatient" asp-action="CreateInstruction" class="btn btn-outline-info w-100 mb-2">
+                                <i class="bi bi-clipboard-check"></i> Create Instruction
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

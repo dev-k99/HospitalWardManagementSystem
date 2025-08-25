@@ -1,0 +1,244 @@
+@model WardSystemProject.Models.PatientMovement
+
+@{
+    ViewData["Title"] = "Record Patient Movement";
+}
+
+<div class="container-fluid">
+    <div class="row mb-4">
+        <div class="col-md-8">
+            <h2 class="text-info">
+                <i class="bi bi-arrow-left-right"></i> Record Patient Movement
+            </h2>
+            <p class="text-muted">Track patient movement between wards, to theatre, x-rays, etc.</p>
+        </div>
+        <div class="col-md-4 text-end">
+            <a asp-action="PatientFolder" asp-route-id="@Model.PatientId" class="btn btn-outline-secondary">
+                <i class="bi bi-arrow-left"></i> Back to Patient Folder
+            </a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-header bg-info text-white">
+                    <h5 class="mb-0">
+                        <i class="bi bi-map"></i> Movement Information
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <form asp-action="Movement" method="post">
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+                        
+                        <input type="hidden" asp-for="PatientId" />
+                        
+                        <!-- Movement Details -->
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <h6 class="text-primary border-bottom pb-2">
+                                    <i class="bi bi-arrow-left-right"></i> Movement Details
+                                </h6>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="FromWardId" class="form-label fw-bold">From Ward *</label>
+                                <select asp-for="FromWardId" asp-items="ViewBag.FromWardId" class="form-select">
+                                    <option value="">Select source ward</option>
+                                </select>
+                                <span asp-validation-for="FromWardId" class="text-danger"></span>
+                                <small class="form-text text-muted">Current ward or external location</small>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="ToWardId" class="form-label fw-bold">To Ward *</label>
+                                <select asp-for="ToWardId" asp-items="ViewBag.ToWardId" class="form-select">
+                                    <option value="">Select destination ward</option>
+                                </select>
+                                <span asp-validation-for="ToWardId" class="text-danger"></span>
+                                <small class="form-text text-muted">Destination ward or department</small>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="MovementDate" class="form-label fw-bold">Movement Date & Time *</label>
+                                <input asp-for="MovementDate" class="form-control" type="datetime-local" />
+                                <span asp-validation-for="MovementDate" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-bold">Movement Type</label>
+                                <select class="form-select" id="movementType">
+                                    <option value="">Select movement type</option>
+                                    <option value="ward">Ward Transfer</option>
+                                    <option value="theatre">To Theatre</option>
+                                    <option value="xray">To X-Ray</option>
+                                    <option value="scan">To Scan (CT/MRI)</option>
+                                    <option value="lab">To Laboratory</option>
+                                    <option value="pharmacy">To Pharmacy</option>
+                                    <option value="consultation">Consultation</option>
+                                    <option value="discharge">Discharge</option>
+                                    <option value="external">External Transfer</option>
+                                </select>
+                                <small class="form-text text-muted">Type of movement for tracking purposes</small>
+                            </div>
+                        </div>
+
+                        <!-- Movement Purpose -->
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Movement Purpose</label>
+                            <textarea class="form-control" rows="3" placeholder="Enter the reason for this movement (e.g., surgery, tests, consultation, etc.)"></textarea>
+                            <small class="form-text text-muted">Brief description of why the patient is being moved</small>
+                        </div>
+
+                        <!-- Special Instructions -->
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Special Instructions</label>
+                            <textarea class="form-control" rows="2" placeholder="Any special care requirements during movement (e.g., oxygen, wheelchair, etc.)"></textarea>
+                            <small class="form-text text-muted">Any special requirements for the patient during movement</small>
+                        </div>
+
+                        <!-- Movement Checklist -->
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <h6 class="text-info border-bottom pb-2">
+                                    <i class="bi bi-list-check"></i> Movement Checklist
+                                </h6>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="checkbox" id="patientNotified" checked>
+                                    <label class="form-check-label" for="patientNotified">
+                                        Patient notified of movement
+                                    </label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="checkbox" id="familyNotified" checked>
+                                    <label class="form-check-label" for="familyNotified">
+                                        Family/Next of kin notified
+                                    </label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="checkbox" id="medicalRecords" checked>
+                                    <label class="form-check-label" for="medicalRecords">
+                                        Medical records prepared
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="checkbox" id="equipmentReady" checked>
+                                    <label class="form-check-label" for="equipmentReady">
+                                        Required equipment ready
+                                    </label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="checkbox" id="staffAvailable" checked>
+                                    <label class="form-check-label" for="staffAvailable">
+                                        Staff available for escort
+                                    </label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="checkbox" id="destinationReady" checked>
+                                    <label class="form-check-label" for="destinationReady">
+                                        Destination ward/department ready
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <a asp-action="PatientFolder" asp-route-id="@Model.PatientId" class="btn btn-outline-secondary me-md-2">
+                                <i class="bi bi-x-circle"></i> Cancel
+                            </a>
+                            <button type="submit" class="btn btn-info">
+                                <i class="bi bi-check-circle"></i> Record Movement
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow-sm">
+                <div class="card-header bg-info text-white">
+                    <h6 class="mb-0">
+                        <i class="bi bi-info-circle"></i> Movement Guidelines
+                    </h6>
+                </div>
+                <div class="card-body">
+                    <p class="small text-muted">
+                        <strong>Movement Process:</strong>
+                    </p>
+                    <ul class="small text-muted">
+                        <li>Notify patient and family</li>
+                        <li>Prepare medical records</li>
+                        <li>Ensure required equipment</li>
+                        <li>Arrange staff escort if needed</li>
+                        <li>Confirm destination readiness</li>
+                        <li>Update patient location</li>
+                        <li>Record movement in system</li>
+                    </ul>
+                    <hr />
+                    <p class="small text-muted">
+                        <strong>Common Movement Types:</strong>
+                    </p>
+                    <ul class="small text-muted">
+                        <li><strong>Ward Transfer:</strong> Moving between wards</li>
+                        <li><strong>Theatre:</strong> For surgical procedures</li>
+                        <li><strong>X-Ray/Scan:</strong> For diagnostic tests</li>
+                        <li><strong>Laboratory:</strong> For blood tests</li>
+                        <li><strong>Consultation:</strong> For specialist review</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Quick Movement Types -->
+            <div class="card shadow-sm mt-3">
+                <div class="card-header bg-secondary text-white">
+                    <h6 class="mb-0">
+                        <i class="bi bi-lightning"></i> Quick Movement
+                    </h6>
+                </div>
+                <div class="card-body">
+                    <div class="d-grid gap-2">
+                        <button type="button" class="btn btn-outline-primary btn-sm" onclick="setMovementType('theatre')">
+                            <i class="bi bi-scissors"></i> To Theatre
+                        </button>
+                        <button type="button" class="btn btn-outline-info btn-sm" onclick="setMovementType('xray')">
+                            <i class="bi bi-camera"></i> To X-Ray
+                        </button>
+                        <button type="button" class="btn btn-outline-warning btn-sm" onclick="setMovementType('scan')">
+                            <i class="bi bi-display"></i> To Scan
+                        </button>
+                        <button type="button" class="btn btn-outline-success btn-sm" onclick="setMovementType('lab')">
+                            <i class="bi bi-droplet"></i> To Laboratory
+                        </button>
+                        <button type="button" class="btn btn-outline-danger btn-sm" onclick="setMovementType('consultation')">
+                            <i class="bi bi-person-check"></i> Consultation
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    
+    <script>
+        function setMovementType(type) {
+            document.getElementById('movementType').value = type;
+            
+            // Set current time
+            const now = new Date();
+            const localDateTime = new Date(now.getTime() - now.getTimezoneOffset() * 60000).toISOString().slice(0, 16);
+            document.getElementById('MovementDate').value = localDateTime;
+        }
+    </script>
+}

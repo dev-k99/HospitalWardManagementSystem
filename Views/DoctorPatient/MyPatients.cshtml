@@ -1,0 +1,106 @@
+@model IEnumerable<WardSystemProject.Models.Patient>
+
+@{
+    ViewData["Title"] = "My Patients";
+}
+
+<div class="container-fluid">
+
+
+    <div class="row mb-4">
+        <div class="col-md-8">
+            <h2 class="text-primary">
+                <i class="bi bi-people"></i> My Patients
+            </h2>
+            <p class="text-muted">Manage your assigned patients</p>
+        </div>
+        <div class="col-md-4 text-end">
+            <a asp-action="Index" class="btn btn-outline-secondary">
+                <i class="bi bi-arrow-left"></i> Back to Dashboard
+            </a>
+        </div>
+    </div>
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-info">
+            <i class="bi bi-info-circle"></i> No patients assigned to you at the moment.
+        </div>
+    }
+    else
+    {
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Patient</th>
+                                <th>Ward</th>
+                                <th>Bed</th>
+                                <th>Admission Date</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var patient in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        <strong>@patient.FullName</strong>
+                                        <br />
+                                        <small class="text-muted">@patient.Age years old</small>
+                                    </td>
+                                    <td>
+                                        <span class="badge bg-primary">@patient.Ward?.Name</span>
+                                    </td>
+                                    <td>
+                                        <span class="badge bg-success">@patient.Bed?.BedNumber</span>
+                                    </td>
+                                    <td>
+                                        <small class="text-muted">@patient.AdmissionDate?.ToString("dd/MM/yyyy")</small>
+                                    </td>
+                                    <td>
+                                        @if (patient.PatientStatus == "Admitted")
+                                        {
+                                            <span class="badge bg-success">@patient.PatientStatus</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-warning">@patient.PatientStatus</span>
+                                        }
+                                    </td>
+                                    <td>
+                                        <div class="btn-group" role="group">
+                                            <a asp-action="ViewPatientFolder" asp-route-id="@patient.Id" 
+                                               class="btn btn-sm btn-info" title="View Patient Folder">
+                                                <i class="bi bi-folder2-open"></i>
+                                            </a>
+                                            <a asp-action="CreateVisit" asp-route-patientId="@patient.Id" 
+                                               class="btn btn-sm btn-success" title="Record Visit">
+                                                <i class="bi bi-calendar-plus"></i>
+                                            </a>
+                                            <a asp-action="CreatePrescription" asp-route-patientId="@patient.Id" 
+                                               class="btn btn-sm btn-warning" title="Prescribe Medication">
+                                                <i class="bi bi-capsule"></i>
+                                            </a>
+                                            <a asp-action="CreateInstruction" asp-route-patientId="@patient.Id" 
+                                               class="btn btn-sm btn-primary" title="Create Instruction">
+                                                <i class="bi bi-clipboard-check"></i>
+                                            </a>
+                                            <a asp-action="DischargePatient" asp-route-id="@patient.Id" 
+                                               class="btn btn-sm btn-danger" title="Discharge Patient">
+                                                <i class="bi bi-box-arrow-right"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    }
+</div>

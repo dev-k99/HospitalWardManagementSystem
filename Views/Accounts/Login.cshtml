@@ -1,0 +1,179 @@
+@model WardSystemProject.ViewModels.LoginViewModel
+@{
+    ViewData["Title"] = "Login";
+    var returnUrl = ViewData["ReturnUrl"] as string;
+}
+
+<div class="container-fluid">
+    <div class="row min-vh-100 align-items-center justify-content-center" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+        <div class="col-md-5 col-lg-4">
+            <div class="card shadow-lg border-0" style="border-radius: 20px; backdrop-filter: blur(10px); background: rgba(255, 255, 255, 0.95);">
+                <div class="card-body p-5">
+                    <!-- Logo and Header -->
+                    <div class="text-center mb-4">
+                        <div class="mb-3">
+                            <i class="bi bi-hospital" style="font-size: 3rem; color: var(--primary-color);"></i>
+                        </div>
+                        <h2 class="fw-bold text-dark mb-2">Ward Management System</h2>
+                        <p class="text-muted">Secure Healthcare Access Portal</p>
+                    </div>
+
+                    <!-- Login Form -->
+                    <form asp-action="Login" method="post" class="needs-validation" novalidate>
+                        <input type="hidden" name="returnUrl" value="@returnUrl" />
+                        
+                        @if (!ViewData.ModelState.IsValid)
+                        {
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <i class="bi bi-exclamation-triangle me-2"></i>
+                                <strong>Login Failed!</strong> Please check your credentials and try again.
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                            </div>
+                        }
+
+                        <!-- Username/Email Field -->
+                        <div class="form-floating mb-3">
+                            <input asp-for="UsernameOrEmail" type="text" class="form-control" placeholder="Username or Email" required />
+                            <label asp-for="UsernameOrEmail">
+                                <i class="bi bi-person me-2"></i>Username or Email
+                            </label>
+                            <span asp-validation-for="UsernameOrEmail" class="text-danger"></span>
+                        </div>
+
+                        <!-- Password Field -->
+                        <div class="form-floating mb-3">
+                            <input asp-for="Password" type="password" class="form-control" placeholder="Password" required />
+                            <label asp-for="Password">
+                                <i class="bi bi-lock me-2"></i>Password
+                            </label>
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+
+                        <!-- Remember Me -->
+                        <div class="form-check mb-3">
+                            <input asp-for="RememberMe" class="form-check-input" type="checkbox" />
+                            <label asp-for="RememberMe" class="form-check-label">
+                                Remember me
+                            </label>
+                        </div>
+
+                        <!-- Login Button -->
+                        <div class="d-grid mb-4">
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                <i class="bi bi-box-arrow-in-right me-2"></i>
+                                Sign In
+                            </button>
+                        </div>
+                    </form>
+
+                    <!-- Role Information -->
+                    <div class="text-center">
+                        <div class="alert alert-info" role="alert">
+                            <h6 class="alert-heading mb-2">
+                                <i class="bi bi-info-circle me-2"></i>Available User Roles
+                            </h6>
+                            <div class="row text-start">
+                                <div class="col-6">
+                                    <small class="d-block mb-1">
+                                        <i class="bi bi-shield-check text-primary"></i> Administrator
+                                    </small>
+                                    <small class="d-block mb-1">
+                                        <i class="bi bi-person-badge text-success"></i> Ward Admin
+                                    </small>
+                                    <small class="d-block mb-1">
+                                        <i class="bi bi-stethoscope text-info"></i> Doctor
+                                    </small>
+                                </div>
+                                <div class="col-6">
+                                    <small class="d-block mb-1">
+                                        <i class="bi bi-heart-pulse text-warning"></i> Nurse
+                                    </small>
+                                    <small class="d-block mb-1">
+                                        <i class="bi bi-prescription text-danger"></i> Script Manager
+                                    </small>
+                                    <small class="d-block mb-1">
+                                        <i class="bi bi-box-seam text-secondary"></i> Consumables Manager
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Test Credentials -->
+                    <div class="text-center">
+                        <button class="btn btn-outline-secondary btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#testCredentials">
+                            <i class="bi bi-info-circle me-2"></i>View Test Credentials
+                        </button>
+                        
+                        <div class="collapse mt-3" id="testCredentials">
+                            <div class="card card-body bg-light">
+                                <h6 class="card-title">Test Users</h6>
+                                <div class="row text-start">
+                                    <div class="col-6">
+                                        <small class="d-block mb-1">
+                                            <strong>admin</strong> / Admin123!
+                                        </small>
+                                        <small class="d-block mb-1">
+                                            <strong>wardadmin</strong> / WardAdmin123!
+                                        </small>
+                                        <small class="d-block mb-1">
+                                            <strong>doctor</strong> / Doctor123!
+                                        </small>
+                                    </div>
+                                    <div class="col-6">
+                                        <small class="d-block mb-1">
+                                            <strong>nurse</strong> / Nurse123!
+                                        </small>
+                                        <small class="d-block mb-1">
+                                            <strong>scriptmanager</strong> / ScriptManager123!
+                                        </small>
+                                        <small class="d-block mb-1">
+                                            <strong>consumablesmanager</strong> / ConsumablesManager123!
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Registration Link -->
+                    <div class="text-center mt-3">
+                        <p class="mb-2">Don't have an account?</p>
+                        <a asp-action="Register" class="btn btn-outline-primary">
+                            <i class="bi bi-person-plus me-2"></i>Create New Account
+                        </a>
+                    </div>
+
+                    <!-- Footer -->
+                    <div class="text-center mt-4">
+                        <small class="text-muted">
+                            <i class="bi bi-shield-lock me-1"></i>
+                            Secure authentication powered by ASP.NET Core Identity
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Form validation
+        (function() {
+            'use strict';
+            window.addEventListener('load', function() {
+                var forms = document.getElementsByClassName('needs-validation');
+                var validation = Array.prototype.filter.call(forms, function(form) {
+                    form.addEventListener('submit', function(event) {
+                        if (form.checkValidity() === false) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                });
+            }, false);
+        })();
+    </script>
+}

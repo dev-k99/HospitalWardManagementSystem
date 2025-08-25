@@ -1,0 +1,116 @@
+@model IEnumerable<WardSystemProject.Models.Staff>
+
+@{
+    ViewData["Title"] = "Manage Staff";
+}
+
+<div class="container-fluid">
+    <div class="row mb-4">
+        <div class="col-md-8">
+            <h2 class="text-primary">
+                <i class="bi bi-people"></i> Staff Management
+            </h2>
+            <p class="text-muted">Manage hospital staff members and their roles</p>
+        </div>
+        <div class="col-md-4 text-end">
+            <a asp-action="CreateStaff" class="btn btn-success">
+                <i class="bi bi-plus-circle"></i> Add New Staff
+            </a>
+        </div>
+    </div>
+
+    @if (Model.Any())
+    {
+        <div class="card shadow-sm">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">
+                    <i class="bi bi-list-ul"></i> Active Staff Members
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Name</th>
+                                <th>Role</th>
+                                <th>Email</th>
+                                <th>Status</th>
+                                <th class="text-end">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var staff in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        <strong>@staff.FirstName @staff.LastName</strong>
+                                    </td>
+                                    <td>
+                                        @switch (staff.Role)
+                                        {
+                                            case "Doctor":
+                                                <span class="badge bg-info">Doctor</span>
+                                                break;
+                                            case "Nurse":
+                                                <span class="badge bg-warning">Nurse</span>
+                                                break;
+                                            case "Nursing Sister":
+                                                <span class="badge bg-warning">Nursing Sister</span>
+                                                break;
+                                            case "Administrator":
+                                                <span class="badge bg-primary">Administrator</span>
+                                                break;
+                                            case "Ward Admin":
+                                                <span class="badge bg-success">Ward Admin</span>
+                                                break;
+                                            default:
+                                                <span class="badge bg-secondary">@staff.Role</span>
+                                                break;
+                                        }
+                                    </td>
+                                    <td>@staff.Email</td>
+                                    <td>
+                                        @if (staff.IsActive)
+                                        {
+                                            <span class="badge bg-success">Active</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-secondary">Inactive</span>
+                                        }
+                                    </td>
+                                    <td class="text-end">
+                                        <div class="btn-group" role="group">
+                                            <a asp-action="EditStaff" asp-route-id="@staff.Id" class="btn btn-sm btn-outline-warning">
+                                                <i class="bi bi-pencil"></i> Edit
+                                            </a>
+                                            <a asp-action="DeleteStaff" asp-route-id="@staff.Id" class="btn btn-sm btn-outline-danger">
+                                                <i class="bi bi-trash"></i> Delete
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-info">
+            <i class="bi bi-info-circle"></i>
+            <strong>No staff members found.</strong> Add your first staff member to get started.
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            // Add any JavaScript functionality here
+        });
+    </script>
+} 
