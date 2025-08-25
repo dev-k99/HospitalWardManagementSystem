@@ -1,4 +1,4 @@
-# Ward Management System
+# Hospital Ward Management System
 
 A comprehensive hospital ward management system built with ASP.NET Core MVC, Entity Framework Core, and Bootstrap 5.
 
@@ -183,6 +183,7 @@ New users can register themselves through the registration system:
 - **Consumable**: Hospital consumable items
 - **ConsumableOrder**: Consumable order management
 - **PrescriptionOrder**: Prescription order management
+- **CheckStock**: Manages Avaliabe Stock
 
 ### Views
 All views are built with Bootstrap 5 and include:
