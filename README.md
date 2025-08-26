@@ -6,6 +6,21 @@ A comprehensive hospital ward management system built with ASP.NET Core MVC, Ent
 
 The Ward Management System is designed to manage hospital wards, patients, staff, medications, and medical records efficiently. It provides role-based access control for different types of healthcare professionals.
 
+## 🧱 Frameworks & Libraries
+
+- **Backend**
+  - .NET 8 (ASP.NET Core)
+  - ASP.NET Core MVC & Razor Pages
+  - Entity Framework Core 8 (with SQL Server provider)
+  - ASP.NET Core Identity 8
+- **Frontend**
+  - Bootstrap
+  - jQuery 3.6.0
+  - jQuery Validation 1.19.5
+  - jQuery Validation Unobtrusive 4.0.0
+- **Database**
+  - Microsoft SQL Server
+
 ## 👥 User Roles & Permissions
 
 ### Administrator
