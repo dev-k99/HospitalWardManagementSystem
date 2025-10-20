@@ -1,4 +1,5 @@
 using ECommerce.Api.Extensions;
+using ECommerce.Api.Middleware;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);

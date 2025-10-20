@@ -18,6 +18,18 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = /workspace/src/ECommerce.Web
 build_property._RazorSourceGeneratorDebug = 
 
+[/workspace/src/ECommerce.Web/Pages/Admin/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQWRtaW4vSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/workspace/src/ECommerce.Web/Pages/Auth.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQXV0aC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/workspace/src/ECommerce.Web/Pages/Cart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQ2FydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [/workspace/src/ECommerce.Web/Pages/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvRXJyb3IuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -26,8 +38,16 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[/workspace/src/ECommerce.Web/Pages/Orders.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvT3JkZXJzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [/workspace/src/ECommerce.Web/Pages/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvUHJpdmFjeS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/workspace/src/ECommerce.Web/Pages/Product.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvUHJvZHVjdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [/workspace/src/ECommerce.Web/Pages/Shared/_ValidationScriptsPartial.cshtml]

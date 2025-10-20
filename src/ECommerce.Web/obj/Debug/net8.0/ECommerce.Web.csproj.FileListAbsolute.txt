@@ -139,3 +139,5 @@
 /workspace/src/ECommerce.Web/obj/Debug/net8.0/ECommerce.Web.pdb
 /workspace/src/ECommerce.Web/obj/Debug/net8.0/ECommerce.Web.genruntimeconfig.cache
 /workspace/src/ECommerce.Web/obj/Debug/net8.0/ref/ECommerce.Web.dll
+/workspace/src/ECommerce.Web/bin/Debug/net8.0/Microsoft.Extensions.Diagnostics.Abstractions.dll
+/workspace/src/ECommerce.Web/bin/Debug/net8.0/Microsoft.Extensions.Hosting.Abstractions.dll
