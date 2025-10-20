@@ -1,0 +1,38 @@
+@page
+@model CartModel
+@{
+    ViewData["Title"] = "Cart";
+}
+<div class="container mt-4">
+    <h2>Your Cart</h2>
+    <div id="cart"></div>
+    <button id="checkout" class="btn btn-primary mt-3">Checkout</button>
+</div>
+
+@section Scripts{
+<script>
+async function load(){
+    const token = localStorage.getItem('jwt');
+    const res = await fetch('/api/cart', { headers: { 'Authorization': `Bearer ${token}` }});
+    if(!res.ok){ document.getElementById('cart').innerHTML = 'Login required'; return; }
+    const items = await res.json();
+    let total = 0;
+    document.getElementById('cart').innerHTML = items.map(i => {
+        total += i.quantity * i.product.price;
+        return `<div class="d-flex justify-content-between border-bottom py-2">
+            <div>${i.product.name} x ${i.quantity}</div>
+            <div>$${(i.product.price*i.quantity).toFixed(2)}</div>
+        </div>`;
+    }).join('') + `<div class='mt-2 fw-bold'>Total: $${total.toFixed(2)}</div>`;
+    document.getElementById('checkout').onclick = async () => {
+        const intentRes = await fetch(`/api/payments/intent?amount=${total}&currency=usd`, {method:'POST', headers: { 'Authorization': `Bearer ${token}` }});
+        if(!intentRes.ok){ alert('Payment error'); return; }
+        const { clientSecret } = await intentRes.json();
+        // For demo, assume payment succeeds and create order
+        const orderRes = await fetch('/api/orders?stripePaymentId=dummy', { method:'POST', headers: { 'Authorization': `Bearer ${token}` }});
+        alert(orderRes.ok ? 'Order placed!' : 'Order failed');
+    };
+}
+load();
+</script>
+}

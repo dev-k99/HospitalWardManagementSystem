@@ -1,0 +1,30 @@
+@page
+@model OrdersModel
+@{
+    ViewData["Title"] = "Orders";
+}
+<div class="container mt-4">
+    <h2>My Orders</h2>
+    <div id="orders"></div>
+</div>
+
+@section Scripts{
+<script>
+(async function(){
+    const token = localStorage.getItem('jwt');
+    const res = await fetch('/api/orders', { headers: { 'Authorization': `Bearer ${token}` }});
+    if(!res.ok){ document.getElementById('orders').innerHTML = 'Login required'; return; }
+    const orders = await res.json();
+    document.getElementById('orders').innerHTML = orders.map(o => `
+        <div class="card mb-2">
+          <div class="card-body">
+            <div class="d-flex justify-content-between">
+             <div>Order: ${o.id}</div>
+             <div>Total: $${o.totalAmount?.toFixed(2)}</div>
+            </div>
+            <div>Status: ${o.status}</div>
+          </div>
+        </div>`).join('');
+})();
+</script>
+}
