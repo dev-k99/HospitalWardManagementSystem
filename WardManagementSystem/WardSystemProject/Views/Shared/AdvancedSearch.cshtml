@@ -1,0 +1,459 @@
+@model dynamic
+
+@{
+    ViewData["Title"] = "Advanced Search";
+}
+
+<div class="container-fluid">
+    <!-- Header -->
+    <div class="row mb-4">
+        <div class="col-md-8">
+            <h2 class="text-primary">
+                <i class="bi bi-search"></i> Advanced Search
+            </h2>
+            <p class="text-muted">Search across patients, staff, rooms, and more with advanced filters</p>
+        </div>
+        <div class="col-md-4 text-end">
+            <a href="javascript:history.back()" class="btn btn-outline-secondary">
+                <i class="bi bi-arrow-left"></i> Back
+            </a>
+        </div>
+    </div>
+
+    <!-- Search Form -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">
+                        <i class="bi bi-funnel"></i> Search Criteria
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <form id="advancedSearchForm" method="get">
+                        <!-- Search Type Selection -->
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <label class="form-label fw-bold">Search Type</label>
+                                <div class="btn-group w-100" role="group">
+                                    <input type="radio" class="btn-check" name="searchType" id="searchPatients" value="patients" checked>
+                                    <label class="btn btn-outline-primary" for="searchPatients">
+                                        <i class="bi bi-people"></i> Patients
+                                    </label>
+                                    
+                                    <input type="radio" class="btn-check" name="searchType" id="searchStaff" value="staff">
+                                    <label class="btn btn-outline-primary" for="searchStaff">
+                                        <i class="bi bi-person-badge"></i> Staff
+                                    </label>
+                                    
+                                    <input type="radio" class="btn-check" name="searchType" id="searchRooms" value="rooms">
+                                    <label class="btn btn-outline-primary" for="searchRooms">
+                                        <i class="bi bi-door-open"></i> Rooms
+                                    </label>
+                                    
+                                    <input type="radio" class="btn-check" name="searchType" id="searchBeds" value="beds">
+                                    <label class="btn btn-outline-primary" for="searchBeds">
+                                        <i class="bi bi-bed"></i> Beds
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Basic Search -->
+                        <div class="row mb-3">
+                            <div class="col-md-8">
+                                <label for="searchTerm" class="form-label fw-bold">Search Term</label>
+                                <input type="text" class="form-control" id="searchTerm" name="searchTerm" 
+                                       placeholder="Enter name, ID, or any search term...">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="searchField" class="form-label fw-bold">Search Field</label>
+                                <select class="form-select" id="searchField" name="searchField">
+                                    <option value="all">All Fields</option>
+                                    <option value="name">Name</option>
+                                    <option value="id">ID</option>
+                                    <option value="email">Email</option>
+                                    <option value="phone">Phone</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Advanced Filters -->
+                        <div class="row mb-3">
+                            <div class="col-md-3">
+                                <label for="wardFilter" class="form-label fw-bold">Ward</label>
+                                <select class="form-select" id="wardFilter" name="wardFilter">
+                                    <option value="">All Wards</option>
+                                    @if (ViewBag.Wards != null)
+                                    {
+                                        foreach (var ward in ViewBag.Wards)
+                                        {
+                                            <option value="@ward.Id">@ward.Name</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="statusFilter" class="form-label fw-bold">Status</label>
+                                <select class="form-select" id="statusFilter" name="statusFilter">
+                                    <option value="">All Statuses</option>
+                                    <option value="active">Active</option>
+                                    <option value="inactive">Inactive</option>
+                                    <option value="admitted">Admitted</option>
+                                    <option value="discharged">Discharged</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="dateFrom" class="form-label fw-bold">Date From</label>
+                                <input type="date" class="form-control" id="dateFrom" name="dateFrom">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="dateTo" class="form-label fw-bold">Date To</label>
+                                <input type="date" class="form-control" id="dateTo" name="dateTo">
+                            </div>
+                        </div>
+
+                        <!-- Role-specific Filters -->
+                        <div class="row mb-3" id="roleFilters" style="display: none;">
+                            <div class="col-md-3">
+                                <label for="roleFilter" class="form-label fw-bold">Role</label>
+                                <select class="form-select" id="roleFilter" name="roleFilter">
+                                    <option value="">All Roles</option>
+                                    <option value="Doctor">Doctor</option>
+                                    <option value="Nurse">Nurse</option>
+                                    <option value="Administrator">Administrator</option>
+                                    <option value="Nursing Sister">Nursing Sister</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="departmentFilter" class="form-label fw-bold">Department</label>
+                                <select class="form-select" id="departmentFilter" name="departmentFilter">
+                                    <option value="">All Departments</option>
+                                    <option value="General">General</option>
+                                    <option value="ICU">ICU</option>
+                                    <option value="Maternity">Maternity</option>
+                                    <option value="Pediatric">Pediatric</option>
+                                    <option value="Surgical">Surgical</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="availabilityFilter" class="form-label fw-bold">Availability</label>
+                                <select class="form-select" id="availabilityFilter" name="availabilityFilter">
+                                    <option value="">All</option>
+                                    <option value="on_duty">On Duty</option>
+                                    <option value="off_duty">Off Duty</option>
+                                    <option value="available">Available</option>
+                                    <option value="unavailable">Unavailable</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Patient-specific Filters -->
+                        <div class="row mb-3" id="patientFilters" style="display: none;">
+                            <div class="col-md-3">
+                                <label for="ageFilter" class="form-label fw-bold">Age Range</label>
+                                <select class="form-select" id="ageFilter" name="ageFilter">
+                                    <option value="">All Ages</option>
+                                    <option value="0-18">0-18 years</option>
+                                    <option value="19-30">19-30 years</option>
+                                    <option value="31-50">31-50 years</option>
+                                    <option value="51-65">51-65 years</option>
+                                    <option value="65+">65+ years</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="genderFilter" class="form-label fw-bold">Gender</label>
+                                <select class="form-select" id="genderFilter" name="genderFilter">
+                                    <option value="">All</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="bloodTypeFilter" class="form-label fw-bold">Blood Type</label>
+                                <select class="form-select" id="bloodTypeFilter" name="bloodTypeFilter">
+                                    <option value="">All</option>
+                                    <option value="A+">A+</option>
+                                    <option value="A-">A-</option>
+                                    <option value="B+">B+</option>
+                                    <option value="B-">B-</option>
+                                    <option value="AB+">AB+</option>
+                                    <option value="AB-">AB-</option>
+                                    <option value="O+">O+</option>
+                                    <option value="O-">O-</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="admissionStatusFilter" class="form-label fw-bold">Admission Status</label>
+                                <select class="form-select" id="admissionStatusFilter" name="admissionStatusFilter">
+                                    <option value="">All</option>
+                                    <option value="admitted">Currently Admitted</option>
+                                    <option value="discharged">Discharged</option>
+                                    <option value="pending">Pending Admission</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Search Actions -->
+                        <div class="row">
+                            <div class="col-md-6">
+                                <button type="submit" class="btn btn-primary btn-lg">
+                                    <i class="bi bi-search"></i> Search
+                                </button>
+                                <button type="button" class="btn btn-outline-secondary btn-lg ms-2" onclick="clearForm()">
+                                    <i class="bi bi-arrow-clockwise"></i> Clear
+                                </button>
+                            </div>
+                            <div class="col-md-6 text-end">
+                                <button type="button" class="btn btn-outline-info btn-sm" onclick="saveSearch()">
+                                    <i class="bi bi-bookmark"></i> Save Search
+                                </button>
+                                <button type="button" class="btn btn-outline-success btn-sm ms-2" onclick="exportResults()">
+                                    <i class="bi bi-download"></i> Export Results
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Search Results -->
+    <div class="row mb-4" id="searchResults" style="display: none;">
+        <div class="col-12">
+            <div class="card shadow">
+                <div class="card-header bg-success text-white">
+                    <h5 class="mb-0">
+                        <i class="bi bi-list-ul"></i> Search Results
+                        <span class="badge bg-light text-dark ms-2" id="resultCount">0</span>
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div id="resultsContent">
+                        <!-- Results will be populated here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent Searches -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card shadow">
+                <div class="card-header bg-info text-white">
+                    <h6 class="mb-0">
+                        <i class="bi bi-clock-history"></i> Recent Searches
+                    </h6>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4 mb-2">
+                            <button class="btn btn-outline-info btn-sm w-100" onclick="loadRecentSearch('patients_ward_a')">
+                                <i class="bi bi-people"></i> Patients in Ward A
+                            </button>
+                        </div>
+                        <div class="col-md-4 mb-2">
+                            <button class="btn btn-outline-info btn-sm w-100" onclick="loadRecentSearch('doctors_available')">
+                                <i class="bi bi-person-badge"></i> Available Doctors
+                            </button>
+                        </div>
+                        <div class="col-md-4 mb-2">
+                            <button class="btn btn-outline-info btn-sm w-100" onclick="loadRecentSearch('empty_beds')">
+                                <i class="bi bi-bed"></i> Empty Beds
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            // Handle search type changes
+            $('input[name="searchType"]').change(function() {
+                updateFilters();
+            });
+
+            // Handle form submission
+            $('#advancedSearchForm').submit(function(e) {
+                e.preventDefault();
+                performSearch();
+            });
+
+            // Initialize filters
+            updateFilters();
+        });
+
+        function updateFilters() {
+            const searchType = $('input[name="searchType"]:checked').val();
+            
+            // Hide all filters first
+            $('#roleFilters, #patientFilters').hide();
+            
+            // Show relevant filters based on search type
+            if (searchType === 'staff') {
+                $('#roleFilters').show();
+            } else if (searchType === 'patients') {
+                $('#patientFilters').show();
+            }
+        }
+
+        function performSearch() {
+            const formData = new FormData($('#advancedSearchForm')[0]);
+            const searchType = formData.get('searchType');
+            
+            // Show loading
+            $('#searchResults').show();
+            $('#resultsContent').html('<div class="text-center"><i class="bi bi-hourglass-split fa-2x"></i><p>Searching...</p></div>');
+            
+            // Simulate search (replace with actual AJAX call)
+            setTimeout(function() {
+                displayResults(searchType, generateMockResults(searchType));
+            }, 1000);
+        }
+
+        function generateMockResults(searchType) {
+            if (searchType === 'patients') {
+                return [
+                    { id: 1, name: 'John Doe', age: 45, gender: 'Male', ward: 'General Ward', status: 'Admitted', admissionDate: '2024-01-15' },
+                    { id: 2, name: 'Jane Smith', age: 32, gender: 'Female', ward: 'Maternity', status: 'Admitted', admissionDate: '2024-01-16' },
+                    { id: 3, name: 'Bob Johnson', age: 58, gender: 'Male', ward: 'ICU', status: 'Admitted', admissionDate: '2024-01-14' }
+                ];
+            } else if (searchType === 'staff') {
+                return [
+                    { id: 1, name: 'Dr. Sarah Wilson', role: 'Doctor', department: 'General', status: 'On Duty', ward: 'General Ward' },
+                    { id: 2, name: 'Nurse Mike Brown', role: 'Nurse', department: 'ICU', status: 'On Duty', ward: 'ICU' },
+                    { id: 3, name: 'Admin Lisa Davis', role: 'Administrator', department: 'Admin', status: 'Available', ward: 'N/A' }
+                ];
+            }
+            return [];
+        }
+
+        function displayResults(searchType, results) {
+            const resultCount = results.length;
+            $('#resultCount').text(resultCount);
+            
+            if (resultCount === 0) {
+                $('#resultsContent').html('<div class="text-center text-muted"><i class="bi bi-info-circle fa-2x"></i><p>No results found</p></div>');
+                return;
+            }
+
+            let tableHtml = '<div class="table-responsive"><table class="table table-striped table-hover">';
+            
+            if (searchType === 'patients') {
+                tableHtml += `
+                    <thead class="table-dark">
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Age</th>
+                            <th>Gender</th>
+                            <th>Ward</th>
+                            <th>Status</th>
+                            <th>Admission Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                `;
+                
+                results.forEach(patient => {
+                    tableHtml += `
+                        <tr>
+                            <td>${patient.id}</td>
+                            <td><strong>${patient.name}</strong></td>
+                            <td>${patient.age}</td>
+                            <td>${patient.gender}</td>
+                            <td><span class="badge bg-info">${patient.ward}</span></td>
+                            <td><span class="badge bg-success">${patient.status}</span></td>
+                            <td>${patient.admissionDate}</td>
+                            <td>
+                                <a href="/PatientManagement/PatientFolder/${patient.id}" class="btn btn-sm btn-info">
+                                    <i class="bi bi-eye"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    `;
+                });
+            } else if (searchType === 'staff') {
+                tableHtml += `
+                    <thead class="table-dark">
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Role</th>
+                            <th>Department</th>
+                            <th>Status</th>
+                            <th>Ward</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                `;
+                
+                results.forEach(staff => {
+                    tableHtml += `
+                        <tr>
+                            <td>${staff.id}</td>
+                            <td><strong>${staff.name}</strong></td>
+                            <td><span class="badge bg-primary">${staff.role}</span></td>
+                            <td>${staff.department}</td>
+                            <td><span class="badge bg-success">${staff.status}</span></td>
+                            <td>${staff.ward}</td>
+                            <td>
+                                <a href="/StaffManagement/DetailsStaff/${staff.id}" class="btn btn-sm btn-info">
+                                    <i class="bi bi-eye"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    `;
+                });
+            }
+            
+            tableHtml += '</tbody></table></div>';
+            $('#resultsContent').html(tableHtml);
+        }
+
+        function clearForm() {
+            $('#advancedSearchForm')[0].reset();
+            $('#searchResults').hide();
+            updateFilters();
+        }
+
+        function saveSearch() {
+            const searchType = $('input[name="searchType"]:checked').val();
+            const searchTerm = $('#searchTerm').val();
+            alert(`Search saved: ${searchType} - ${searchTerm}`);
+        }
+
+        function exportResults() {
+            alert('Export functionality coming soon!');
+        }
+
+        function loadRecentSearch(searchKey) {
+            // Load predefined search criteria
+            switch(searchKey) {
+                case 'patients_ward_a':
+                    $('input[name="searchType"][value="patients"]').prop('checked', true);
+                    $('#wardFilter').val('1'); // Assuming Ward A has ID 1
+                    break;
+                case 'doctors_available':
+                    $('input[name="searchType"][value="staff"]').prop('checked', true);
+                    $('#roleFilter').val('Doctor');
+                    $('#availabilityFilter').val('on_duty');
+                    break;
+                case 'empty_beds':
+                    $('input[name="searchType"][value="beds"]').prop('checked', true);
+                    $('#statusFilter').val('available');
+                    break;
+            }
+            updateFilters();
+        }
+    </script>
+}

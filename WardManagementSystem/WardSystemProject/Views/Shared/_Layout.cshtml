@@ -1,0 +1,206 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Ward System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-dark bg-primary border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                    <i class="bi bi-hospital"></i> Ward System
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" aria-controls="mainNavbar"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="mainNavbar">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Home" asp-action="Index">Dashboard</a>
+                            </li>
+                            @if (User.IsInRole("Administrator"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">
+                                        Administration
+                                    </a>  
+                                </li>
+                                <li class="nav-item"><a class="nav-link" asp-controller="Administration" asp-action="ManageWards">Ward Management</a></li>
+                                <li class="nav-item"><a class="nav-link" asp-controller="RoomManagement" asp-action="ManageRooms">Room Management</a></li>
+                                <li class="nav-item"><a class="nav-link" asp-controller="BedManagement" asp-action="Index">Bed Management</a></li>
+                                <li class="nav-item"><a class="nav-link" asp-controller="Administration" asp-action="ManageStaff">Staff Management</a></li>
+                                <li class="nav-item"><a class="nav-link" asp-controller="Administration" asp-action="ManageMedications">Medication Management</a></li>
+                                <li class="nav-item"><a class="nav-link" asp-controller="Administration" asp-action="ManageAllergies">Allergy Management</a></li>
+                                <li class="nav-item"><a class="nav-link" asp-controller="Administration" asp-action="ManageMedicalConditions">Medical Conditions</a></li>
+                                <li class="nav-item"><a class="nav-link" asp-controller="Home" asp-action="FAQs">FAQs</a></li>
+                            }
+                            @if (User.IsInRole("Ward Admin"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="PatientManagement" asp-action="Index">Patient Management</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="Home" asp-action="FAQs">FAQs</a>
+                                </li>
+                            }
+                            @if (User.IsInRole("Nurse") || User.IsInRole("Nursing Sister"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="PatientCare" asp-action="Index">Patient Care</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="Home" asp-action="FAQs">FAQs</a>
+                                </li>
+                            }
+                            @if (User.IsInRole("Doctor"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="DoctorPatient" asp-action="Index">Doctor-Patient</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="Home" asp-action="FAQs">FAQs</a>
+                                </li>
+                            }
+                            @if (User.IsInRole("Script Manager") || User.IsInRole("Consumables Manager"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="ConsumableScript" asp-action="Index">Consumables & Scripts</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="Home" asp-action="FAQs">FAQs</a>
+                                </li>
+                            }
+                        }
+                    </ul>
+                    <ul class="navbar-nav ms-auto">
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle text-white" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="bi bi-person-circle"></i> @User.Identity.Name
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                                    <li>
+                                        <span class="dropdown-item-text">
+                                            <i class="bi bi-person-badge me-2"></i>
+                                            @if (User.IsInRole("Administrator"))
+                                            {
+                                                <span class="badge bg-primary">Administrator</span>
+                                            }
+                                            else if (User.IsInRole("Ward Admin"))
+                                            {
+                                                <span class="badge bg-success">Ward Admin</span>
+                                            }
+                                            else if (User.IsInRole("Doctor"))
+                                            {
+                                                <span class="badge bg-info">Doctor</span>
+                                            }
+                                            else if (User.IsInRole("Nurse"))
+                                            {
+                                                <span class="badge bg-warning">Nurse</span>
+                                            }
+                                            else if (User.IsInRole("Nursing Sister"))
+                                            {
+                                                <span class="badge bg-warning">Nursing Sister</span>
+                                            }
+                                            else if (User.IsInRole("Script Manager"))
+                                            {
+                                                <span class="badge bg-danger">Script Manager</span>
+                                            }
+                                            else if (User.IsInRole("Consumables Manager"))
+                                            {
+                                                <span class="badge bg-secondary">Consumables Manager</span>
+                                            }
+                                        </span>
+                                    </li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li>
+                                        <a class="dropdown-item" asp-controller="Home" asp-action="Index">
+                                            <i class="bi bi-speedometer2 me-2"></i>Dashboard
+                                        </a>
+                                  
+                                    </li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li>
+                                        <form asp-controller="Accounts" asp-action="Logout" method="post" class="d-inline">
+                                            <button type="submit" class="dropdown-item text-danger">
+                                                <i class="bi bi-box-arrow-left me-2"></i>Logout
+                                            </button>
+                                        </form>
+                                    </li>
+                                </ul>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-white" asp-controller="Accounts" asp-action="Login">
+                                    <i class="bi bi-box-arrow-in-right me-1"></i>Login
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    
+    <!-- Success and Error Messages Display -->
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show m-3" role="alert">
+            <i class="bi bi-check-circle me-2"></i>
+            @TempData["SuccessMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+    
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show m-3" role="alert">
+            <i class="bi bi-exclamation-triangle me-2"></i>
+            @TempData["ErrorMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+    
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+    <footer class="border-top footer text-muted mt-4">
+        <div class="container text-center py-2">
+            &copy; @DateTime.Now.Year - Ward System Project
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    
+    <!-- Auto-hide success messages after 5 seconds -->
+    <script>
+        $(document).ready(function() {
+            // Auto-hide success messages after 5 seconds
+            setTimeout(function() {
+                $('.alert-success').fadeOut('slow');
+            }, 5000);
+            
+            // Auto-hide error messages after 8 seconds
+            setTimeout(function() {
+                $('.alert-danger').fadeOut('slow');
+            }, 8000);
+        });
+    </script>
+    
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

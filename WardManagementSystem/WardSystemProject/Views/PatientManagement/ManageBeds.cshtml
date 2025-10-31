@@ -1,0 +1,123 @@
+@model IEnumerable<WardSystemProject.Models.Bed>
+
+@{
+    ViewData["Title"] = "Manage Beds";
+}
+
+<div class="container-fluid">
+    <div class="row mb-4">
+        <div class="col-md-8">
+            <h2 class="text-primary">
+                <i class="bi bi-bed"></i> Bed Management
+            </h2>
+            <p class="text-muted">Manage hospital beds and patient assignments</p>
+        </div>
+        <div class="col-md-4 text-end">
+            <a asp-action="CreateBed" class="btn btn-success">
+                <i class="bi bi-plus-circle"></i> Add New Bed
+            </a>
+        </div>
+    </div>
+    <form asp-action="Search" method="get">
+        <div class="input-group">
+            <input type="text" name="query" class="form-control" placeholder="Search by bed number..." />
+            <button type="submit" class="btn btn-outline-primary">
+                <i class="bi bi-search"></i> Search
+            </button>
+            <a asp-action="ManageBeds" class="btn btn-outline-secondary">Clear</a>
+        </div>
+    </form>
+    @if (Model.Any())
+    {
+        <div class="card shadow-sm">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">
+                    <i class="bi bi-list-ul"></i> Active Beds
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Bed Number</th>
+                                <th>Room</th>
+                                <th>Ward</th>
+                                <th>Patient</th>
+                                <th>Status</th>
+                                <th class="text-end">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var bed in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        <strong>@bed.BedNumber</strong>
+                                    </td>
+                                    <td>
+                                        <span class="badge bg-info">
+                                            @bed.Room?.RoomNumber
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span class="badge bg-secondary">
+                                            @bed.Room?.Ward?.Name
+                                        </span>
+                                    </td>
+                                    <td>
+                                        @if (bed.Patient != null)
+                                        {
+                                            <span class="badge bg-warning">
+                                                @bed.Patient.FirstName @bed.Patient.LastName
+                                            </span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-light text-dark">Available</span>
+                                        }
+                                    </td>
+                                    <td>
+                                        @if (bed.IsActive)
+                                        {
+                                            <span class="badge bg-success">Active</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-secondary">Inactive</span>
+                                        }
+                                    </td>
+                                    <td class="text-end">
+                                        <div class="btn-group" role="group">
+                                            <a asp-action="EditBed" asp-route-id="@bed.Id" class="btn btn-sm btn-outline-warning">
+                                                <i class="bi bi-pencil"></i> Edit
+                                            </a>
+                                            <a asp-action="DeleteBed" asp-route-id="@bed.Id" class="btn btn-sm btn-outline-danger">
+                                                <i class="bi bi-trash"></i> Delete
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-info">
+            <i class="bi bi-info-circle"></i>
+            <strong>No beds found.</strong> Add your first bed to get started.
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            // Add any JavaScript functionality here
+        });
+    </script>
+} 

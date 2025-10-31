@@ -1,0 +1,38 @@
+@model WardSystemProject.Models.DoctorVisit
+
+@{
+    ViewData["Title"] = "Delete Doctor Visit";
+}
+
+<div class="container mt-4">
+    <h2 class="mb-4 text-danger">Delete Doctor Visit</h2>
+    <h4 class="text-warning">Are you sure you want to soft delete this visit?</h4>
+
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Visit #@Model.Id</h5>
+            <hr />
+            <dl class="row">
+                <dt class="col-sm-3 text-dark fw-bold">@Html.DisplayNameFor(model => model.Patient.FirstName)</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Patient.FirstName)</dd>
+                <dt class="col-sm-3 text-dark fw-bold">@Html.DisplayNameFor(model => model.Patient.LastName)</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Patient.LastName)</dd>
+                <dt class="col-sm-3 text-dark fw-bold">@Html.DisplayNameFor(model => model.Doctor.FirstName)</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Doctor.FirstName)</dd>
+                <dt class="col-sm-3 text-dark fw-bold">@Html.DisplayNameFor(model => model.Doctor.LastName)</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Doctor.LastName)</dd>
+                <dt class="col-sm-3 text-dark fw-bold">@Html.DisplayNameFor(model => model.VisitDate)</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.VisitDate)</dd>
+                <dt class="col-sm-3 text-dark fw-bold">@Html.DisplayNameFor(model => model.Notes)</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Notes)</dd>
+            </dl>
+        </div>
+    </div>
+
+    <form asp-action="SoftDeleteDoctorVisit" method="post" class="mt-3">
+        @Html.AntiForgeryToken()
+        <input type="hidden" asp-for="Id" />
+        <button type="submit" class="btn btn-danger">Soft Delete</button>
+        <a asp-action="ManageDoctorVisits" class="btn btn-secondary ms-2">Cancel</a>
+    </form>
+</div>

@@ -1,0 +1,424 @@
+@model WardSystemProject.Models.DashboardViewModel
+
+@{
+    ViewData["Title"] = "Reports & Analytics";
+}
+
+<div class="container-fluid">
+    <!-- Header -->
+    <div class="row mb-4">
+        <div class="col-md-8">
+            <h2 class="text-primary">
+                <i class="bi bi-graph-up"></i> Reports & Analytics
+            </h2>
+            <p class="text-muted">Comprehensive reports and analytics for ward management</p>
+        </div>
+        <div class="col-md-4 text-end">
+            <a asp-controller="Administration" asp-action="Index" class="btn btn-outline-secondary">
+                <i class="bi bi-arrow-left"></i> Back to Administration
+            </a>
+        </div>
+    </div>
+
+    <!-- Report Filters -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card shadow">
+                <div class="card-header bg-info text-white">
+                    <h6 class="mb-0">
+                        <i class="bi bi-funnel"></i> Report Filters
+                    </h6>
+                </div>
+                <div class="card-body">
+                    <form id="reportFilters" class="row g-3">
+                        <div class="col-md-3">
+                            <label class="form-label fw-bold">Date Range</label>
+                            <select class="form-select" id="dateRange">
+                                <option value="today">Today</option>
+                                <option value="week" selected>This Week</option>
+                                <option value="month">This Month</option>
+                                <option value="quarter">This Quarter</option>
+                                <option value="year">This Year</option>
+                                <option value="custom">Custom Range</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label fw-bold">Ward</label>
+                            <select class="form-select" id="wardFilter">
+                                <option value="">All Wards</option>
+                                @if (ViewBag.Wards != null)
+                                {
+                                    foreach (var ward in ViewBag.Wards)
+                                    {
+                                        <option value="@ward.Id">@ward.Name</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label fw-bold">Report Type</label>
+                            <select class="form-select" id="reportType">
+                                <option value="occupancy">Bed Occupancy</option>
+                                <option value="admissions">Patient Admissions</option>
+                                <option value="discharges">Patient Discharges</option>
+                                <option value="staff">Staff Performance</option>
+                                <option value="medications">Medication Usage</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label fw-bold">&nbsp;</label>
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="bi bi-search"></i> Generate Report
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Key Statistics -->
+    <div class="row mb-4">
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-start-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col me-2">
+                            <div class="text-xs fw-bold text-primary text-uppercase mb-1">
+                                Total Patients
+                            </div>
+                            <div class="h5 mb-0 fw-bold text-gray-800">@Model.TotalPatients</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="bi bi-people fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-start-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col me-2">
+                            <div class="text-xs fw-bold text-success text-uppercase mb-1">
+                                Admissions This Month
+                            </div>
+                            <div class="h5 mb-0 fw-bold text-gray-800">@ViewBag.AdmissionsThisMonth</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="bi bi-door-open fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-start-info shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col me-2">
+                            <div class="text-xs fw-bold text-info text-uppercase mb-1">
+                                Discharges This Month
+                            </div>
+                            <div class="h5 mb-0 fw-bold text-gray-800">@ViewBag.DischargesThisMonth</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="bi bi-door-closed fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-start-warning shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col me-2">
+                            <div class="text-xs fw-bold text-warning text-uppercase mb-1">
+                                Average Stay (Days)
+                            </div>
+                            <div class="h5 mb-0 fw-bold text-gray-800">@ViewBag.AverageStayDays</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="bi bi-calendar-range fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bed Occupancy Report -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">
+                        <i class="bi bi-bed"></i> Bed Occupancy Report
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>Ward</th>
+                                    <th>Total Beds</th>
+                                    <th>Occupied</th>
+                                    <th>Available</th>
+                                    <th>Occupancy Rate</th>
+                                    <th>Trend</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (ViewBag.BedOccupancy != null)
+                                {
+                                    foreach (var occupancy in ViewBag.BedOccupancy)
+                                    {
+                                        var rate = occupancy.TotalBeds > 0 ? (double)occupancy.Occupied / occupancy.TotalBeds * 100 : 0;
+                                        <tr>
+                                            <td><strong>@occupancy.WardName</strong></td>
+                                            <td>@occupancy.TotalBeds</td>
+                                            <td>@occupancy.Occupied</td>
+                                            <td>@occupancy.Available</td>
+                                            <td>
+                                                <div class="progress" style="height: 25px;">
+                                                    <div class="progress-bar bg-@(rate >= 80 ? "danger" : rate >= 60 ? "warning" : "success")" 
+                                                         style="width: @(rate)%">
+                                                        @($"{rate:F1}%")
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                @if (occupancy.Trend > 0)
+                                                {
+                                                    <span class="text-success"><i class="bi bi-arrow-up"></i> @occupancy.Trend%</span>
+                                                }
+                                                else if (occupancy.Trend < 0)
+                                                {
+                                                    <span class="text-danger"><i class="bi bi-arrow-down"></i> @Math.Abs(occupancy.Trend)%</span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="text-muted"><i class="bi bi-dash"></i> Stable</span>
+                                                }
+                                            </td>
+                                            <td>
+                                                @if (rate >= 80)
+                                                {
+                                                    <span class="badge bg-danger">Critical</span>
+                                                }
+                                                else if (rate >= 60)
+                                                {
+                                                    <span class="badge bg-warning text-dark">High</span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="badge bg-success">Normal</span>
+                                                }
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="7" class="text-center text-muted">
+                                            <i class="bi bi-info-circle"></i> No occupancy data available
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Patient Statistics -->
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="card shadow">
+                <div class="card-header bg-success text-white">
+                    <h6 class="mb-0">
+                        <i class="bi bi-graph-up"></i> Patient Admission Trends
+                    </h6>
+                </div>
+                <div class="card-body">
+                    <canvas id="admissionChart" width="400" height="200"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card shadow">
+                <div class="card-header bg-info text-white">
+                    <h6 class="mb-0">
+                        <i class="bi bi-pie-chart"></i> Patient Distribution by Ward
+                    </h6>
+                </div>
+                <div class="card-body">
+                    <canvas id="wardDistributionChart" width="400" height="200"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Detailed Reports -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card shadow">
+                <div class="card-header bg-secondary text-white">
+                    <h5 class="mb-0">
+                        <i class="bi bi-file-text"></i> Detailed Reports
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <div class="card border-primary">
+                                <div class="card-body text-center">
+                                    <i class="bi bi-file-earmark-pdf fa-3x text-primary mb-3"></i>
+                                    <h6>Bed Occupancy Report</h6>
+                                    <p class="text-muted">Detailed bed utilization analysis</p>
+                                    <button class="btn btn-primary btn-sm" onclick="generatePDFReport('occupancy')">
+                                        <i class="bi bi-download"></i> Download PDF
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <div class="card border-success">
+                                <div class="card-body text-center">
+                                    <i class="bi bi-file-earmark-excel fa-3x text-success mb-3"></i>
+                                    <h6>Patient Statistics</h6>
+                                    <p class="text-muted">Comprehensive patient data analysis</p>
+                                    <button class="btn btn-success btn-sm" onclick="generateExcelReport('patients')">
+                                        <i class="bi bi-download"></i> Download Excel
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <div class="card border-warning">
+                                <div class="card-body text-center">
+                                    <i class="bi bi-file-earmark-text fa-3x text-warning mb-3"></i>
+                                    <h6>Staff Performance</h6>
+                                    <p class="text-muted">Staff productivity and performance metrics</p>
+                                    <button class="btn btn-warning btn-sm" onclick="generateTextReport('staff')">
+                                        <i class="bi bi-download"></i> Download Text
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Report filters
+        $(document).ready(function() {
+            $('#reportFilters').on('submit', function(e) {
+                e.preventDefault();
+                generateReport();
+            });
+
+            // Initialize charts
+            initializeCharts();
+        });
+
+        function generateReport() {
+            const dateRange = $('#dateRange').val();
+            const ward = $('#wardFilter').val();
+            const reportType = $('#reportType').val();
+
+            // Show loading indicator
+            $('#reportContent').html('<div class="text-center"><i class="bi bi-hourglass-split fa-2x"></i><p>Generating report...</p></div>');
+
+            // Simulate report generation (replace with actual AJAX call)
+            setTimeout(function() {
+                location.reload();
+            }, 1000);
+        }
+
+        function initializeCharts() {
+            // Admission Trends Chart
+            const admissionCtx = document.getElementById('admissionChart').getContext('2d');
+            new Chart(admissionCtx, {
+                type: 'line',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                    datasets: [{
+                        label: 'Admissions',
+                        data: [65, 59, 80, 81, 56, 55],
+                        borderColor: '#28a745',
+                        backgroundColor: 'rgba(40, 167, 69, 0.1)',
+                        tension: 0.1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    }
+                }
+            });
+
+            // Ward Distribution Chart
+            const wardCtx = document.getElementById('wardDistributionChart').getContext('2d');
+            new Chart(wardCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['General Ward', 'ICU', 'Maternity', 'Pediatric', 'Surgical'],
+                    datasets: [{
+                        data: [30, 15, 25, 20, 10],
+                        backgroundColor: [
+                            '#007bff',
+                            '#28a745',
+                            '#ffc107',
+                            '#dc3545',
+                            '#6c757d'
+                        ]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+        }
+
+        function generatePDFReport(type) {
+            alert(`Generating ${type} PDF report...`);
+        }
+
+        function generateExcelReport(type) {
+            alert(`Generating ${type} Excel report...`);
+        }
+
+        function generateTextReport(type) {
+            alert(`Generating ${type} text report...`);
+        }
+    </script>
+}

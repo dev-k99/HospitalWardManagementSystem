@@ -1,0 +1,118 @@
+@model IEnumerable<WardSystemProject.Models.PatientMovement>
+
+@{
+    ViewData["Title"] = "Patient Movements";
+    var patientId = ViewBag.PatientId;
+}
+
+<div class="container-fluid">
+    <div class="row mb-4">
+        <div class="col-md-8">
+            <h2 class="text-primary">
+                <i class="bi bi-arrow-left-right"></i> Patient Movements
+            </h2>
+            <p class="text-muted">Track all patient movements and transfers</p>
+        </div>
+        <div class="col-md-4 text-end">
+            <a asp-action="Movement" asp-route-id="@patientId" class="btn btn-success">
+                <i class="bi bi-plus-circle"></i> Record New Movement
+            </a>
+            <a asp-action="PatientFolder" asp-route-id="@patientId" class="btn btn-outline-secondary ms-2">
+                <i class="bi bi-arrow-left"></i> Back to Patient Folder
+            </a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">
+                        <i class="bi bi-clock-history"></i> Movement History
+                    </h5>
+                </div>
+                <div class="card-body">
+                    @if (Model != null && Model.Any())
+                    {
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th>Date & Time</th>
+                                        <th>From</th>
+                                        <th>To</th>
+                                        <th>Movement Type</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var movement in Model.OrderByDescending(m => m.MovementDate))
+                                    {
+                                        <tr>
+                                            <td>
+                                                <i class="bi bi-calendar-event"></i>
+                                                @movement.MovementDate.ToString("dd/MM/yyyy HH:mm")
+                                            </td>
+                                            <td>
+                                                @if (movement.FromWardId == 0)
+                                                {
+                                                    <span class="badge bg-secondary">External Admission</span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="badge bg-info">@movement.FromWard?.Name</span>
+                                                }
+                                            </td>
+                                            <td>
+                                                <span class="badge bg-success">@movement.ToWard?.Name</span>
+                                            </td>
+                                            <td>
+                                                @{
+                                                    var movementType = GetMovementType(movement.FromWardId, movement.ToWardId);
+                                                }
+                                                <span class="badge bg-primary">@movementType</span>
+                                            </td>
+                                            <td>
+                                                @if (movement.IsActive)
+                                                {
+                                                    <span class="badge bg-success">Active</span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="badge bg-secondary">Inactive</span>
+                                                }
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="text-center py-4">
+                            <i class="bi bi-arrow-left-right text-muted" style="font-size: 3rem;"></i>
+                            <h5 class="text-muted mt-3">No Movements Recorded</h5>
+                            <p class="text-muted">This patient has no movement history yet.</p>
+                            <a asp-action="Movement" asp-route-id="@patientId" class="btn btn-primary">
+                                <i class="bi bi-plus-circle"></i> Record First Movement
+                            </a>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@functions {
+    private string GetMovementType(int fromWardId, int toWardId)
+    {
+        if (fromWardId == 0)
+            return "Admission";
+        else if (toWardId == 0)
+            return "Discharge";
+        else
+            return "Transfer";
+    }
+}

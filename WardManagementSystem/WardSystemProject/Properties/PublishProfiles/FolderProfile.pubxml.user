@@ -1,0 +1,732 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+https://go.microsoft.com/fwlink/?LinkID=208121.
+-->
+<Project>
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <_PublishTargetUrl>C:\Users\kamva\Desktop\3rd Year project</_PublishTargetUrl>
+    <History>True|2025-10-30T08:25:13.1988164Z;True|2025-10-29T16:40:06.6457592+02:00;</History>
+    <LastFailureDetails />
+  </PropertyGroup>
+  <ItemGroup>
+    <DestinationConnectionStrings Include="WardConn">
+      <Value>Server=SOIT-SQL.MANDELA.AC.ZA%3bDatabase=GRP-03-23%3bTrustServerCertificate=True%3bIntegrated Security=False%3b User ID=GRP-03-23%3b Password=grp-03-23-2025#%3b</Value>
+    </DestinationConnectionStrings>
+  </ItemGroup>
+  <ItemGroup>
+    <EFMigrations Include="WardSystemProject.Data.WardSystemDBContext">
+      <Value>Server=SOIT-SQL.MANDELA.AC.ZA%3bDatabase=GRP-03-23%3bTrustServerCertificate=True%3bIntegrated Security=False%3b User ID=GRP-03-23%3b Password=grp-03-23-2025#%3b</Value>
+    </EFMigrations>
+  </ItemGroup>
+  <ItemGroup>
+    <File Include="appsettings.Development.json">
+      <publishTime>10/02/2025 10:22:51</publishTime>
+    </File>
+    <File Include="appsettings.json">
+      <publishTime>10/29/2025 16:33:00</publishTime>
+    </File>
+    <File Include="Controllers/AccountsController.cs">
+      <publishTime>10/02/2025 10:22:57</publishTime>
+    </File>
+    <File Include="Controllers/AdministractionController.cs">
+      <publishTime>10/16/2025 21:06:42</publishTime>
+    </File>
+    <File Include="Controllers/BedManagementController.cs">
+      <publishTime>10/16/2025 22:06:27</publishTime>
+    </File>
+    <File Include="Controllers/ConsumableScriptController.cs">
+      <publishTime>10/23/2025 11:43:42</publishTime>
+    </File>
+    <File Include="Controllers/DoctorPatientController.cs">
+      <publishTime>10/21/2025 12:09:38</publishTime>
+    </File>
+    <File Include="Controllers/HomeController.cs">
+      <publishTime>10/13/2025 19:16:33</publishTime>
+    </File>
+    <File Include="Controllers/PatientCareController.cs">
+      <publishTime>10/21/2025 12:09:38</publishTime>
+    </File>
+    <File Include="Controllers/PatientManagementController.cs">
+      <publishTime>10/22/2025 18:33:31</publishTime>
+    </File>
+    <File Include="Controllers/RoomManagementController.cs">
+      <publishTime>10/27/2025 14:27:15</publishTime>
+    </File>
+    <File Include="Controllers/StaffManagementController.cs">
+      <publishTime>10/02/2025 10:22:57</publishTime>
+    </File>
+    <File Include="Data/WardSystemDBContext.cs">
+      <publishTime>10/07/2025 16:02:34</publishTime>
+    </File>
+    <File Include="Migrations/20251027115502_initial.cs">
+      <publishTime>10/27/2025 13:55:02</publishTime>
+    </File>
+    <File Include="Migrations/20251027115502_initial.Designer.cs">
+      <publishTime>10/27/2025 13:55:02</publishTime>
+    </File>
+    <File Include="Migrations/20251027120540_newTable.cs">
+      <publishTime>10/27/2025 14:05:40</publishTime>
+    </File>
+    <File Include="Migrations/20251027120540_newTable.Designer.cs">
+      <publishTime>10/27/2025 14:05:40</publishTime>
+    </File>
+    <File Include="Migrations/WardSystemDBContextModelSnapshot.cs">
+      <publishTime>10/27/2025 14:05:40</publishTime>
+    </File>
+    <File Include="Models/Allergy.cs">
+      <publishTime>10/02/2025 10:22:58</publishTime>
+    </File>
+    <File Include="Models/Bed.cs">
+      <publishTime>10/02/2025 10:22:58</publishTime>
+    </File>
+    <File Include="Models/Consumable.cs">
+      <publishTime>10/02/2025 10:22:58</publishTime>
+    </File>
+    <File Include="Models/ConsumableOrder.cs">
+      <publishTime>10/02/2025 10:22:58</publishTime>
+    </File>
+    <File Include="Models/ConsumablesScriptViewModel.cs">
+      <publishTime>10/02/2025 10:22:58</publishTime>
+    </File>
+    <File Include="Models/DashboardViewModel.cs">
+      <publishTime>10/02/2025 10:22:58</publishTime>
+    </File>
+    <File Include="Models/DoctorDashboardViewModel.cs">
+      <publishTime>10/02/2025 10:22:58</publishTime>
+    </File>
+    <File Include="Models/DoctorInstruction.cs">
+      <publishTime>10/02/2025 10:22:58</publishTime>
+    </File>
+    <File Include="Models/DoctorVisit.cs">
+      <publishTime>10/02/2025 10:22:58</publishTime>
+    </File>
+    <File Include="Models/ErrorViewModel.cs">
+      <publishTime>10/02/2025 10:22:58</publishTime>
+    </File>
+    <File Include="Models/MedicalCondition.cs">
+      <publishTime>10/02/2025 10:22:58</publishTime>
+    </File>
+    <File Include="Models/Medication.cs">
+      <publishTime>10/02/2025 10:22:58</publishTime>
+    </File>
+    <File Include="Models/MedicationAdministration.cs">
+      <publishTime>10/02/2025 10:22:58</publishTime>
+    </File>
+    <File Include="Models/Patient.cs">
+      <publishTime>10/20/2025 22:05:04</publishTime>
+    </File>
+    <File Include="Models/PatientFolder.cs">
+      <publishTime>10/07/2025 16:02:34</publishTime>
+    </File>
+    <File Include="Models/PatientMovement.cs">
+      <publishTime>10/02/2025 10:22:58</publishTime>
+    </File>
+    <File Include="Models/Prescription.cs">
+      <publishTime>10/02/2025 10:22:58</publishTime>
+    </File>
+    <File Include="Models/PrescriptionOrder.cs">
+      <publishTime>10/02/2025 10:22:59</publishTime>
+    </File>
+    <File Include="Models/Room.cs">
+      <publishTime>10/16/2025 21:24:02</publishTime>
+    </File>
+    <File Include="Models/Staff.cs">
+      <publishTime>10/02/2025 10:22:59</publishTime>
+    </File>
+    <File Include="Models/StaffDashboardViewModel.cs">
+      <publishTime>10/02/2025 10:22:59</publishTime>
+    </File>
+    <File Include="Models/StockTake.cs">
+      <publishTime>10/02/2025 10:22:59</publishTime>
+    </File>
+    <File Include="Models/VitalSign.cs">
+      <publishTime>10/02/2025 10:22:59</publishTime>
+    </File>
+    <File Include="Models/Ward.cs">
+      <publishTime>10/02/2025 10:22:59</publishTime>
+    </File>
+    <File Include="Models/WardDashboardViewModel.cs">
+      <publishTime>10/02/2025 10:22:59</publishTime>
+    </File>
+    <File Include="Program.cs">
+      <publishTime>10/29/2025 16:18:58</publishTime>
+    </File>
+    <File Include="README.md">
+      <publishTime>10/02/2025 10:22:51</publishTime>
+    </File>
+    <File Include="ViewModels/LoginViewModel.cs">
+      <publishTime>10/02/2025 10:23:02</publishTime>
+    </File>
+    <File Include="ViewModels/RegisterViewModel.cs">
+      <publishTime>10/02/2025 10:23:02</publishTime>
+    </File>
+    <File Include="Views/Accounts/AccessDenied.cshtml">
+      <publishTime>10/02/2025 10:23:02</publishTime>
+    </File>
+    <File Include="Views/Accounts/Login.cshtml">
+      <publishTime>10/02/2025 10:23:02</publishTime>
+    </File>
+    <File Include="Views/Accounts/Logout.cshtml">
+      <publishTime>10/02/2025 10:23:02</publishTime>
+    </File>
+    <File Include="Views/Accounts/Register.cshtml">
+      <publishTime>10/02/2025 10:23:02</publishTime>
+    </File>
+    <File Include="Views/Administration/CreateAllergy.cshtml">
+      <publishTime>10/12/2025 12:28:38</publishTime>
+    </File>
+    <File Include="Views/Administration/CreateBed.cshtml">
+      <publishTime>10/02/2025 10:23:02</publishTime>
+    </File>
+    <File Include="Views/Administration/CreateMedicalCondition.cshtml">
+      <publishTime>10/02/2025 10:23:02</publishTime>
+    </File>
+    <File Include="Views/Administration/CreateMedication.cshtml">
+      <publishTime>10/12/2025 12:11:17</publishTime>
+    </File>
+    <File Include="Views/Administration/CreateRoom.cshtml">
+      <publishTime>10/02/2025 12:52:35</publishTime>
+    </File>
+    <File Include="Views/Administration/CreateStaff.cshtml">
+      <publishTime>10/02/2025 10:23:02</publishTime>
+    </File>
+    <File Include="Views/Administration/CreateWard.cshtml">
+      <publishTime>10/27/2025 14:27:15</publishTime>
+    </File>
+    <File Include="Views/Administration/DeleteAllergy.cshtml">
+      <publishTime>10/02/2025 10:23:03</publishTime>
+    </File>
+    <File Include="Views/Administration/DeleteBed.cshtml">
+      <publishTime>10/02/2025 10:23:03</publishTime>
+    </File>
+    <File Include="Views/Administration/DeleteMedicalCondition.cshtml">
+      <publishTime>10/02/2025 10:23:03</publishTime>
+    </File>
+    <File Include="Views/Administration/DeleteMedication.cshtml">
+      <publishTime>10/02/2025 10:23:03</publishTime>
+    </File>
+    <File Include="Views/Administration/DeleteRoom.cshtml">
+      <publishTime>10/02/2025 10:23:03</publishTime>
+    </File>
+    <File Include="Views/Administration/DeleteStaff.cshtml">
+      <publishTime>10/02/2025 10:23:03</publishTime>
+    </File>
+    <File Include="Views/Administration/DeleteWard.cshtml">
+      <publishTime>10/02/2025 10:23:03</publishTime>
+    </File>
+    <File Include="Views/Administration/DetailsWard.cshtml">
+      <publishTime>10/02/2025 10:23:03</publishTime>
+    </File>
+    <File Include="Views/Administration/EditAllergy.cshtml">
+      <publishTime>10/02/2025 10:23:03</publishTime>
+    </File>
+    <File Include="Views/Administration/EditBed.cshtml">
+      <publishTime>10/02/2025 10:23:03</publishTime>
+    </File>
+    <File Include="Views/Administration/EditMedicalCondition.cshtml">
+      <publishTime>10/02/2025 10:23:03</publishTime>
+    </File>
+    <File Include="Views/Administration/EditMedication.cshtml">
+      <publishTime>10/02/2025 10:23:03</publishTime>
+    </File>
+    <File Include="Views/Administration/EditRoom.cshtml">
+      <publishTime>10/02/2025 10:23:03</publishTime>
+    </File>
+    <File Include="Views/Administration/EditStaff.cshtml">
+      <publishTime>10/02/2025 10:23:03</publishTime>
+    </File>
+    <File Include="Views/Administration/EditWard.cshtml">
+      <publishTime>10/02/2025 10:23:03</publishTime>
+    </File>
+    <File Include="Views/Administration/Index.cshtml">
+      <publishTime>10/02/2025 10:23:03</publishTime>
+    </File>
+    <File Include="Views/Administration/ManageAllergies.cshtml">
+      <publishTime>10/16/2025 21:33:59</publishTime>
+    </File>
+    <File Include="Views/Administration/ManageBeds.cshtml">
+      <publishTime>10/16/2025 21:33:59</publishTime>
+    </File>
+    <File Include="Views/Administration/ManageMedicalConditions.cshtml">
+      <publishTime>10/16/2025 21:33:59</publishTime>
+    </File>
+    <File Include="Views/Administration/ManageMedications.cshtml">
+      <publishTime>10/16/2025 21:33:59</publishTime>
+    </File>
+    <File Include="Views/Administration/ManageRooms.cshtml">
+      <publishTime>10/02/2025 13:21:00</publishTime>
+    </File>
+    <File Include="Views/Administration/ManageStaff.cshtml">
+      <publishTime>10/16/2025 21:33:59</publishTime>
+    </File>
+    <File Include="Views/Administration/ManageWards.cshtml">
+      <publishTime>10/16/2025 21:33:59</publishTime>
+    </File>
+    <File Include="Views/Administration/Reports.cshtml">
+      <publishTime>10/02/2025 10:23:03</publishTime>
+    </File>
+    <File Include="Views/Administration/WardDashboard.cshtml">
+      <publishTime>10/02/2025 10:23:03</publishTime>
+    </File>
+    <File Include="Views/BedManagement/BedDetails.cshtml">
+      <publishTime>10/02/2025 10:23:03</publishTime>
+    </File>
+    <File Include="Views/BedManagement/CreateBed.cshtml">
+      <publishTime>10/02/2025 10:23:03</publishTime>
+    </File>
+    <File Include="Views/BedManagement/DeleteBed.cshtml">
+      <publishTime>10/02/2025 10:23:04</publishTime>
+    </File>
+    <File Include="Views/BedManagement/EditBed.cshtml">
+      <publishTime>10/02/2025 10:23:04</publishTime>
+    </File>
+    <File Include="Views/BedManagement/Index.cshtml">
+      <publishTime>10/02/2025 14:10:39</publishTime>
+    </File>
+    <File Include="Views/ConsumableScript/CheckStock.cshtml">
+      <publishTime>10/02/2025 10:23:04</publishTime>
+    </File>
+    <File Include="Views/ConsumableScript/CreateConsumableOrder.cshtml">
+      <publishTime>10/02/2025 10:23:04</publishTime>
+    </File>
+    <File Include="Views/ConsumableScript/CreatePrescriptionOrder.cshtml">
+      <publishTime>10/02/2025 10:23:04</publishTime>
+    </File>
+    <File Include="Views/ConsumableScript/DeleteConsumableOrder.cshtml">
+      <publishTime>10/02/2025 10:23:04</publishTime>
+    </File>
+    <File Include="Views/ConsumableScript/DeletePrescriptionOrder.cshtml">
+      <publishTime>10/02/2025 10:23:04</publishTime>
+    </File>
+    <File Include="Views/ConsumableScript/DetailsConsumableOrder.cshtml">
+      <publishTime>10/02/2025 10:23:04</publishTime>
+    </File>
+    <File Include="Views/ConsumableScript/EditConsumableOrder.cshtml">
+      <publishTime>10/02/2025 10:23:04</publishTime>
+    </File>
+    <File Include="Views/ConsumableScript/EditPrescriptionOrder.cshtml">
+      <publishTime>10/02/2025 10:23:04</publishTime>
+    </File>
+    <File Include="Views/ConsumableScript/Index.cshtml">
+      <publishTime>10/02/2025 10:23:04</publishTime>
+    </File>
+    <File Include="Views/ConsumableScript/ManageConsumableOrders.cshtml">
+      <publishTime>10/02/2025 10:23:04</publishTime>
+    </File>
+    <File Include="Views/ConsumableScript/ManagePrescriptionOrders.cshtml">
+      <publishTime>10/02/2025 10:23:04</publishTime>
+    </File>
+    <File Include="Views/ConsumableScript/NewPrescriptions.cshtml">
+      <publishTime>10/23/2025 11:59:12</publishTime>
+    </File>
+    <File Include="Views/ConsumableScript/PrescribtionOrderDetails.cshtml">
+      <publishTime>10/02/2025 10:23:04</publishTime>
+    </File>
+    <File Include="Views/ConsumableScript/ProcessPrescription.cshtml">
+      <publishTime>10/02/2025 10:23:04</publishTime>
+    </File>
+    <File Include="Views/ConsumableScript/StockTakeHistory.cshtml">
+      <publishTime>10/02/2025 10:23:04</publishTime>
+    </File>
+    <File Include="Views/ConsumableScript/UpdateStock.cshtml">
+      <publishTime>10/02/2025 10:23:04</publishTime>
+    </File>
+    <File Include="Views/ConsumableScript/WeeklyStockTake.cshtml">
+      <publishTime>10/02/2025 10:23:04</publishTime>
+    </File>
+    <File Include="Views/DoctorPatient/CreateInstruction.cshtml">
+      <publishTime>10/02/2025 10:23:04</publishTime>
+    </File>
+    <File Include="Views/DoctorPatient/CreatePrescription.cshtml">
+      <publishTime>10/02/2025 10:23:04</publishTime>
+    </File>
+    <File Include="Views/DoctorPatient/CreateVisit.cshtml">
+      <publishTime>10/02/2025 10:23:04</publishTime>
+    </File>
+    <File Include="Views/DoctorPatient/DeleteDoctorVisit.cshtml">
+      <publishTime>10/02/2025 10:23:04</publishTime>
+    </File>
+    <File Include="Views/DoctorPatient/DeletePrescription.cshtml">
+      <publishTime>10/02/2025 10:23:04</publishTime>
+    </File>
+    <File Include="Views/DoctorPatient/DoctorVisitDetails.cshtml">
+      <publishTime>10/02/2025 10:23:04</publishTime>
+    </File>
+    <File Include="Views/DoctorPatient/EditDoctorVisit.cshtml">
+      <publishTime>10/02/2025 10:23:04</publishTime>
+    </File>
+    <File Include="Views/DoctorPatient/EditPrescription.cshtml">
+      <publishTime>10/02/2025 10:23:05</publishTime>
+    </File>
+    <File Include="Views/DoctorPatient/Index.cshtml">
+      <publishTime>10/02/2025 10:23:05</publishTime>
+    </File>
+    <File Include="Views/DoctorPatient/ManageDoctorVisits.cshtml">
+      <publishTime>10/02/2025 10:23:05</publishTime>
+    </File>
+    <File Include="Views/DoctorPatient/ManagePrescription.cshtml">
+      <publishTime>10/02/2025 10:23:05</publishTime>
+    </File>
+    <File Include="Views/DoctorPatient/MyPatients.cshtml">
+      <publishTime>10/02/2025 10:23:05</publishTime>
+    </File>
+    <File Include="Views/DoctorPatient/PrescriptionDetails.cshtml">
+      <publishTime>10/02/2025 10:23:05</publishTime>
+    </File>
+    <File Include="Views/DoctorPatient/ViewPatientFolder.cshtml">
+      <publishTime>10/22/2025 18:59:50</publishTime>
+    </File>
+    <File Include="Views/Home/FAQs.cshtml">
+      <publishTime>10/13/2025 19:16:33</publishTime>
+    </File>
+    <File Include="Views/Home/Index.cshtml">
+      <publishTime>10/02/2025 15:36:10</publishTime>
+    </File>
+    <File Include="Views/Home/Privacy.cshtml">
+      <publishTime>10/02/2025 10:23:05</publishTime>
+    </File>
+    <File Include="Views/PatientCare/CreateDoctorInstruction.cshtml">
+      <publishTime>10/02/2025 10:23:05</publishTime>
+    </File>
+    <File Include="Views/PatientCare/CreateMedicationAdministration.cshtml">
+      <publishTime>10/02/2025 10:23:05</publishTime>
+    </File>
+    <File Include="Views/PatientCare/CreateVitalSign.cshtml">
+      <publishTime>10/02/2025 10:23:05</publishTime>
+    </File>
+    <File Include="Views/PatientCare/DeleteDoctorInstruction.cshtml">
+      <publishTime>10/02/2025 10:23:05</publishTime>
+    </File>
+    <File Include="Views/PatientCare/DeleteMedicationAdministration.cshtml">
+      <publishTime>10/02/2025 10:23:05</publishTime>
+    </File>
+    <File Include="Views/PatientCare/DeleteVitalSigns.cshtml">
+      <publishTime>10/02/2025 10:23:05</publishTime>
+    </File>
+    <File Include="Views/PatientCare/DoctorInstructionDetails.cshtml">
+      <publishTime>10/02/2025 10:23:05</publishTime>
+    </File>
+    <File Include="Views/PatientCare/EditDoctorInstruction.cshtml">
+      <publishTime>10/02/2025 10:23:05</publishTime>
+    </File>
+    <File Include="Views/PatientCare/EditMedicationAdministration.cshtml">
+      <publishTime>10/02/2025 10:23:05</publishTime>
+    </File>
+    <File Include="Views/PatientCare/EditVitalSign.cshtml">
+      <publishTime>10/02/2025 10:23:05</publishTime>
+    </File>
+    <File Include="Views/PatientCare/Index.cshtml">
+      <publishTime>10/02/2025 10:23:05</publishTime>
+    </File>
+    <File Include="Views/PatientCare/ManageDoctorInstructions.cshtml">
+      <publishTime>10/02/2025 10:23:05</publishTime>
+    </File>
+    <File Include="Views/PatientCare/ManageMedicationAdministrations.cshtml">
+      <publishTime>10/02/2025 10:23:05</publishTime>
+    </File>
+    <File Include="Views/PatientCare/ManageVitalSigns.cshtml">
+      <publishTime>10/02/2025 10:23:06</publishTime>
+    </File>
+    <File Include="Views/PatientCare/MedicationAdministrationDetails.cshtml">
+      <publishTime>10/02/2025 10:23:06</publishTime>
+    </File>
+    <File Include="Views/PatientCare/ViewDoctorInstructions.cshtml">
+      <publishTime>10/02/2025 10:23:06</publishTime>
+    </File>
+    <File Include="Views/PatientCare/VitalSignsDetails.cshtml">
+      <publishTime>10/02/2025 10:23:06</publishTime>
+    </File>
+    <File Include="Views/PatientManagement/Admit.cshtml">
+      <publishTime>10/12/2025 12:59:22</publishTime>
+    </File>
+    <File Include="Views/PatientManagement/Create.cshtml">
+      <publishTime>10/07/2025 16:54:42</publishTime>
+    </File>
+    <File Include="Views/PatientManagement/CreateMedicalCondition.cshtml">
+      <publishTime>10/02/2025 10:23:02</publishTime>
+    </File>
+    <File Include="Views/PatientManagement/DeleteMedicalCondition.cshtml">
+      <publishTime>10/16/2025 22:19:30</publishTime>
+    </File>
+    <File Include="Views/PatientManagement/DeletePatient.cshtml">
+      <publishTime>10/20/2025 21:48:38</publishTime>
+    </File>
+    <File Include="Views/PatientManagement/DetailsPatient.cshtml">
+      <publishTime>10/22/2025 18:28:47</publishTime>
+    </File>
+    <File Include="Views/PatientManagement/Discharge.cshtml">
+      <publishTime>10/02/2025 10:23:06</publishTime>
+    </File>
+    <File Include="Views/PatientManagement/EditMedicalCondition.cshtml">
+      <publishTime>10/02/2025 10:23:03</publishTime>
+    </File>
+    <File Include="Views/PatientManagement/EditPatient.cshtml">
+      <publishTime>10/22/2025 18:28:47</publishTime>
+    </File>
+    <File Include="Views/PatientManagement/Index.cshtml">
+      <publishTime>10/22/2025 18:28:57</publishTime>
+    </File>
+    <File Include="Views/PatientManagement/ManageAllergies.cshtml">
+      <publishTime>10/16/2025 21:33:59</publishTime>
+    </File>
+    <File Include="Views/PatientManagement/ManageConditions.cshtml">
+      <publishTime>10/16/2025 22:11:36</publishTime>
+    </File>
+    <File Include="Views/PatientManagement/ManageMovements.cshtml">
+      <publishTime>10/02/2025 10:23:06</publishTime>
+    </File>
+    <File Include="Views/PatientManagement/Movement.cshtml">
+      <publishTime>10/02/2025 10:23:06</publishTime>
+    </File>
+    <File Include="Views/PatientManagement/PatientFolder.cshtml">
+      <publishTime>10/21/2025 12:09:38</publishTime>
+    </File>
+    <File Include="Views/PatientManagement/PrintPatientDetails.cshtml">
+      <publishTime>10/10/2025 13:49:52</publishTime>
+    </File>
+    <File Include="Views/RoomManagement/CreateRoom.cshtml">
+      <publishTime>10/02/2025 17:03:50</publishTime>
+    </File>
+    <File Include="Views/RoomManagement/DeleteRoom.cshtml">
+      <publishTime>10/02/2025 10:23:06</publishTime>
+    </File>
+    <File Include="Views/RoomManagement/DetailsRoom.cshtml">
+      <publishTime>10/16/2025 21:24:02</publishTime>
+    </File>
+    <File Include="Views/RoomManagement/EditRoom.cshtml">
+      <publishTime>10/02/2025 10:23:06</publishTime>
+    </File>
+    <File Include="Views/RoomManagement/ManageRooms.cshtml">
+      <publishTime>10/16/2025 22:06:27</publishTime>
+    </File>
+    <File Include="Views/Shared/AdvancedSearch.cshtml">
+      <publishTime>10/02/2025 10:23:07</publishTime>
+    </File>
+    <File Include="Views/Shared/Error.cshtml">
+      <publishTime>10/02/2025 10:23:07</publishTime>
+    </File>
+    <File Include="Views/Shared/_FilterPanel.cshtml">
+      <publishTime>10/02/2025 10:23:06</publishTime>
+    </File>
+    <File Include="Views/Shared/_Layout.cshtml">
+      <publishTime>10/16/2025 21:14:31</publishTime>
+    </File>
+    <File Include="Views/Shared/_Layout.cshtml.css">
+      <publishTime>10/02/2025 10:23:06</publishTime>
+    </File>
+    <File Include="Views/Shared/_LoginPartial.cshtml">
+      <publishTime>10/02/2025 10:23:07</publishTime>
+    </File>
+    <File Include="Views/Shared/_ValidationScriptsPartial.cshtml">
+      <publishTime>10/02/2025 10:23:07</publishTime>
+    </File>
+    <File Include="Views/StaffManagement/CreateStaff.cshtml">
+      <publishTime>10/02/2025 10:23:07</publishTime>
+    </File>
+    <File Include="Views/StaffManagement/DeleteStaff.cshtml">
+      <publishTime>10/02/2025 10:23:07</publishTime>
+    </File>
+    <File Include="Views/StaffManagement/DetailsStaff.cshtml">
+      <publishTime>10/02/2025 10:23:07</publishTime>
+    </File>
+    <File Include="Views/StaffManagement/EditStaff.cshtml">
+      <publishTime>10/02/2025 10:23:07</publishTime>
+    </File>
+    <File Include="Views/StaffManagement/Index.cshtml">
+      <publishTime>10/02/2025 10:23:07</publishTime>
+    </File>
+    <File Include="Views/StaffManagement/ManageStaff.cshtml">
+      <publishTime>10/02/2025 10:23:07</publishTime>
+    </File>
+    <File Include="Views/StaffManagement/StaffDashboard.cshtml">
+      <publishTime>10/02/2025 10:23:07</publishTime>
+    </File>
+    <File Include="Views/_ViewImports.cshtml">
+      <publishTime>10/02/2025 10:23:02</publishTime>
+    </File>
+    <File Include="Views/_ViewStart.cshtml">
+      <publishTime>10/02/2025 10:23:02</publishTime>
+    </File>
+    <File Include="wwwroot/css/site.css">
+      <publishTime>10/02/2025 10:23:07</publishTime>
+    </File>
+    <File Include="wwwroot/favicon.ico">
+      <publishTime>10/02/2025 10:23:07</publishTime>
+    </File>
+    <File Include="wwwroot/js/site.js">
+      <publishTime>10/02/2025 10:23:07</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/css/bootstrap-grid.css">
+      <publishTime>10/02/2025 10:23:08</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/css/bootstrap-grid.css.map">
+      <publishTime>10/02/2025 10:23:08</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/css/bootstrap-grid.min.css">
+      <publishTime>10/02/2025 10:23:08</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/css/bootstrap-grid.min.css.map">
+      <publishTime>10/02/2025 10:23:08</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/css/bootstrap-grid.rtl.css">
+      <publishTime>10/02/2025 10:23:08</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/css/bootstrap-grid.rtl.css.map">
+      <publishTime>10/02/2025 10:23:08</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/css/bootstrap-grid.rtl.min.css">
+      <publishTime>10/02/2025 10:23:08</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/css/bootstrap-grid.rtl.min.css.map">
+      <publishTime>10/02/2025 10:23:08</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.css">
+      <publishTime>10/02/2025 10:23:08</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.css.map">
+      <publishTime>10/02/2025 10:23:08</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.min.css">
+      <publishTime>10/02/2025 10:23:08</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.min.css.map">
+      <publishTime>10/02/2025 10:23:08</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.rtl.css">
+      <publishTime>10/02/2025 10:23:09</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.rtl.css.map">
+      <publishTime>10/02/2025 10:23:09</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.rtl.min.css">
+      <publishTime>10/02/2025 10:23:09</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.rtl.min.css.map">
+      <publishTime>10/02/2025 10:23:09</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/css/bootstrap-utilities.css">
+      <publishTime>10/02/2025 10:23:09</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/css/bootstrap-utilities.css.map">
+      <publishTime>10/02/2025 10:23:09</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/css/bootstrap-utilities.min.css">
+      <publishTime>10/02/2025 10:23:09</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/css/bootstrap-utilities.min.css.map">
+      <publishTime>10/02/2025 10:23:09</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/css/bootstrap-utilities.rtl.css">
+      <publishTime>10/02/2025 10:23:09</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/css/bootstrap-utilities.rtl.css.map">
+      <publishTime>10/02/2025 10:23:09</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/css/bootstrap-utilities.rtl.min.css">
+      <publishTime>10/02/2025 10:23:09</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/css/bootstrap-utilities.rtl.min.css.map">
+      <publishTime>10/02/2025 10:23:09</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/css/bootstrap.css">
+      <publishTime>10/02/2025 10:23:08</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/css/bootstrap.css.map">
+      <publishTime>10/02/2025 10:23:08</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/css/bootstrap.min.css">
+      <publishTime>10/02/2025 10:23:08</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/css/bootstrap.min.css.map">
+      <publishTime>10/02/2025 10:23:08</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/css/bootstrap.rtl.css">
+      <publishTime>10/02/2025 10:23:08</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/css/bootstrap.rtl.css.map">
+      <publishTime>10/02/2025 10:23:08</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/css/bootstrap.rtl.min.css">
+      <publishTime>10/02/2025 10:23:08</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/css/bootstrap.rtl.min.css.map">
+      <publishTime>10/02/2025 10:23:08</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/js/bootstrap.bundle.js">
+      <publishTime>10/02/2025 10:23:09</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/js/bootstrap.bundle.js.map">
+      <publishTime>10/02/2025 10:23:09</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/js/bootstrap.bundle.min.js">
+      <publishTime>10/02/2025 10:23:09</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/js/bootstrap.bundle.min.js.map">
+      <publishTime>10/02/2025 10:23:09</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/js/bootstrap.esm.js">
+      <publishTime>10/02/2025 10:23:09</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/js/bootstrap.esm.js.map">
+      <publishTime>10/02/2025 10:23:09</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/js/bootstrap.esm.min.js">
+      <publishTime>10/02/2025 10:23:09</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/js/bootstrap.esm.min.js.map">
+      <publishTime>10/02/2025 10:23:09</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/js/bootstrap.js">
+      <publishTime>10/02/2025 10:23:09</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/js/bootstrap.js.map">
+      <publishTime>10/02/2025 10:23:10</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/js/bootstrap.min.js">
+      <publishTime>10/02/2025 10:23:10</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/js/bootstrap.min.js.map">
+      <publishTime>10/02/2025 10:23:10</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/LICENSE">
+      <publishTime>10/02/2025 10:23:07</publishTime>
+    </File>
+    <File Include="wwwroot/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js">
+      <publishTime>10/02/2025 10:23:10</publishTime>
+    </File>
+    <File Include="wwwroot/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js">
+      <publishTime>10/02/2025 10:23:10</publishTime>
+    </File>
+    <File Include="wwwroot/lib/jquery-validation-unobtrusive/LICENSE.txt">
+      <publishTime>10/02/2025 10:23:10</publishTime>
+    </File>
+    <File Include="wwwroot/lib/jquery-validation/dist/additional-methods.js">
+      <publishTime>10/02/2025 10:23:10</publishTime>
+    </File>
+    <File Include="wwwroot/lib/jquery-validation/dist/additional-methods.min.js">
+      <publishTime>10/02/2025 10:23:10</publishTime>
+    </File>
+    <File Include="wwwroot/lib/jquery-validation/dist/jquery.validate.js">
+      <publishTime>10/02/2025 10:23:10</publishTime>
+    </File>
+    <File Include="wwwroot/lib/jquery-validation/dist/jquery.validate.min.js">
+      <publishTime>10/02/2025 10:23:10</publishTime>
+    </File>
+    <File Include="wwwroot/lib/jquery-validation/LICENSE.md">
+      <publishTime>10/02/2025 10:23:10</publishTime>
+    </File>
+    <File Include="wwwroot/lib/jquery/dist/jquery.js">
+      <publishTime>10/02/2025 10:23:10</publishTime>
+    </File>
+    <File Include="wwwroot/lib/jquery/dist/jquery.min.js">
+      <publishTime>10/02/2025 10:23:10</publishTime>
+    </File>
+    <File Include="wwwroot/lib/jquery/dist/jquery.min.map">
+      <publishTime>10/02/2025 10:23:10</publishTime>
+    </File>
+    <File Include="wwwroot/lib/jquery/LICENSE.txt">
+      <publishTime>10/02/2025 10:23:10</publishTime>
+    </File>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,149 @@
+﻿@{
+    ViewData["Title"] = "Patient FAQs";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>@ViewData["Title"]</title>
+
+    <!-- Bootstrap CSS (if not already included in your _Layout.cshtml) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .faq-header {
+            text-align: center;
+            margin-top: 30px;
+            margin-bottom: 20px;
+        }
+
+        .accordion-button {
+            font-weight: 600;
+        }
+
+        .accordion-item {
+            border-radius: 12px;
+            margin-bottom: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container py-4">
+        <h2 class="faq-header text-primary">🏥 Patient FAQs — Ward System</h2>
+        <p class="text-center text-muted mb-4">
+            Find answers to common questions about admission, discharge, and patient record management.
+        </p>
+
+        <div class="accordion" id="faqAccordion">
+            <!-- General Information -->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="faq1Heading">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1" aria-expanded="true">
+                        What is the Ward System?
+                    </button>
+                </h2>
+                <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                    <div class="accordion-body">
+                        The Ward System manages patient admissions, discharges, and ward allocations. It allows staff to record, track, and print patient details efficiently.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Registration -->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="faq2Heading">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                        How can I register as a new patient?
+                    </button>
+                </h2>
+                <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                    <div class="accordion-body">
+                        Registration is done by hospital staff under the <strong>“Admit Patient”</strong> section. They’ll capture your personal details, medical history, and assign you a ward and bed.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Admission -->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="faq3Heading">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+                        How do I get admitted to the hospital?
+                    </button>
+                </h2>
+                <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                    <div class="accordion-body">
+                        After your doctor’s recommendation, the staff can admit you through the system by selecting a bed and ward that are available.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Discharge -->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="faq4Heading">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4">
+                        How will I know when I’m discharged?
+                    </button>
+                </h2>
+                <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                    <div class="accordion-body">
+                        Your doctor will confirm your readiness for discharge. Staff will then update your <strong>Patient Folder</strong> with the <strong>Discharge Date</strong> and <strong>Discharge History</strong>.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Records -->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="faq5Heading">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq5">
+                        Can I get a printed copy of my patient details or discharge summary?
+                    </button>
+                </h2>
+                <div id="faq5" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                    <div class="accordion-body">
+                        Yes, staff can print your patient or folder details directly from the system, which includes admission, discharge, and doctor notes.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Security -->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="faq6Heading">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq6">
+                        Is my information secure in the system?
+                    </button>
+                </h2>
+                <div id="faq6" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                    <div class="accordion-body">
+                        Yes. Only authorized hospital staff can access patient records. All data is securely stored in the hospital’s protected database.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Feedback -->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="faq7Heading">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq7">
+                        How can I report an issue or give feedback?
+                    </button>
+                </h2>
+                <div id="faq7" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                    <div class="accordion-body">
+                        You can report any issue to the hospital administrator or staff member. For technical problems, contact the IT support team responsible for the Ward System.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS (if not already included in your _Layout.cshtml) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

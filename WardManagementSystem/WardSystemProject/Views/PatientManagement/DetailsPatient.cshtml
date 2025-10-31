@@ -1,0 +1,95 @@
+﻿@model WardSystemProject.Models.Patient
+
+@{
+    ViewData["Title"] = "Patient Details";
+}
+
+<div class="container mt-4">
+    <div class="card shadow-lg border-0 rounded-4" id="print-section">
+        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center rounded-top-4">
+            <h3 class="mb-0">Patient Details</h3>
+            <div>
+                <a asp-action="EditPatient" asp-route-id="@Model.Id" class="btn btn-light btn-sm">
+                    <i class="bi bi-pencil-square"></i> Edit
+                </a>
+                <button onclick="window.print()" class="btn btn-outline-light btn-sm">
+                    <i class="bi bi-printer"></i> Print
+                </button>
+            </div>
+        </div>
+
+        <div class="card-body">
+            <dl class="row">
+                <dt class="col-sm-3">Full Name</dt>
+                <dd class="col-sm-9">@Model.FullName</dd>
+
+                <dt class="col-sm-3">Age</dt>
+                <dd class="col-sm-9">@Model.Age</dd>
+
+                <dt class="col-sm-3">Gender</dt>
+                <dd class="col-sm-9">@Model.Gender</dd>
+
+                <dt class="col-sm-3">Date of Birth</dt>
+                <dd class="col-sm-9">@Model.DateOfBirth.ToString("yyyy-MM-dd")</dd>
+
+                <dt class="col-sm-3">Contact Number</dt>
+                <dd class="col-sm-9">@Model.ContactNumber</dd>
+
+                <dt class="col-sm-3">Emergency Contact</dt>
+                <dd class="col-sm-9">@Model.EmergencyContact (@Model.EmergencyContactNumber)</dd>
+
+                <dt class="col-sm-3">Address</dt>
+                <dd class="col-sm-9">@Model.Address</dd>
+
+                <dt class="col-sm-3">Next of Kin</dt>
+                <dd class="col-sm-9">@Model.NextOfKin (@Model.NextOfKinContact)</dd>
+
+                <dt class="col-sm-3">Ward</dt>
+                <dd class="col-sm-9">@Model.Ward?.Name</dd>
+
+                <dt class="col-sm-3">Bed</dt>
+                <dd class="col-sm-9">@Model.Bed?.BedNumber</dd>
+
+                <dt class="col-sm-3">Admission Date</dt>
+                <dd class="col-sm-9">@Model.AdmissionDate?.ToString("yyyy-MM-dd HH:mm")</dd>
+
+                <dt class="col-sm-3">Discharge Date</dt>
+                <dd class="col-sm-9">@Model.DischargeDate?.ToString("yyyy-MM-dd HH:mm")</dd>
+
+                <dt class="col-sm-3">Admission Reason</dt>
+                <dd class="col-sm-9">@Model.AdmissionReason</dd>
+
+                <dt class="col-sm-3">Doctor</dt>
+                <dd class="col-sm-9">@Model.AssignedDoctor?.FullName</dd>
+
+                <dt class="col-sm-3">Allergies</dt>
+                <dd class="col-sm-9">@Model.Allergies </dd>
+
+                <dt class="col-sm-3">Chronic Medications</dt>
+                <dd class="col-sm-9">@Model.ChronicMedications<dd>
+
+                <dt class="col-sm-3">Medical History</dt>
+                <dd class="col-sm-9">@Model.MedicalHistory </dd>
+
+                <dt class="col-sm-3">Blood Type</dt>
+                <dd class="col-sm-9">@Model.BloodType </dd>
+
+                <dt class="col-sm-3">Patient Status</dt>
+                <dd class="col-sm-9">
+                    @if (Model.PatientStatus == "Admitted")
+                    {
+                        <span class="badge bg-success">@Model.PatientStatus</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-secondary">@Model.PatientStatus</span>
+                    }
+                </dd>
+            </dl>
+        </div>
+    </div>
+</div>
+
+<style>
+   
+</style>

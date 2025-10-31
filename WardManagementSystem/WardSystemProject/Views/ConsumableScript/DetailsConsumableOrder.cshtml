@@ -1,0 +1,129 @@
+﻿@model WardSystemProject.Models.ConsumableOrder
+
+@{
+    ViewData["Title"] = "Consumable Order Details";
+}
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-10 offset-md-1">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title text-primary mb-0">
+                        <i class="bi bi-box-seam"></i> Consumable Order Details
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-8">
+    <div class="card">
+        <div class="card-body">
+                                    <h5 class="card-title text-primary">
+                                        <i class="bi bi-info-circle"></i> Order Information
+                                    </h5>
+            <hr />
+            <dl class="row">
+                                        <dt class="col-sm-4 text-dark fw-bold">
+                                            <i class="bi bi-hash"></i> Order ID
+                                        </dt>
+                                        <dd class="col-sm-8">
+                                            <span class="badge bg-primary fs-6">@Html.DisplayFor(model => model.Id)</span>
+                                        </dd>
+                                        
+                                        <dt class="col-sm-4 text-dark fw-bold">
+                                            <i class="bi bi-box"></i> Consumable
+                                        </dt>
+                                        <dd class="col-sm-8">
+                                            <strong>@Html.DisplayFor(model => model.Consumable.Name)</strong>
+                                            <br />
+                                            <small class="text-muted">Ward: @Html.DisplayFor(model => model.Consumable.Ward.Name)</small>
+                                        </dd>
+                                        
+                                        <dt class="col-sm-4 text-dark fw-bold">
+                                            <i class="bi bi-person-badge"></i> Stock Manager
+                                        </dt>
+                                        <dd class="col-sm-8">
+                                            @Html.DisplayFor(model => model.StockManager.FirstName) 
+                                            @Html.DisplayFor(model => model.StockManager.LastName)
+                                        </dd>
+                                        
+                                        <dt class="col-sm-4 text-dark fw-bold">
+                                            <i class="bi bi-hash"></i> Quantity
+                                        </dt>
+                                        <dd class="col-sm-8">
+                                            <span class="badge bg-primary fs-6">@Html.DisplayFor(model => model.Quantity)</span>
+                                        </dd>
+                                        
+                                        <dt class="col-sm-4 text-dark fw-bold">
+                                            <i class="bi bi-flag"></i> Status
+                                        </dt>
+                                        <dd class="col-sm-8">
+                                            @if (Model.Status == "Delivered")
+                                            {
+                                                <span class="badge bg-success fs-6">@Model.Status</span>
+                                            }
+                                            else if (Model.Status == "Pending")
+                                            {
+                                                <span class="badge bg-warning text-dark fs-6">@Model.Status</span>
+                                            }
+                                            else if (Model.Status == "In Transit")
+                                            {
+                                                <span class="badge bg-info fs-6">@Model.Status</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="badge bg-secondary fs-6">@Model.Status</span>
+                                            }
+                                        </dd>
+                                        
+                                        <dt class="col-sm-4 text-dark fw-bold">
+                                            <i class="bi bi-calendar-event"></i> Order Date
+                                        </dt>
+                                        <dd class="col-sm-8">@Html.DisplayFor(model => model.OrderDate)</dd>
+                                        
+                                        <dt class="col-sm-4 text-dark fw-bold">
+                                            <i class="bi bi-calendar-check"></i> Received Date
+                                        </dt>
+                                        <dd class="col-sm-8">
+                                            @if (Model.ReceivedDate.HasValue)
+                                            {
+                                                @Model.ReceivedDate.Value.ToString("g")
+                                            }
+                                            else
+                                            {
+                                                <span class="text-muted">Not received</span>
+                                            }
+                                        </dd>
+            </dl>
+                                </div>
+        </div>
+    </div>
+
+                        <div class="col-md-4">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h6 class="card-title mb-0">
+                                        <i class="bi bi-gear"></i> Quick Actions
+                                    </h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="d-grid gap-2">
+                                        <a asp-action="EditConsumableOrder" asp-route-id="@Model.Id" class="btn btn-primary">
+                                            <i class="bi bi-pencil"></i> Edit Order
+                                        </a>
+                                        <a asp-action="DeleteConsumableOrder" asp-route-id="@Model.Id" class="btn btn-danger">
+                                            <i class="bi bi-trash"></i> Delete Order
+                                        </a>
+                                        <a asp-action="ManageConsumableOrders" class="btn btn-secondary">
+                                            <i class="bi bi-arrow-left"></i> Back to List
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

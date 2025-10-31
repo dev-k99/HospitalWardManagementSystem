@@ -1,0 +1,231 @@
+@model WardSystemProject.Models.Patient
+
+@{
+    ViewData["Title"] = "Discharge Patient";
+}
+
+<div class="container-fluid">
+    <div class="row mb-4">
+        <div class="col-md-8">
+            <h2 class="text-danger">
+                <i class="bi bi-box-arrow-right"></i> Discharge Patient
+            </h2>
+            <h4 class="text-dark">@Model.FullName</h4>
+            <p class="text-muted">Complete patient discharge process and update bed availability</p>
+        </div>
+        <div class="col-md-4 text-end">
+            <a asp-action="PatientFolder" asp-route-id="@Model.Id" class="btn btn-outline-secondary">
+                <i class="bi bi-arrow-left"></i> Back to Patient Folder
+            </a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-8">
+            <div class="alert alert-warning">
+                <i class="bi bi-exclamation-triangle"></i>
+                <strong>Warning:</strong> This action will discharge the patient and free up their bed for new assignments.
+            </div>
+
+            <div class="card shadow-sm">
+                <div class="card-header bg-danger text-white">
+                    <h5 class="mb-0">
+                        <i class="bi bi-file-earmark-text"></i> Discharge Information
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <form asp-action="Discharge" method="post">
+                        <input type="hidden" asp-for="Id" />
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+                        
+                        <!-- Patient Information Summary -->
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <h6 class="text-primary border-bottom pb-2">
+                                    <i class="bi bi-person"></i> Patient Information
+                                </h6>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-bold">Patient Name</label>
+                                <input type="text" class="form-control" value="@Model.FullName" readonly />
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-bold">Patient ID</label>
+                                <input type="text" class="form-control" value="@Model.Id" readonly />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-bold">Current Ward</label>
+                                <input type="text" class="form-control" value="@(Model.Ward?.Name ?? "Not assigned")" readonly />
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-bold">Current Bed</label>
+                                <input type="text" class="form-control" value="@(Model.Bed?.BedNumber ?? "Not assigned")" readonly />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-bold">Assigned Doctor</label>
+                                <input type="text" class="form-control" value="@(Model.AssignedDoctor != null ? $"{Model.AssignedDoctor.FirstName} {Model.AssignedDoctor.LastName}" : "Not assigned")" readonly />
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-bold">Admission Date</label>
+                                <input type="text" class="form-control" value="@(Model.AdmissionDate?.ToString("dd/MM/yyyy HH:mm") ?? "Not recorded")" readonly />
+                            </div>
+                        </div>
+
+                        <!-- Discharge Information -->
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <h6 class="text-danger border-bottom pb-2">
+                                    <i class="bi bi-clipboard-check"></i> Discharge Details
+                                </h6>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="DischargeSummary" class="form-label fw-bold">Discharge Summary *</label>
+                            <textarea asp-for="DischargeSummary" class="form-control" rows="5" placeholder="Enter detailed discharge summary including treatment provided, medications prescribed, follow-up instructions, etc."></textarea>
+                            <span asp-validation-for="DischargeSummary" class="text-danger"></span>
+                            <small class="form-text text-muted">Include treatment summary, medications prescribed, follow-up instructions, and any special care requirements.</small>
+                        </div>
+
+                        <!-- Discharge Checklist -->
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <h6 class="text-info border-bottom pb-2">
+                                    <i class="bi bi-list-check"></i> Discharge Checklist
+                                </h6>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="checkbox" id="medicationsReviewed" checked disabled>
+                                    <label class="form-check-label" for="medicationsReviewed">
+                                        Medications reviewed and prescribed
+                                    </label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="checkbox" id="followUpScheduled" checked disabled>
+                                    <label class="form-check-label" for="followUpScheduled">
+                                        Follow-up appointments scheduled
+                                    </label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="checkbox" id="familyNotified" checked disabled>
+                                    <label class="form-check-label" for="familyNotified">
+                                        Family/Next of kin notified
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="checkbox" id="dischargeInstructions" checked disabled>
+                                    <label class="form-check-label" for="dischargeInstructions">
+                                        Discharge instructions provided
+                                    </label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="checkbox" id="bedCleaned" checked disabled>
+                                    <label class="form-check-label" for="bedCleaned">
+                                        Bed will be cleaned and prepared
+                                    </label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="checkbox" id="recordsUpdated" checked disabled>
+                                    <label class="form-check-label" for="recordsUpdated">
+                                        Patient records will be updated
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <a asp-action="PatientFolder" asp-route-id="@Model.Id" class="btn btn-outline-secondary me-md-2">
+                                <i class="bi bi-x-circle"></i> Cancel
+                            </a>
+                            <button type="submit" class="btn btn-danger">
+                                <i class="bi bi-box-arrow-right"></i> Discharge Patient
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow-sm">
+                <div class="card-header bg-info text-white">
+                    <h6 class="mb-0">
+                        <i class="bi bi-info-circle"></i> Discharge Guidelines
+                    </h6>
+                </div>
+                <div class="card-body">
+                    <p class="small text-muted">
+                        <strong>Discharge Process:</strong>
+                    </p>
+                    <ul class="small text-muted">
+                        <li>Ensure all treatment is completed</li>
+                        <li>Review medications and prescriptions</li>
+                        <li>Schedule follow-up appointments</li>
+                        <li>Provide discharge instructions</li>
+                        <li>Notify family/next of kin</li>
+                        <li>Update patient records</li>
+                        <li>Free up bed for new patients</li>
+                    </ul>
+                    <hr />
+                    <p class="small text-muted">
+                        <strong>Note:</strong> The patient's bed will be automatically freed up for new assignments.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Patient Summary Card -->
+            <div class="card shadow-sm mt-3">
+                <div class="card-header bg-secondary text-white">
+                    <h6 class="mb-0">
+                        <i class="bi bi-person"></i> Patient Summary
+                    </h6>
+                </div>
+                <div class="card-body">
+                    <dl class="row small">
+                        <dt class="col-sm-5">Age</dt>
+                        <dd class="col-sm-7">@Model.Age years</dd>
+
+                        <dt class="col-sm-5">Blood Type</dt>
+                        <dd class="col-sm-7">
+                            @if (!string.IsNullOrEmpty(Model.BloodType))
+                            {
+                                <span class="badge bg-danger">@Model.BloodType</span>
+                            }
+                            else
+                            {
+                                <span class="text-muted">Not specified</span>
+                            }
+                        </dd>
+
+                        <dt class="col-sm-5">Contact</dt>
+                        <dd class="col-sm-7">@Model.ContactNumber</dd>
+
+                        <dt class="col-sm-5">Emergency</dt>
+                        <dd class="col-sm-7">@Model.EmergencyContact</dd>
+
+                        <dt class="col-sm-5">Next of Kin</dt>
+                        <dd class="col-sm-7">@Model.NextOfKin</dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

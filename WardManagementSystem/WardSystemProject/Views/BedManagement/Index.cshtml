@@ -1,0 +1,120 @@
+﻿ @model IEnumerable<WardSystemProject.Models.Bed>
+
+@{
+    ViewData["Title"] = "Manage Beds";
+}
+
+<div class="container mt-4">
+    <div class="row mb-4">
+        <div class="col-md-8">
+            <h2 class="text-primary">Manage Beds</h2>
+        </div>
+        <div class="col-md-4 text-end">
+            <a asp-action="CreateBed" class="btn btn-success">
+                <i class="bi bi-plus-circle"></i> Create New Bed
+            </a>
+        </div>
+    </div>
+
+    <!-- Search Form -->
+    <div class="card mb-4">
+        <div class="card-body">
+            <form asp-action="Search" method="get" class="d-flex">
+                <input type="text" name="query" class="form-control me-2" placeholder="Search by bed number or room number..." />
+                <button type="submit" class="btn btn-outline-primary" aria-label="Search">
+                    <i class="bi bi-search"></i> Search
+                </button>
+                <a asp-action="Index" class="btn btn-outline-secondary ms-2" aria-label="Clear search">Clear</a>
+            </form>
+        </div>
+    </div>
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-info">
+            <i class="bi bi-info-circle"></i> No beds found.
+            <a asp-action="CreateBed" class="alert-link">Create the first bed</a>
+        </div>
+    }
+    else
+    {
+        <div class="card">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover align-middle">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>@Html.DisplayNameFor(model => model.Id)</th>
+                                <th>@Html.DisplayNameFor(model => model.BedNumber)</th>
+                                <th>Room Number</th>
+                                <th>Ward</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@item.Id</td>
+                                    <td><strong>@item.BedNumber</strong></td>
+                                    <td>@item.Room?.RoomNumber</td>
+                                    <td>@item.Room?.Ward?.Name</td>
+                                    <td>
+                                        @if (item.PatientId.HasValue)
+                                        {
+                                            <span class="badge bg-warning text-dark">Occupied</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-success">Available</span>
+                                        }
+                                    </td>
+                                    <td>
+                                        <div class="btn-group" role="group">
+                                            <a asp-action="EditBed" asp-route-id="@item.Id"
+                                               class="btn btn-sm btn-primary" title="Edit">
+                                                <i class="bi bi-pencil"></i>
+                                            </a>
+                                            <a asp-action="DetailsBed" asp-route-id="@item.Id"
+                                               class="btn btn-sm btn-info" title="Details">
+                                                <i class="bi bi-info-circle"></i>
+                                            </a>
+                                            <form asp-action="SoftDeleteBed" method="post" class="d-inline">
+                                                @Html.AntiForgeryToken()
+                                                <input type="hidden" name="id" value="@item.Id" />
+                                                <button type="submit" class="btn btn-sm btn-danger"
+                                                        onclick="return confirm('Are you sure you want to delete this bed?');"
+                                                        title="Delete">
+                                                    <i class="bi bi-trash"></i>
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <script>
+        // Auto-submit search form when user types with debounce
+        $(document).ready(function () {
+            let timer;
+            $('input[name="query"]').on('keyup', function () {
+                clearTimeout(timer);
+                let query = $(this).val();
+                if (query.length >= 2) {
+                    timer = setTimeout(() => {
+                        $(this).closest('form').submit();
+                    }, 500); // wait 0.5s before firing
+                }
+            });
+        });
+    </script>
+}

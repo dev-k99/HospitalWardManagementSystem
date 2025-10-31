@@ -1,0 +1,190 @@
+﻿@model WardSystemProject.Models.VitalSign
+
+@{
+    ViewData["Title"] = "Record Vital Signs";
+}
+
+<div class="container-fluid">
+    <div class="row mb-4">
+        <div class="col-md-8">
+            <h2 class="text-success">
+                <i class="bi bi-heart-pulse"></i> Record Vital Signs
+            </h2>
+            <p class="text-muted">Record comprehensive patient vital signs</p>
+        </div>
+        <div class="col-md-4 text-end">
+            <a asp-action="Index" class="btn btn-outline-secondary">
+                <i class="bi bi-arrow-left"></i> Back to Dashboard
+            </a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-header bg-success text-white">
+                    <h5 class="mb-0">
+                        <i class="bi bi-clipboard-plus"></i> Vital Signs Form
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <form asp-action="CreateVitalSign" method="post">
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+                        
+                        <!-- Patient Selection -->
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <h6 class="text-primary border-bottom pb-2">
+                                    <i class="bi bi-person"></i> Patient Information
+                                </h6>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label asp-for="PatientId" class="form-label fw-bold">Patient *</label>
+                            <select asp-for="PatientId" asp-items="ViewBag.PatientId" class="form-select">
+                                <option value="">Select a patient</option>
+                            </select>
+                            <span asp-validation-for="PatientId" class="text-danger"></span>
+                        </div>
+
+                        <!-- Vital Signs -->
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <h6 class="text-success border-bottom pb-2">
+                                    <i class="bi bi-heart-pulse"></i> Vital Signs
+                                </h6>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="BloodPressure" class="form-label fw-bold">Blood Pressure *</label>
+                                <input asp-for="BloodPressure" class="form-control" placeholder="e.g., 120/80 mmHg" />
+                                <span asp-validation-for="BloodPressure" class="text-danger"></span>
+                                <small class="form-text text-muted">Format: Systolic/Diastolic mmHg</small>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="Temperature" class="form-label fw-bold">Temperature *</label>
+                                <div class="input-group">
+                                    <input asp-for="Temperature" class="form-control" placeholder="36.5" type="number" step="0.1" min="30" max="45" />
+                                    <span class="input-group-text">°C</span>
+                                </div>
+                                <span asp-validation-for="Temperature" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="HeartRate" class="form-label fw-bold">Heart Rate *</label>
+                                <div class="input-group">
+                                    <input asp-for="HeartRate" class="form-control" placeholder="72" type="number" min="40" max="200" />
+                                    <span class="input-group-text">bpm</span>
+                                </div>
+                                <span asp-validation-for="HeartRate" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="RespiratoryRate" class="form-label fw-bold">Respiratory Rate *</label>
+                                <div class="input-group">
+                                    <input asp-for="RespiratoryRate" class="form-control" placeholder="16" type="number" min="8" max="40" />
+                                    <span class="input-group-text">breaths/min</span>
+                                </div>
+                                <span asp-validation-for="RespiratoryRate" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="OxygenSaturation" class="form-label fw-bold">Oxygen Saturation</label>
+                                <div class="input-group">
+                                    <input asp-for="OxygenSaturation" class="form-control" placeholder="98" type="number" min="70" max="100" />
+                                    <span class="input-group-text">%</span>
+                                </div>
+                                <span asp-validation-for="OxygenSaturation" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <!-- Additional Notes -->
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <h6 class="text-info border-bottom pb-2">
+                                    <i class="bi bi-clipboard-text"></i> Additional Notes
+                                </h6>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Notes" class="form-label fw-bold">Notes</label>
+                            <textarea asp-for="Notes" class="form-control" rows="4" placeholder="Enter any additional observations, patient complaints, or special notes..."></textarea>
+                            <span asp-validation-for="Notes" class="text-danger"></span>
+                        </div>
+
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <a asp-action="Index" class="btn btn-outline-secondary me-md-2">
+                                <i class="bi bi-x-circle"></i> Cancel
+                            </a>
+                            <button type="submit" class="btn btn-success">
+                                <i class="bi bi-check-circle"></i> Record Vital Signs
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow-sm">
+                <div class="card-header bg-info text-white">
+                    <h6 class="mb-0">
+                        <i class="bi bi-info-circle"></i> Vital Signs Guidelines
+                    </h6>
+                </div>
+                <div class="card-body">
+                    <p class="small text-muted">
+                        <strong>Normal Ranges:</strong>
+                    </p>
+                    <ul class="small text-muted">
+                        <li><strong>Blood Pressure:</strong> 90/60 - 140/90 mmHg</li>
+                        <li><strong>Temperature:</strong> 36.1°C - 37.2°C</li>
+                        <li><strong>Heart Rate:</strong> 60-100 bpm</li>
+                        <li><strong>Respiratory Rate:</strong> 12-20 breaths/min</li>
+                        <li><strong>Oxygen Saturation:</strong> 95-100%</li>
+                    </ul>
+                    <hr />
+                    <p class="small text-muted">
+                        <strong>Important Notes:</strong>
+                    </p>
+                    <ul class="small text-muted">
+                        <li>Record vital signs accurately</li>
+                        <li>Note any abnormalities</li>
+                        <li>Include patient complaints</li>
+                        <li>Record time of measurement</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Quick Reference -->
+            <div class="card shadow-sm mt-3">
+                <div class="card-header bg-warning text-dark">
+                    <h6 class="mb-0">
+                        <i class="bi bi-exclamation-triangle"></i> Emergency Values
+                    </h6>
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-danger small">
+                        <strong>Seek immediate medical attention for:</strong>
+                        <ul class="mb-0 mt-2">
+                            <li>BP > 180/110 or < 90/60</li>
+                            <li>Temperature > 38°C or < 35°C</li>
+                            <li>Heart Rate > 120 or < 50</li>
+                            <li>Oxygen Saturation < 92%</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

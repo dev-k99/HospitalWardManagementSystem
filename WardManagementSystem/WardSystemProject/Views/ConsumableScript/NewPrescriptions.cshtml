@@ -1,0 +1,304 @@
+@model IEnumerable<WardSystemProject.Models.Prescription>
+
+@{
+    ViewData["Title"] = "New Prescriptions";
+}
+
+<div class="container-fluid">
+    <!-- Header -->
+    <div class="row mb-4">
+        <div class="col-md-8">
+            <h2 class="text-success">
+                <i class="bi bi-clipboard-plus"></i> New Prescriptions
+            </h2>
+            <p class="text-muted">Process new prescriptions and create medication orders</p>
+        </div>
+        <div class="col-md-4 text-end">
+            <a asp-controller="ConsumableScript" asp-action="Index" class="btn btn-outline-secondary">
+                <i class="bi bi-arrow-left"></i> Back to Dashboard
+            </a>
+        </div>
+    </div>
+
+    <!-- Statistics -->
+    <div class="row mb-4">
+        <div class="col-md-3">
+            <div class="card bg-success text-white">
+                <div class="card-body text-center">
+                    <i class="bi bi-clipboard-plus fs-1"></i>
+                    <h3 class="card-title">@Model.Count()</h3>
+                    <p class="card-text">New Prescriptions</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card bg-warning text-dark">
+                <div class="card-body text-center">
+                    <i class="bi bi-clock fs-1"></i>
+                    <h3 class="card-title">@Model.Count(p => p.PrescriptionDate >= DateTime.Today.AddDays(-1))</h3>
+                    <p class="card-text">Last 24 Hours</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card bg-info text-white">
+                <div class="card-body text-center">
+                    <i class="bi bi-calendar-week fs-1"></i>
+                    <h3 class="card-title">@Model.Count(p => p.PrescriptionDate >= DateTime.Today.AddDays(-7))</h3>
+                    <p class="card-text">This Week</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card bg-primary text-white">
+                <div class="card-body text-center">
+                    <i class="bi bi-calendar-month fs-1"></i>
+                    <h3 class="card-title">@Model.Count(p => p.PrescriptionDate >= DateTime.Today.AddDays(-30))</h3>
+                    <p class="card-text">This Month</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Search and Filters -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card shadow">
+                <div class="card-header bg-info text-white">
+                    <h6 class="mb-0">
+                        <i class="bi bi-funnel"></i> Search & Filters
+                    </h6>
+                </div>
+                <div class="card-body">
+                    <form method="get" class="row g-3">
+                        <div class="col-md-3">
+                            <label class="form-label">Patient Name</label>
+                            <input type="text" name="patientName" class="form-control" placeholder="Search by patient..." />
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label">Doctor</label>
+                            <input type="text" name="doctorName" class="form-control" placeholder="Search by doctor..." />
+                        </div>
+                        <div class="col-md-2">
+                            <label class="form-label">Date Range</label>
+                            <select name="dateRange" class="form-select">
+                                <option value="">All Time</option>
+                                <option value="today">Today</option>
+                                <option value="week">This Week</option>
+                                <option value="month">This Month</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <label class="form-label">Status</label>
+                            <select name="status" class="form-select">
+                                <option value="">All Status</option>
+                                <option value="Active">Active</option>
+                                <option value="Inactive">Inactive</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <label class="form-label">&nbsp;</label>
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="bi bi-search"></i> Search
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Prescriptions List -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card shadow">
+                <div class="card-header bg-success text-white">
+                    <h5 class="mb-0">
+                        <i class="bi bi-list-ul"></i> New Prescriptions to Process
+                    </h5>
+                </div>
+                <div class="card-body">
+                    @if (Model.Any())
+                    {
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th>Patient</th>
+                                        <th>Medication</th>
+                                        <th>Dosage & Duration</th>
+                                        <th>Doctor</th>
+                                        <th>Date</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var prescription in Model)
+                                    {
+                                        <tr>
+                                            <td>
+                                                <strong>@prescription.Patient?.FullName</strong>
+                                                @if (prescription.Patient?.Ward != null)
+                                                {
+                                                    <br><small class="text-muted">@prescription.Patient.Ward.Name</small>
+                                                }
+                                            </td>
+                                            <td>
+                                                <strong>@prescription.Medication?.Name</strong>
+                                                @if (!string.IsNullOrEmpty(prescription.Medication?.Description))
+                                                {
+                                                    <br><small class="text-muted">@prescription.Medication.Description</small>
+                                                }
+                                            </td>
+                                            <td>
+                                                @prescription.DosageInstructions
+                                                @if (!string.IsNullOrEmpty(prescription.Duration))
+                                                {
+                                                    <br><small class="text-muted">Duration: @prescription.Duration</small>
+                                                }
+                                            </td>
+                                            <td>
+                                                @prescription.Doctor?.FullName
+                                            </td>
+                                            <td>
+                                                <strong>@prescription.PrescriptionDate.ToString("dd/MM/yyyy")</strong>
+                                                <br><small class="text-muted">@prescription.PrescriptionDate.ToString("HH:mm")</small>
+                                            </td>
+                                            <td>
+                                                @if (prescription.IsActive)
+                                                {
+                                                    <span class="badge bg-success">Active</span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="badge bg-secondary">Inactive</span>
+                                                }
+                                            </td>
+                                           @*  <td>
+                                                <div class="btn-group" role="group">
+                                                    <a asp-controller="ConsumableScript" asp-action="ProcessPrescription" asp-route-id="@prescription.Id" 
+                                                       class="btn btn-sm btn-success" title="Process Prescription">
+                                                        <i class="bi bi-play-circle"></i> Process
+                                                    </a>
+                                                    <a asp-controller="ConsumableScript" asp-action="PrescribtionOrderDetails" asp-route-id="@prescription.Id" 
+                                                       class="btn btn-sm btn-info" title="View Details">
+                                                        <i class="bi bi-eye"></i>
+                                                    </a>
+                                                    <button class="btn btn-sm btn-warning" title="Mark as Reviewed" 
+                                                            onclick="markAsReviewed(@prescription.Id)">
+                                                        <i class="bi bi-check-circle"></i>
+                                                    </button>
+                                                </div>
+                                            </td> *@
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Pagination -->
+                        <div class="d-flex justify-content-between align-items-center mt-4">
+                            <div>
+                                <small class="text-muted">Showing @Model.Count() of @Model.Count() prescriptions</small>
+                            </div>
+                            <div>
+                                <button class="btn btn-outline-success" onclick="processAllPrescriptions()">
+                                    <i class="bi bi-play-circle"></i> Process All
+                                </button>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="text-center py-4">
+                            <i class="bi bi-clipboard-check fs-1 text-success"></i>
+                            <h5 class="text-success mt-3">No New Prescriptions</h5>
+                            <p class="text-muted">All prescriptions have been processed or there are no new ones.</p>
+                            <a asp-controller="ConsumableScript" asp-action="Index" class="btn btn-primary">
+                                <i class="bi bi-arrow-left"></i> Back to Dashboard
+                            </a>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="card shadow">
+                <div class="card-header bg-secondary text-white">
+                    <h6 class="mb-0">
+                        <i class="bi bi-lightning"></i> Quick Actions
+                    </h6>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-3 mb-3">
+                            <a asp-controller="ConsumableScript" asp-action="Index" class="btn btn-outline-primary w-100">
+                                <i class="bi bi-speedometer2"></i> Dashboard
+                            </a>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <a asp-controller="ConsumableScript" asp-action="ManagePrescriptionOrders" class="btn btn-outline-warning w-100">
+                                <i class="bi bi-clock"></i> Manage Orders
+                            </a>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <a asp-controller="ConsumableScript" asp-action="CheckStock" class="btn btn-outline-danger w-100">
+                                <i class="bi bi-box-seam"></i> Check Stock
+                            </a>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <button class="btn btn-outline-success w-100" onclick="exportPrescriptions()">
+                                <i class="bi bi-download"></i> Export List
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function markAsReviewed(prescriptionId) {
+            if (confirm('Mark this prescription as reviewed?')) {
+                // Placeholder for marking as reviewed functionality
+                alert('Prescription marked as reviewed!');
+                // In a real implementation, you would make an AJAX call here
+            }
+        }
+
+        function processAllPrescriptions() {
+            if (confirm('Process all new prescriptions? This will create medication orders for all items.')) {
+                // Placeholder for bulk processing functionality
+                alert('Processing all prescriptions...');
+                // In a real implementation, you would make an AJAX call here
+            }
+        }
+
+        function exportPrescriptions() {
+            // Placeholder for export functionality
+            alert('Export functionality coming soon!');
+        }
+
+        // Add some interactivity
+        $(document).ready(function() {
+            // Highlight active/inactive prescriptions
+            $('.badge.bg-success').closest('tr').addClass('table-success');
+            $('.badge.bg-secondary').closest('tr').addClass('table-secondary');
+            
+            // Add hover effects
+            $('tbody tr').hover(
+                function() { $(this).addClass('table-hover'); },
+                function() { $(this).removeClass('table-hover'); }
+            );
+        });
+    </script>
+}

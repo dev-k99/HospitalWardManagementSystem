@@ -1,0 +1,539 @@
+is_global = true
+build_property.TargetFramework = net8.0
+build_property.TargetFramework = net8.0
+build_property.TargetPlatformMinVersion = 
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = WardSystemProject
+build_property.RootNamespace = WardSystemProject
+build_property.ProjectDir = C:\Users\kamva\OneDrive - Nelson Mandela University\2025 STUDY MATERIAL\WardManagementSystem\WardManagementSystem\WardSystemProject\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.RazorLangVersion = 8.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = C:\Users\kamva\OneDrive - Nelson Mandela University\2025 STUDY MATERIAL\WardManagementSystem\WardManagementSystem\WardSystemProject
+build_property._RazorSourceGeneratorDebug = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/Accounts/AccessDenied.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudHNcQWNjZXNzRGVuaWVkLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/Accounts/Login.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudHNcTG9naW4uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/Accounts/Logout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudHNcTG9nb3V0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/Accounts/Register.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudHNcUmVnaXN0ZXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/Administration/CreateAllergy.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5pc3RyYXRpb25cQ3JlYXRlQWxsZXJneS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/Administration/CreateBed.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5pc3RyYXRpb25cQ3JlYXRlQmVkLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/Administration/CreateMedicalCondition.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5pc3RyYXRpb25cQ3JlYXRlTWVkaWNhbENvbmRpdGlvbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/Administration/CreateMedication.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5pc3RyYXRpb25cQ3JlYXRlTWVkaWNhdGlvbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/Administration/CreateRoom.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5pc3RyYXRpb25cQ3JlYXRlUm9vbS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/Administration/CreateStaff.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5pc3RyYXRpb25cQ3JlYXRlU3RhZmYuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/Administration/CreateWard.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5pc3RyYXRpb25cQ3JlYXRlV2FyZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/Administration/DeleteAllergy.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5pc3RyYXRpb25cRGVsZXRlQWxsZXJneS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/Administration/DeleteBed.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5pc3RyYXRpb25cRGVsZXRlQmVkLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/Administration/DeleteMedicalCondition.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5pc3RyYXRpb25cRGVsZXRlTWVkaWNhbENvbmRpdGlvbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/Administration/DeleteMedication.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5pc3RyYXRpb25cRGVsZXRlTWVkaWNhdGlvbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/Administration/DeleteRoom.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5pc3RyYXRpb25cRGVsZXRlUm9vbS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/Administration/DeleteStaff.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5pc3RyYXRpb25cRGVsZXRlU3RhZmYuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/Administration/DeleteWard.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5pc3RyYXRpb25cRGVsZXRlV2FyZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/Administration/DetailsWard.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5pc3RyYXRpb25cRGV0YWlsc1dhcmQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/Administration/EditAllergy.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5pc3RyYXRpb25cRWRpdEFsbGVyZ3kuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/Administration/EditBed.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5pc3RyYXRpb25cRWRpdEJlZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/Administration/EditMedicalCondition.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5pc3RyYXRpb25cRWRpdE1lZGljYWxDb25kaXRpb24uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/Administration/EditMedication.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5pc3RyYXRpb25cRWRpdE1lZGljYXRpb24uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/Administration/EditRoom.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5pc3RyYXRpb25cRWRpdFJvb20uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/Administration/EditStaff.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5pc3RyYXRpb25cRWRpdFN0YWZmLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/Administration/EditWard.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5pc3RyYXRpb25cRWRpdFdhcmQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/Administration/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5pc3RyYXRpb25cSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/Administration/ManageAllergies.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5pc3RyYXRpb25cTWFuYWdlQWxsZXJnaWVzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/Administration/ManageBeds.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5pc3RyYXRpb25cTWFuYWdlQmVkcy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/Administration/ManageMedicalConditions.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5pc3RyYXRpb25cTWFuYWdlTWVkaWNhbENvbmRpdGlvbnMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/Administration/ManageMedications.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5pc3RyYXRpb25cTWFuYWdlTWVkaWNhdGlvbnMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/Administration/ManageRooms.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5pc3RyYXRpb25cTWFuYWdlUm9vbXMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/Administration/ManageStaff.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5pc3RyYXRpb25cTWFuYWdlU3RhZmYuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/Administration/ManageWards.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5pc3RyYXRpb25cTWFuYWdlV2FyZHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/Administration/Reports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5pc3RyYXRpb25cUmVwb3J0cy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/Administration/WardDashboard.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5pc3RyYXRpb25cV2FyZERhc2hib2FyZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/BedManagement/BedDetails.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmVkTWFuYWdlbWVudFxCZWREZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/BedManagement/CreateBed.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmVkTWFuYWdlbWVudFxDcmVhdGVCZWQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/BedManagement/DeleteBed.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmVkTWFuYWdlbWVudFxEZWxldGVCZWQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/BedManagement/EditBed.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmVkTWFuYWdlbWVudFxFZGl0QmVkLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/BedManagement/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmVkTWFuYWdlbWVudFxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/ConsumableScript/CheckStock.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29uc3VtYWJsZVNjcmlwdFxDaGVja1N0b2NrLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/ConsumableScript/CreateConsumableOrder.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29uc3VtYWJsZVNjcmlwdFxDcmVhdGVDb25zdW1hYmxlT3JkZXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/ConsumableScript/CreatePrescriptionOrder.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29uc3VtYWJsZVNjcmlwdFxDcmVhdGVQcmVzY3JpcHRpb25PcmRlci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/ConsumableScript/DeleteConsumableOrder.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29uc3VtYWJsZVNjcmlwdFxEZWxldGVDb25zdW1hYmxlT3JkZXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/ConsumableScript/DeletePrescriptionOrder.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29uc3VtYWJsZVNjcmlwdFxEZWxldGVQcmVzY3JpcHRpb25PcmRlci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/ConsumableScript/DetailsConsumableOrder.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29uc3VtYWJsZVNjcmlwdFxEZXRhaWxzQ29uc3VtYWJsZU9yZGVyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/ConsumableScript/EditConsumableOrder.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29uc3VtYWJsZVNjcmlwdFxFZGl0Q29uc3VtYWJsZU9yZGVyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/ConsumableScript/EditPrescriptionOrder.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29uc3VtYWJsZVNjcmlwdFxFZGl0UHJlc2NyaXB0aW9uT3JkZXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/ConsumableScript/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29uc3VtYWJsZVNjcmlwdFxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/ConsumableScript/ManageConsumableOrders.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29uc3VtYWJsZVNjcmlwdFxNYW5hZ2VDb25zdW1hYmxlT3JkZXJzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/ConsumableScript/ManagePrescriptionOrders.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29uc3VtYWJsZVNjcmlwdFxNYW5hZ2VQcmVzY3JpcHRpb25PcmRlcnMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/ConsumableScript/NewPrescriptions.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29uc3VtYWJsZVNjcmlwdFxOZXdQcmVzY3JpcHRpb25zLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/ConsumableScript/PrescribtionOrderDetails.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29uc3VtYWJsZVNjcmlwdFxQcmVzY3JpYnRpb25PcmRlckRldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/ConsumableScript/ProcessPrescription.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29uc3VtYWJsZVNjcmlwdFxQcm9jZXNzUHJlc2NyaXB0aW9uLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/ConsumableScript/StockTakeHistory.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29uc3VtYWJsZVNjcmlwdFxTdG9ja1Rha2VIaXN0b3J5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/ConsumableScript/UpdateStock.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29uc3VtYWJsZVNjcmlwdFxVcGRhdGVTdG9jay5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/ConsumableScript/WeeklyStockTake.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29uc3VtYWJsZVNjcmlwdFxXZWVrbHlTdG9ja1Rha2UuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/DoctorPatient/CreateInstruction.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRG9jdG9yUGF0aWVudFxDcmVhdGVJbnN0cnVjdGlvbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/DoctorPatient/CreatePrescription.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRG9jdG9yUGF0aWVudFxDcmVhdGVQcmVzY3JpcHRpb24uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/DoctorPatient/CreateVisit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRG9jdG9yUGF0aWVudFxDcmVhdGVWaXNpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/DoctorPatient/DeleteDoctorVisit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRG9jdG9yUGF0aWVudFxEZWxldGVEb2N0b3JWaXNpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/DoctorPatient/DeletePrescription.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRG9jdG9yUGF0aWVudFxEZWxldGVQcmVzY3JpcHRpb24uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/DoctorPatient/DoctorVisitDetails.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRG9jdG9yUGF0aWVudFxEb2N0b3JWaXNpdERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/DoctorPatient/EditDoctorVisit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRG9jdG9yUGF0aWVudFxFZGl0RG9jdG9yVmlzaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/DoctorPatient/EditPrescription.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRG9jdG9yUGF0aWVudFxFZGl0UHJlc2NyaXB0aW9uLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/DoctorPatient/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRG9jdG9yUGF0aWVudFxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/DoctorPatient/ManageDoctorVisits.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRG9jdG9yUGF0aWVudFxNYW5hZ2VEb2N0b3JWaXNpdHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/DoctorPatient/ManagePrescription.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRG9jdG9yUGF0aWVudFxNYW5hZ2VQcmVzY3JpcHRpb24uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/DoctorPatient/MyPatients.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRG9jdG9yUGF0aWVudFxNeVBhdGllbnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/DoctorPatient/PrescriptionDetails.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRG9jdG9yUGF0aWVudFxQcmVzY3JpcHRpb25EZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/DoctorPatient/ViewPatientFolder.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRG9jdG9yUGF0aWVudFxWaWV3UGF0aWVudEZvbGRlci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/Home/FAQs.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxGQVFzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/Home/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/Home/Privacy.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/PatientCare/CreateDoctorInstruction.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF0aWVudENhcmVcQ3JlYXRlRG9jdG9ySW5zdHJ1Y3Rpb24uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/PatientCare/CreateMedicationAdministration.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF0aWVudENhcmVcQ3JlYXRlTWVkaWNhdGlvbkFkbWluaXN0cmF0aW9uLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/PatientCare/CreateVitalSign.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF0aWVudENhcmVcQ3JlYXRlVml0YWxTaWduLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/PatientCare/DeleteDoctorInstruction.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF0aWVudENhcmVcRGVsZXRlRG9jdG9ySW5zdHJ1Y3Rpb24uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/PatientCare/DeleteMedicationAdministration.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF0aWVudENhcmVcRGVsZXRlTWVkaWNhdGlvbkFkbWluaXN0cmF0aW9uLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/PatientCare/DeleteVitalSigns.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF0aWVudENhcmVcRGVsZXRlVml0YWxTaWducy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/PatientCare/DoctorInstructionDetails.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF0aWVudENhcmVcRG9jdG9ySW5zdHJ1Y3Rpb25EZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/PatientCare/EditDoctorInstruction.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF0aWVudENhcmVcRWRpdERvY3Rvckluc3RydWN0aW9uLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/PatientCare/EditMedicationAdministration.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF0aWVudENhcmVcRWRpdE1lZGljYXRpb25BZG1pbmlzdHJhdGlvbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/PatientCare/EditVitalSign.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF0aWVudENhcmVcRWRpdFZpdGFsU2lnbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/PatientCare/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF0aWVudENhcmVcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/PatientCare/ManageDoctorInstructions.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF0aWVudENhcmVcTWFuYWdlRG9jdG9ySW5zdHJ1Y3Rpb25zLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/PatientCare/ManageMedicationAdministrations.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF0aWVudENhcmVcTWFuYWdlTWVkaWNhdGlvbkFkbWluaXN0cmF0aW9ucy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/PatientCare/ManageVitalSigns.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF0aWVudENhcmVcTWFuYWdlVml0YWxTaWducy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/PatientCare/MedicationAdministrationDetails.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF0aWVudENhcmVcTWVkaWNhdGlvbkFkbWluaXN0cmF0aW9uRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/PatientCare/ViewDoctorInstructions.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF0aWVudENhcmVcVmlld0RvY3Rvckluc3RydWN0aW9ucy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/PatientCare/VitalSignsDetails.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF0aWVudENhcmVcVml0YWxTaWduc0RldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/PatientManagement/Admit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF0aWVudE1hbmFnZW1lbnRcQWRtaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/PatientManagement/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF0aWVudE1hbmFnZW1lbnRcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/PatientManagement/CreateMedicalCondition.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF0aWVudE1hbmFnZW1lbnRcQ3JlYXRlTWVkaWNhbENvbmRpdGlvbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/PatientManagement/DeleteMedicalCondition.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF0aWVudE1hbmFnZW1lbnRcRGVsZXRlTWVkaWNhbENvbmRpdGlvbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/PatientManagement/DeletePatient.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF0aWVudE1hbmFnZW1lbnRcRGVsZXRlUGF0aWVudC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/PatientManagement/DetailsPatient.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF0aWVudE1hbmFnZW1lbnRcRGV0YWlsc1BhdGllbnQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/PatientManagement/Discharge.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF0aWVudE1hbmFnZW1lbnRcRGlzY2hhcmdlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/PatientManagement/EditMedicalCondition.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF0aWVudE1hbmFnZW1lbnRcRWRpdE1lZGljYWxDb25kaXRpb24uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/PatientManagement/EditPatient.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF0aWVudE1hbmFnZW1lbnRcRWRpdFBhdGllbnQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/PatientManagement/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF0aWVudE1hbmFnZW1lbnRcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/PatientManagement/ManageAllergies.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF0aWVudE1hbmFnZW1lbnRcTWFuYWdlQWxsZXJnaWVzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/PatientManagement/ManageConditions.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF0aWVudE1hbmFnZW1lbnRcTWFuYWdlQ29uZGl0aW9ucy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/PatientManagement/ManageMovements.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF0aWVudE1hbmFnZW1lbnRcTWFuYWdlTW92ZW1lbnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/PatientManagement/Movement.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF0aWVudE1hbmFnZW1lbnRcTW92ZW1lbnQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/PatientManagement/PatientFolder.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF0aWVudE1hbmFnZW1lbnRcUGF0aWVudEZvbGRlci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/PatientManagement/PrintPatientDetails.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF0aWVudE1hbmFnZW1lbnRcUHJpbnRQYXRpZW50RGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/RoomManagement/CreateRoom.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUm9vbU1hbmFnZW1lbnRcQ3JlYXRlUm9vbS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/RoomManagement/DeleteRoom.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUm9vbU1hbmFnZW1lbnRcRGVsZXRlUm9vbS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/RoomManagement/DetailsRoom.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUm9vbU1hbmFnZW1lbnRcRGV0YWlsc1Jvb20uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/RoomManagement/EditRoom.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUm9vbU1hbmFnZW1lbnRcRWRpdFJvb20uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/RoomManagement/ManageRooms.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUm9vbU1hbmFnZW1lbnRcTWFuYWdlUm9vbXMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/Shared/AdvancedSearch.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEFkdmFuY2VkU2VhcmNoLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/Shared/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/Shared/_FilterPanel.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9GaWx0ZXJQYW5lbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/Shared/_LoginPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Mb2dpblBhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/StaffManagement/CreateStaff.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3RhZmZNYW5hZ2VtZW50XENyZWF0ZVN0YWZmLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/StaffManagement/DeleteStaff.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3RhZmZNYW5hZ2VtZW50XERlbGV0ZVN0YWZmLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/StaffManagement/DetailsStaff.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3RhZmZNYW5hZ2VtZW50XERldGFpbHNTdGFmZi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/StaffManagement/EditStaff.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3RhZmZNYW5hZ2VtZW50XEVkaXRTdGFmZi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/StaffManagement/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3RhZmZNYW5hZ2VtZW50XEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/StaffManagement/ManageStaff.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3RhZmZNYW5hZ2VtZW50XE1hbmFnZVN0YWZmLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/StaffManagement/StaffDashboard.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3RhZmZNYW5hZ2VtZW50XFN0YWZmRGFzaGJvYXJkLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kamva/OneDrive - Nelson Mandela University/2025 STUDY MATERIAL/WardManagementSystem/WardManagementSystem/WardSystemProject/Views/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = b-djio2lw78w

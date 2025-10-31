@@ -1,0 +1,120 @@
+@model WardSystemProject.Models.Staff
+
+@{
+    ViewData["Title"] = "Edit Staff Member";
+}
+
+<div class="container-fluid">
+    <div class="row mb-4">
+        <div class="col-md-8">
+            <h2 class="text-primary">
+                <i class="bi bi-person-gear"></i> Edit Staff Member
+            </h2>
+            <p class="text-muted">Update staff member information</p>
+        </div>
+        <div class="col-md-4 text-end">
+            <a asp-action="ManageStaff" class="btn btn-outline-secondary">
+                <i class="bi bi-arrow-left"></i> Back to Staff List
+            </a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">
+                        <i class="bi bi-person-badge"></i> Staff Information
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <form asp-action="EditStaff" method="post">
+                        <input type="hidden" asp-for="Id" />
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="FirstName" class="form-label fw-bold">First Name</label>
+                                <input asp-for="FirstName" class="form-control" placeholder="Enter first name" />
+                                <span asp-validation-for="FirstName" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="LastName" class="form-label fw-bold">Last Name</label>
+                                <input asp-for="LastName" class="form-control" placeholder="Enter last name" />
+                                <span asp-validation-for="LastName" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="Role" class="form-label fw-bold">Role</label>
+                                <select asp-for="Role" class="form-select">
+                                    <option value="">Select a role</option>
+                                    <option value="Doctor">Doctor</option>
+                                    <option value="Nurse">Nurse</option>
+                                    <option value="Nursing Sister">Nursing Sister</option>
+                                    <option value="Ward Admin">Ward Admin</option>
+                                    <option value="Administrator">Administrator</option>
+                                </select>
+                                <span asp-validation-for="Role" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="Email" class="form-label fw-bold">Email Address</label>
+                                <input asp-for="Email" type="email" class="form-control" placeholder="Enter email address" />
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <div class="form-check">
+                                <input asp-for="IsActive" class="form-check-input" />
+                                <label asp-for="IsActive" class="form-check-label fw-bold">
+                                    Active Staff Member
+                                </label>
+                                <span asp-validation-for="IsActive" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <a asp-action="ManageStaff" class="btn btn-outline-secondary me-md-2">
+                                <i class="bi bi-x-circle"></i> Cancel
+                            </a>
+                            <button type="submit" class="btn btn-warning">
+                                <i class="bi bi-check-circle"></i> Update Staff Member
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow-sm">
+                <div class="card-header bg-info text-white">
+                    <h6 class="mb-0">
+                        <i class="bi bi-info-circle"></i> Help
+                    </h6>
+                </div>
+                <div class="card-body">
+                    <p class="small text-muted">
+                        <strong>Role Descriptions:</strong>
+                    </p>
+                    <ul class="small text-muted">
+                        <li><strong>Doctor:</strong> Medical professionals who diagnose and treat patients</li>
+                        <li><strong>Nurse:</strong> Healthcare professionals who provide patient care</li>
+                        <li><strong>Nursing Sister:</strong> Senior nursing staff with supervisory responsibilities</li>
+                        <li><strong>Ward Admin:</strong> Administrative staff managing ward operations</li>
+                        <li><strong>Administrator:</strong> System administrators with full access</li>
+                    </ul>
+                    <hr />
+                    <p class="small text-muted">
+                        <strong>Note:</strong> Deactivating a staff member will remove their access to the system.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+} 
