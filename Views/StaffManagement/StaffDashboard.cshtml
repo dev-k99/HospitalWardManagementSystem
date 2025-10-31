@@ -1,0 +1,334 @@
+@model WardSystemProject.Models.StaffDashboardViewModel
+@using System.Linq
+
+@{
+    ViewData["Title"] = "Staff Dashboard";
+}
+
+<div class="container-fluid">
+    <!-- Header -->
+    <div class="row mb-4">
+        <div class="col-md-8">
+            <h2 class="text-primary">
+                <i class="bi bi-people"></i> Staff Dashboard
+            </h2>
+            <p class="text-muted">Staff overview, schedules, and performance metrics</p>
+        </div>
+        <div class="col-md-4 text-end">
+            <a asp-controller="StaffManagement" asp-action="Index" class="btn btn-outline-secondary">
+                <i class="bi bi-arrow-left"></i> Back to Staff Management
+            </a>
+        </div>
+    </div>
+
+    <!-- Key Metrics Cards -->
+    <div class="row mb-4">
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-start-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col me-2">
+                            <div class="text-xs fw-bold text-primary text-uppercase mb-1">
+                                Total Staff
+                            </div>
+                            <div class="h5 mb-0 fw-bold text-gray-800">@Model.TotalStaff</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="bi bi-people fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-start-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col me-2">
+                            <div class="text-xs fw-bold text-success text-uppercase mb-1">
+                                Active Staff
+                            </div>
+                            <div class="h5 mb-0 fw-bold text-gray-800">@Model.ActiveStaff</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="bi bi-person-check fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-start-info shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col me-2">
+                            <div class="text-xs fw-bold text-info text-uppercase mb-1">
+                                On Duty Today
+                            </div>
+                            <div class="h5 mb-0 fw-bold text-gray-800">@Model.OnDutyStaff</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="bi bi-clock fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-start-warning shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col me-2">
+                            <div class="text-xs fw-bold text-warning text-uppercase mb-1">
+                                Patient Movements
+                            </div>
+                            <div class="h5 mb-0 fw-bold text-gray-800">@Model.TotalPatientMovements</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="bi bi-arrow-left-right fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Staff by Role Distribution -->
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="card shadow">
+                <div class="card-header bg-info text-white">
+                    <h6 class="mb-0">
+                        <i class="bi bi-pie-chart"></i> Staff by Role
+                    </h6>
+                </div>
+                <div class="card-body">
+                    @if (Model.StaffByRole != null && Model.StaffByRole.Any())
+                    {
+                        <div class="table-responsive">
+                            <table class="table table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Role</th>
+                                        <th>Count</th>
+                                        <th>Percentage</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var role in Model.StaffByRole)
+                                    {
+                                        var percentage = Model.TotalStaff > 0 ? (double)role.Count / Model.TotalStaff * 100 : 0;
+                                        <tr>
+                                            <td><strong>@role.Role</strong></td>
+                                            <td>@role.Count</td>
+                                            <td>
+                                                <div class="progress" style="height: 20px;">
+                                                    <div class="progress-bar bg-info" style="width: @(percentage)%">
+                                                        @($"{percentage:F1}%")
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                    else
+                    {
+                        <p class="text-muted text-center">No role data available</p>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card shadow">
+                <div class="card-header bg-success text-white">
+                    <h6 class="mb-0">
+                        <i class="bi bi-calendar-check"></i> Today's Schedule
+                    </h6>
+                </div>
+                <div class="card-body">
+                    @if (Model.TodaysSchedule != null && Model.TodaysSchedule.Any())
+                    {
+                        <div class="list-group list-group-flush">
+                            @foreach (var schedule in Model.TodaysSchedule.Take(6))
+                            {
+                                <div class="list-group-item d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <strong>@schedule.StaffName</strong>
+                                        <br>
+                                        <small class="text-muted">@schedule.Role - @schedule.Ward</small>
+                                    </div>
+                                    <div class="text-end">
+                                        <span class="badge bg-@(schedule.Shift == "Morning" ? "primary" : schedule.Shift == "Afternoon" ? "warning" : "dark")">
+                                            @schedule.Shift
+                                        </span>
+                                        <br>
+                                        <small class="text-muted">@schedule.StartTime - @schedule.EndTime</small>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <p class="text-muted text-center">No schedule data for today</p>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Staff Performance & Recent Activity -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">
+                        <i class="bi bi-graph-up"></i> Staff Performance Overview
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>Staff Member</th>
+                                    <th>Role</th>
+                                    <th>Ward</th>
+                                    <th>Patients Assigned</th>
+                                    <th>Tasks Completed</th>
+                                    <th>Performance Rating</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model.PerformanceMetrics != null && Model.PerformanceMetrics.Any())
+                                {
+                                    foreach (var performance in Model.PerformanceMetrics)
+                                    {
+                                        <tr>
+                                            <td>
+                                                <strong>@performance.StaffName</strong>
+                                                <br>
+                                                <small class="text-muted">@performance.Role</small>
+                                            </td>
+                                            <td>
+                                                <span class="badge bg-info">@performance.Role</span>
+                                            </td>
+                                            <td>@performance.Role</td>
+                                            <td>@performance.PatientsAttended</td>
+                                            <td>@performance.MedicationsAdministered</td>
+                                            <td>
+                                                @if (performance.SatisfactionRating >= 90)
+                                                {
+                                                    <span class="badge bg-success">@performance.SatisfactionRating%</span>
+                                                }
+                                                else if (performance.SatisfactionRating >= 75)
+                                                {
+                                                    <span class="badge bg-warning text-dark">@performance.SatisfactionRating%</span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="badge bg-danger">@performance.SatisfactionRating%</span>
+                                                }
+                                            </td>
+                                            <td>
+                                                <span class="badge bg-@(performance.PerformanceStatus.ToLower() == "good" ? "success" : performance.PerformanceStatus.ToLower() == "average" ? "warning" : "danger")">
+                                                    @performance.PerformanceStatus
+                                                </span>
+                                            </td>
+                                            <td>
+                                                                                                <a asp-controller="StaffManagement" asp-action="DetailsStaff" asp-route-id="@performance.StaffName"
+                                                   class="btn btn-sm btn-info" title="View Details">
+                                                    <i class="bi bi-eye"></i>
+                                                </a>
+                                                <a asp-controller="StaffManagement" asp-action="EditStaff" asp-route-id="@performance.StaffName"
+                                                   class="btn btn-sm btn-warning" title="Edit">
+                                                    <i class="bi bi-pencil"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="8" class="text-center text-muted">
+                                            <i class="bi bi-info-circle"></i> No performance data available
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card shadow">
+                <div class="card-header bg-secondary text-white">
+                    <h6 class="mb-0">
+                        <i class="bi bi-lightning"></i> Quick Actions
+                    </h6>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-3 mb-3">
+                            <a asp-controller="StaffManagement" asp-action="CreateStaff" class="btn btn-success w-100">
+                                <i class="bi bi-person-plus"></i> Add New Staff
+                            </a>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <a asp-controller="StaffManagement" asp-action="Index" class="btn btn-primary w-100">
+                                <i class="bi bi-list"></i> View All Staff
+                            </a>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <a asp-controller="StaffManagement" asp-action="ManageStaff" class="btn btn-info w-100">
+                                <i class="bi bi-gear"></i> Manage Staff
+                            </a>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <a href="#" class="btn btn-warning w-100" onclick="generateReport()">
+                                <i class="bi bi-file-earmark-text"></i> Generate Report
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Auto-refresh dashboard every 60 seconds
+        setInterval(function() {
+            location.reload();
+        }, 60000);
+
+        // Add interactivity
+        $(document).ready(function() {
+            // Highlight performance ratings
+            $('.badge.bg-danger').closest('tr').addClass('table-danger');
+            $('.badge.bg-warning').closest('tr').addClass('table-warning');
+            $('.badge.bg-success').closest('tr').addClass('table-success');
+        });
+
+        function generateReport() {
+            // Placeholder for report generation
+            alert('Report generation feature coming soon!');
+        }
+    </script>
+}

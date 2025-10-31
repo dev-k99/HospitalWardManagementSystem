@@ -1,0 +1,108 @@
+﻿@model IEnumerable<WardSystemProject.Models.Staff>
+
+@{
+    ViewData["Title"] = "Manage Staff";
+}
+
+<div class="container mt-4">
+    <div class="row mb-4">
+        <div class="col-md-8">
+            <h2 class="text-primary">Manage Staff</h2>
+        </div>
+        <div class="col-md-4 text-end">
+            <a asp-action="CreateStaff" class="btn btn-success">
+                <i class="bi bi-plus-circle"></i> Create New Staff
+            </a>
+        </div>
+    </div>
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-info">
+            <i class="bi bi-info-circle"></i> No staff members found. 
+            <a asp-action="CreateStaff" class="alert-link">Create the first staff member</a>
+        </div>
+    }
+    else
+    {
+        <div class="card">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>@Html.DisplayNameFor(model => model.Id)</th>
+                                <th>Name</th>
+                                <th>@Html.DisplayNameFor(model => model.Role)</th>
+                                <th>@Html.DisplayNameFor(model => model.Email)</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@Html.DisplayFor(modelItem => item.Id)</td>
+                                    <td>
+                                        <strong>@Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName)</strong>
+                                    </td>
+                                    <td>
+                                        @if (item.Role == "Doctor")
+                                        {
+                                            <span class="badge bg-primary">@item.Role</span>
+                                        }
+                                        else if (item.Role == "Nurse")
+                                        {
+                                            <span class="badge bg-success">@item.Role</span>
+                                        }
+                                        else if (item.Role == "Administrator")
+                                        {
+                                            <span class="badge bg-danger">@item.Role</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-secondary">@item.Role</span>
+                                        }
+                                    </td>
+                                    <td>@Html.DisplayFor(modelItem => item.Email)</td>
+                                    <td>
+                                        @if (item.IsActive)
+                                        {
+                                            <span class="badge bg-success">Active</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-secondary">Inactive</span>
+                                        }
+                                    </td>
+                                    <td>
+                                        <div class="btn-group" role="group">
+                                            <a asp-action="EditStaff" asp-route-id="@item.Id" 
+                                               class="btn btn-sm btn-primary" title="Edit">
+                                                <i class="bi bi-pencil"></i>
+                                            </a>
+                                            <a asp-action="DetailsStaff" asp-route-id="@item.Id" 
+                                               class="btn btn-sm btn-info" title="Details">
+                                                <i class="bi bi-info-circle"></i>
+                                            </a>
+                                            <form asp-action="SoftDeleteStaff" method="post" style="display:inline;">
+                                                @Html.AntiForgeryToken()
+                                                <input type="hidden" name="id" value="@item.Id" />
+                                                <button type="submit" class="btn btn-sm btn-danger" 
+                                                        onclick="return confirm('Are you sure you want to delete this staff member?');"
+                                                        title="Delete">
+                                                    <i class="bi bi-trash"></i>
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    }
+</div>

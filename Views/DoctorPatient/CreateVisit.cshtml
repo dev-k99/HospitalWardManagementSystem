@@ -1,0 +1,60 @@
+@model WardSystemProject.Models.DoctorVisit
+
+@{
+    ViewData["Title"] = "Create Doctor Visit";
+}
+
+<div class="container mt-4">
+
+
+    <h2 class="mb-4 text-primary">Create New Doctor Visit</h2>
+
+    <form asp-action="CreateVisit" method="post" class="needs-validation" novalidate>
+        @Html.AntiForgeryToken()
+        
+        <div class="form-group">
+            <label asp-for="PatientId" class="control-label text-dark fw-bold"></label>
+            @Html.DropDownListFor(model => model.PatientId, (SelectList)ViewBag.PatientId, "Select Patient", new { @class = "form-control custom-select", required = "required" })
+            <span asp-validation-for="PatientId" class="text-danger"></span>
+        </div>
+        
+        <div class="form-group">
+            <label asp-for="VisitType" class="control-label text-dark fw-bold"></label>
+            <select asp-for="VisitType" class="form-control" required>
+                <option value="">Select Visit Type</option>
+                <option value="Initial Consultation">Initial Consultation</option>
+                <option value="Follow-up">Follow-up</option>
+                <option value="Emergency">Emergency</option>
+                <option value="Routine Check">Routine Check</option>
+                <option value="Pre-discharge">Pre-discharge</option>
+                <option value="Post-discharge">Post-discharge</option>
+                <option value="Other">Other</option>
+            </select>
+            <span asp-validation-for="VisitType" class="text-danger"></span>
+        </div>
+        
+        <div class="form-group">
+            <label asp-for="Notes" class="control-label text-dark fw-bold"></label>
+            <textarea asp-for="Notes" class="form-control" rows="4" placeholder="Enter visit notes, observations, and recommendations..."></textarea>
+            <span asp-validation-for="Notes" class="text-danger"></span>
+        </div>
+        
+        <div class="form-group">
+            <label asp-for="NextVisitDate" class="control-label text-dark fw-bold"></label>
+            <input asp-for="NextVisitDate" class="form-control" type="datetime-local" placeholder="Schedule next visit if needed" />
+            <span asp-validation-for="NextVisitDate" class="text-danger"></span>
+            <small class="form-text text-muted">Optional - Leave blank if no follow-up is needed</small>
+        </div>
+
+        <div class="form-group">
+            <input type="submit" value="Record Visit" class="btn btn-success" />
+            <a asp-action="Index" class="btn btn-secondary ms-2">Back to Dashboard</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -1,0 +1,36 @@
+@model WardSystemProject.Models.VitalSign
+
+@{
+    ViewData["Title"] = "Delete Vital Sign";
+}
+
+<div class="container mt-4">
+    <h2 class="mb-4 text-danger">Delete Vital Sign</h2>
+    <h4 class="text-warning">Are you sure you want to soft delete this vital sign?</h4>
+
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Record #@Model.Id</h5>
+            <hr />
+            <dl class="row">
+                <dt class="col-sm-3 text-dark fw-bold">@Html.DisplayNameFor(model => model.Patient.FirstName)</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Patient.FirstName)</dd>
+                <dt class="col-sm-3 text-dark fw-bold">@Html.DisplayNameFor(model => model.Patient.LastName)</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Patient.LastName)</dd>
+                <dt class="col-sm-3 text-dark fw-bold">@Html.DisplayNameFor(model => model.Temperature)</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Temperature) °C</dd>
+                <dt class="col-sm-3 text-dark fw-bold">@Html.DisplayNameFor(model => model.Pulse)</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Pulse) bpm</dd>
+                <dt class="col-sm-3 text-dark fw-bold">@Html.DisplayNameFor(model => model.RecordDate)</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.RecordDate)</dd>
+            </dl>
+        </div>
+    </div>
+
+    <form asp-action="SoftDeleteVitalSign" method="post" class="mt-3">
+        @Html.AntiForgeryToken()
+        <input type="hidden" asp-for="Id" />
+        <button type="submit" class="btn btn-danger">Soft Delete</button>
+        <a asp-action="ManageVitalSigns" class="btn btn-secondary ms-2">Cancel</a>
+    </form>
+</div>

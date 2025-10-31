@@ -1,0 +1,37 @@
+@model WardSystemProject.Models.Prescription
+
+@{
+    ViewData["Title"] = "Prescription Details";
+}
+
+<div class="container mt-4">
+    <h2 class="mb-4 text-primary">Prescription Details</h2>
+
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Prescription #@Model.Id</h5>
+            <hr />
+            <dl class="row">
+                <dt class="col-sm-3 text-dark fw-bold">@Html.DisplayNameFor(model => model.Patient.FirstName)</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Patient.FirstName)</dd>
+                <dt class="col-sm-3 text-dark fw-bold">@Html.DisplayNameFor(model => model.Patient.LastName)</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Patient.LastName)</dd>
+                <dt class="col-sm-3 text-dark fw-bold">@Html.DisplayNameFor(model => model.Doctor.FirstName)</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Doctor.FirstName)</dd>
+                <dt class="col-sm-3 text-dark fw-bold">@Html.DisplayNameFor(model => model.Doctor.LastName)</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Doctor.LastName)</dd>
+                <dt class="col-sm-3 text-dark fw-bold">@Html.DisplayNameFor(model => model.Medication.Name)</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Medication.Name)</dd>
+                <dt class="col-sm-3 text-dark fw-bold">@Html.DisplayNameFor(model => model.DosageInstructions)</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.DosageInstructions)</dd>
+                <dt class="col-sm-3 text-dark fw-bold">@Html.DisplayNameFor(model => model.PrescriptionDate)</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.PrescriptionDate)</dd>
+            </dl>
+        </div>
+    </div>
+
+    <div class="mt-3">
+        <a asp-action="EditPrescription" asp-route-id="@Model.Id" class="btn btn-primary">Edit</a>
+        <a asp-action="ManagePrescriptions" class="btn btn-secondary ms-2">Back to List</a>
+    </div>
+</div>

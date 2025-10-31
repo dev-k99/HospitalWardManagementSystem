@@ -1,0 +1,171 @@
+@model WardSystemProject.Models.PrescriptionOrder
+
+@{
+    ViewData["Title"] = "Process Prescription";
+    var prescription = ViewBag.Prescription as Prescription;
+}
+
+<div class="container-fluid">
+    <div class="row mb-4">
+        <div class="col-md-8">
+            <h2 class="text-success">
+                <i class="bi bi-clipboard-check"></i> Process Prescription
+            </h2>
+            <p class="text-muted">Forward prescription to pharmacy and track delivery</p>
+        </div>
+        <div class="col-md-4 text-end">
+            <a asp-action="NewPrescriptions" class="btn btn-outline-secondary">
+                <i class="bi bi-arrow-left"></i> Back to New Prescriptions
+            </a>
+        </div>
+    </div>
+
+    <!-- Prescription Details -->
+    <div class="row mb-4">
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">
+                        <i class="bi bi-clipboard"></i> Prescription Details
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <dl class="row">
+                        <dt class="col-sm-4">Patient</dt>
+                        <dd class="col-sm-8">
+                            <strong>@prescription?.Patient?.FullName</strong>
+                            <br />
+                            <small class="text-muted">@prescription?.Patient?.Ward?.Name - Bed @prescription?.Patient?.Bed?.BedNumber</small>
+                        </dd>
+
+                        <dt class="col-sm-4">Doctor</dt>
+                        <dd class="col-sm-8">
+                            <span class="badge bg-info">@prescription?.Doctor?.FullName</span>
+                        </dd>
+
+                        <dt class="col-sm-4">Medication</dt>
+                        <dd class="col-sm-8">
+                            <strong>@prescription?.Medication?.Name</strong>
+                            <br />
+                            <small class="text-muted">@prescription?.Medication?.Description</small>
+                        </dd>
+
+                        <dt class="col-sm-4">Dosage Instructions</dt>
+                        <dd class="col-sm-8">@prescription?.DosageInstructions</dd>
+
+                        <dt class="col-sm-4">Prescription Date</dt>
+                        <dd class="col-sm-8">@prescription?.PrescriptionDate.ToString("dd/MM/yyyy HH:mm")</dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow-sm">
+                <div class="card-header bg-warning text-dark">
+                    <h6 class="mb-0">
+                        <i class="bi bi-info-circle"></i> Processing Guidelines
+                    </h6>
+                </div>
+                <div class="card-body">
+                    <ul class="list-unstyled small">
+                        <li><i class="bi bi-check-circle text-success"></i> Verify prescription details</li>
+                        <li><i class="bi bi-check-circle text-success"></i> Check patient allergies</li>
+                        <li><i class="bi bi-check-circle text-success"></i> Forward to pharmacy</li>
+                        <li><i class="bi bi-check-circle text-success"></i> Track delivery status</li>
+                        <li><i class="bi bi-check-circle text-success"></i> Update when received</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card shadow-sm mt-3">
+                <div class="card-header bg-info text-white">
+                    <h6 class="mb-0">
+                        <i class="bi bi-exclamation-triangle"></i> Important Notes
+                    </h6>
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-warning small">
+                        <strong>Priority:</strong> 
+                        @if (prescription?.Medication?.Schedule >= 5)
+                        {
+                            <span class="badge bg-danger">High Priority</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-success">Standard Priority</span>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Process Form -->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card shadow-sm">
+                <div class="card-header bg-success text-white">
+                    <h5 class="mb-0">
+                        <i class="bi bi-send"></i> Forward to Pharmacy
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <form asp-action="ProcessPrescription" method="post">
+                        <input type="hidden" asp-for="PrescriptionId" value="@prescription?.Id" />
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">
+                                        <i class="bi bi-check-circle"></i> Sent to Pharmacy
+                                    </label>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" asp-for="SentToPharmacy" id="sentToPharmacy" required>
+                                        <label class="form-check-label" for="sentToPharmacy">
+                                            Confirm prescription has been forwarded to pharmacy
+                                        </label>
+                                    </div>
+                                    <span asp-validation-for="SentToPharmacy" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">
+                                        <i class="bi bi-clipboard-text"></i> Processing Notes
+                                    </label>
+                                    <textarea class="form-control" rows="3" 
+                                              placeholder="Enter any special instructions, delivery notes, or processing comments..."></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <a asp-action="NewPrescriptions" class="btn btn-outline-secondary me-md-2">
+                                <i class="bi bi-x-circle"></i> Cancel
+                            </a>
+                            <button type="submit" class="btn btn-success">
+                                <i class="bi bi-send"></i> Process & Forward to Pharmacy
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    
+    <script>
+        // Form validation
+        document.querySelector('form').addEventListener('submit', function(e) {
+            const sentToPharmacy = document.getElementById('sentToPharmacy');
+            if (!sentToPharmacy.checked) {
+                e.preventDefault();
+                alert('Please confirm that the prescription has been sent to pharmacy before processing.');
+            }
+        });
+    </script>
+}

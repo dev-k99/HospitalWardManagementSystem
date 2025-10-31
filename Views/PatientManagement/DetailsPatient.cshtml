@@ -1,0 +1,223 @@
+﻿@model WardSystemProject.Models.Patient
+
+@{
+    ViewData["Title"] = "Patient Details";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                    <h4 class="mb-0">@ViewData["Title"]</h4>
+                    <div>
+                        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-light btn-sm">Edit</a>
+                        <form asp-action="Discharge" method="post" class="d-inline">
+                            <input type="hidden" name="id" value="@Model.Id" />
+                            <button type="submit" class="btn btn-warning btn-sm">Discharge</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <h5>Basic Information</h5>
+                            <dl class="row">
+                                <dt class="col-sm-4">Name:</dt>
+                                <dd class="col-sm-8">@Model.FirstName @Model.LastName</dd>
+
+                                <dt class="col-sm-4">Date of Birth:</dt>
+                                <dd class="col-sm-8">@Model.DateOfBirth.ToString("dd/MM/yyyy")</dd>
+
+                                <dt class="col-sm-4">Age:</dt>
+                                <dd class="col-sm-8">@(DateTime.Now.Year - Model.DateOfBirth.Year)</dd>
+
+                                <dt class="col-sm-4">Ward:</dt>
+                                <dd class="col-sm-8">@(Model.Ward?.Name ?? "Not assigned")</dd>
+
+                                <dt class="col-sm-4">Bed:</dt>
+                                <dd class="col-sm-8">@(Model.Bed?.BedNumber ?? "Not assigned")</dd>
+                            </dl>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-flex justify-content-between mb-2">
+                                <h5>Allergies</h5>
+                                <a asp-action="CreateAllergy" asp-route-patientId="@Model.Id" class="btn btn-sm btn-success">Add Allergy</a>
+                            </div>
+                            @if (Model.PatientAllergies != null && Model.PatientAllergies.Any())
+                            {
+                                <ul class="list-group">
+                                    @foreach (var allergy in Model.PatientAllergies.Where(a => a.IsActive))
+                                    {
+                                        <li class="list-group-item">@allergy.AllergyName</li>
+                                    }
+                                </ul>
+                            }
+                            else
+                            {
+                                <p class="text-muted">No allergies recorded</p>
+                            }
+
+                            <div class="d-flex justify-content-between mb-2 mt-3">
+                                <h5>Medical Conditions</h5>
+                                <a asp-action="CreateCondition" asp-route-patientId="@Model.Id" class="btn btn-sm btn-success">Add Condition</a>
+                            </div>
+                            @if (Model.MedicalConditions != null && Model.MedicalConditions.Any())
+                            {
+                                <ul class="list-group">
+                                    @foreach (var condition in Model.MedicalConditions.Where(m => m.IsActive))
+                                    {
+                                        <li class="list-group-item">@condition.ConditionName</li>
+                                    }
+                                </ul>
+                            }
+                            else
+                            {
+                                <p class="text-muted">No medical conditions recorded</p>
+                            }
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <ul class="nav nav-tabs" id="patientTabs" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link active" id="vitals-tab" data-bs-toggle="tab" data-bs-target="#vitals" type="button" role="tab">Vital Signs</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="medications-tab" data-bs-toggle="tab" data-bs-target="#medications" type="button" role="tab">Medications</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="visits-tab" data-bs-toggle="tab" data-bs-target="#visits" type="button" role="tab">Doctor Visits</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="movements-tab" data-bs-toggle="tab" data-bs-target="#movements" type="button" role="tab">Ward Movements</button>
+                                </li>
+                            </ul>
+
+                            <div class="tab-content p-3 border border-top-0" id="patientTabsContent">
+                                <div class="tab-pane fade show active" id="vitals" role="tabpanel">
+                                    @if (Model.VitalSigns != null && Model.VitalSigns.Any())
+                                    {
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>Date</th>
+                                                    <th>Temperature (°C)</th>
+                                                    <th>Pulse (bpm)</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var vital in Model.VitalSigns.OrderByDescending(v => v.RecordDate))
+                                                {
+                                                    <tr>
+                                                        <td>@vital.RecordDate.ToString("g")</td>
+                                                        <td>@vital.Temperature</td>
+                                                        <td>@vital.Pulse</td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    }
+                                    else
+                                    {
+                                        <p class="text-muted">No vital signs recorded</p>
+                                    }
+                                </div>
+
+                                <div class="tab-pane fade" id="medications" role="tabpanel">
+                                    @if (Model.MedicationAdministrations != null && Model.MedicationAdministrations.Any())
+                                    {
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>Date</th>
+                                                    <th>Medication</th>
+                                                    <th>Dosage</th>
+                                                    <th>Administered By</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var med in Model.MedicationAdministrations.OrderByDescending(m => m.AdministrationDate))
+                                                {
+                                                    <tr>
+                                                        <td>@med.AdministrationDate.ToString("g")</td>
+                                                        <td>@med.Medication?.Name</td>
+                                                        <td>@med.Dosage</td>
+                                                        <td>@med.AdministeringStaff?.FirstName</td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    }
+                                    else
+                                    {
+                                        <p class="text-muted">No medication administrations recorded</p>
+                                    }
+                                </div>
+
+                                <div class="tab-pane fade" id="visits" role="tabpanel">
+                                    @if (Model.DoctorVisits != null && Model.DoctorVisits.Any())
+                                    {
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>Date</th>
+                                                    <th>Doctor</th>
+                                                    <th>Notes</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var visit in Model.DoctorVisits.OrderByDescending(v => v.VisitDate))
+                                                {
+                                                    <tr>
+                                                        <td>@visit.VisitDate.ToString("g")</td>
+                                                        <td>@visit.Doctor?.FirstName @visit.Doctor?.LastName</td>
+                                                        <td>@visit.Notes</td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    }
+                                    else
+                                    {
+                                        <p class="text-muted">No doctor visits recorded</p>
+                                    }
+                                </div>
+
+                                <div class="tab-pane fade" id="movements" role="tabpanel">
+                                    @if (Model.PatientMovements != null && Model.PatientMovements.Any())
+                                    {
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>Date</th>
+                                                    <th>From Ward</th>
+                                                    <th>To Ward</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var movement in Model.PatientMovements.OrderByDescending(m => m.MovementDate))
+                                                {
+                                                    <tr>
+                                                        <td>@movement.MovementDate.ToString("g")</td>
+                                                        <td>@movement.FromWard?.Name</td>
+                                                        <td>@movement.ToWard?.Name</td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    }
+                                    else
+                                    {
+                                        <p class="text-muted">No ward movements recorded</p>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,114 @@
+﻿@model WardSystemProject.Models.Staff
+
+@{
+    ViewData["Title"] = "Create Staff";
+}
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title text-primary mb-0">
+                        <i class="bi bi-person-plus"></i> Create New Staff Member
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <form asp-action="CreateStaff" method="post" class="needs-validation" novalidate>
+                        @Html.AntiForgeryToken()
+                        
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label asp-for="FirstName" class="form-label fw-bold">
+                                        <i class="bi bi-person"></i> First Name
+                                    </label>
+                                    <input asp-for="FirstName" class="form-control" 
+                                           placeholder="Enter first name" required />
+                                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                                    <div class="form-text">
+                                        Enter the staff member's first name (max 50 characters)
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label asp-for="LastName" class="form-label fw-bold">
+                                        <i class="bi bi-person"></i> Last Name
+                                    </label>
+                                    <input asp-for="LastName" class="form-control" 
+                                           placeholder="Enter last name" required />
+                                    <span asp-validation-for="LastName" class="text-danger"></span>
+                                    <div class="form-text">
+                                        Enter the staff member's last name (max 50 characters)
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label asp-for="Role" class="form-label fw-bold">
+                                <i class="bi bi-person-badge"></i> Role
+                            </label>
+                            <select asp-for="Role" class="form-select" required>
+                                <option value="">Select a role</option>
+                                <option value="Doctor">Doctor</option>
+                                <option value="Nurse">Nurse</option>
+                                <option value="Administrator">Administrator</option>
+                                <option value="Ward Admin">Ward Admin</option>
+                                <option value="Nursing Sister">Nursing Sister</option>
+                                <option value="Script Manager">Script Manager</option>
+                                <option value="Consumables Manager">Consumables Manager</option>
+                            </select>
+                            <span asp-validation-for="Role" class="text-danger"></span>
+                            <div class="form-text">
+                                Choose the staff member's role in the system
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label asp-for="Email" class="form-label fw-bold">
+                                <i class="bi bi-envelope"></i> Email
+                            </label>
+                            <input asp-for="Email" type="email" class="form-control" 
+                                   placeholder="Enter email address" required />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                            <div class="form-text">
+                                Enter a valid email address for the staff member (max 100 characters)
+                            </div>
+                        </div>
+                        
+                        <div class="mt-4">
+                            <button type="submit" class="btn btn-success">
+                                <i class="bi bi-check-circle"></i> Create Staff Member
+                            </button>
+                            <a asp-action="Index" class="btn btn-secondary ms-2">
+                                <i class="bi bi-arrow-left"></i> Back to List
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        // Custom validation
+        $(document).ready(function() {
+            $('form').on('submit', function() {
+                if (!$(this)[0].checkValidity()) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+                $(this).addClass('was-validated');
+            });
+        });
+    </script>
+}

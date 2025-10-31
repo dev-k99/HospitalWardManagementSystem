@@ -1,0 +1,317 @@
+@model WardSystemProject.Models.StockTake
+
+@{
+    ViewData["Title"] = "Weekly Stock Take";
+}
+
+<div class="container-fluid">
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1 class="h3 mb-0 text-gray-800">
+                <i class="bi bi-clipboard-data text-primary me-2"></i>Weekly Stock Take
+            </h1>
+            <p class="text-muted">Perform comprehensive inventory count for all consumables</p>
+        </div>
+        <div>
+            <a asp-action="Index" class="btn btn-outline-secondary">
+                <i class="bi bi-arrow-left me-2"></i>Back to Dashboard
+            </a>
+        </div>
+    </div>
+
+    <!-- Stock Take Form -->
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">
+                        <i class="bi bi-clipboard-check me-2"></i>Stock Take Form
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <form asp-action="WeeklyStockTake" method="post">
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label asp-for="StockTakeDate" class="form-label fw-bold">Stock Take Date *</label>
+                                <input asp-for="StockTakeDate" type="datetime-local" class="form-control" value="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")" />
+                                <span asp-validation-for="StockTakeDate" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">Stock Manager</label>
+                                <input type="text" class="form-control" value="@User.Identity?.Name" readonly />
+                                <small class="text-muted">Current user performing the stock take</small>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Notes" class="form-label fw-bold">Stock Take Notes</label>
+                            <textarea asp-for="Notes" class="form-control" rows="3" 
+                                      placeholder="Enter any observations, discrepancies, or special notes about this stock take..."></textarea>
+                            <span asp-validation-for="Notes" class="text-danger"></span>
+                        </div>
+
+                        <div class="d-flex justify-content-between">
+                            <a asp-action="Index" class="btn btn-secondary">
+                                <i class="bi bi-arrow-left me-2"></i>Cancel
+                            </a>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-check-circle me-2"></i>Complete Stock Take
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <!-- Stock Take Guidelines -->
+            <div class="card shadow mb-4">
+                <div class="card-header bg-info text-white">
+                    <h6 class="mb-0">
+                        <i class="bi bi-info-circle me-2"></i>Stock Take Guidelines
+                    </h6>
+                </div>
+                <div class="card-body">
+                    <ul class="list-unstyled mb-0">
+                        <li class="mb-2">
+                            <i class="bi bi-check-circle text-success me-2"></i>Count all items physically present
+                        </li>
+                        <li class="mb-2">
+                            <i class="bi bi-check-circle text-success me-2"></i>Check expiry dates and condition
+                        </li>
+                        <li class="mb-2">
+                            <i class="bi bi-check-circle text-success me-2"></i>Note any damaged or expired items
+                        </li>
+                        <li class="mb-2">
+                            <i class="bi bi-check-circle text-success me-2"></i>Verify against system records
+                        </li>
+                        <li class="mb-2">
+                            <i class="bi bi-check-circle text-success me-2"></i>Document any discrepancies
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="card shadow">
+                <div class="card-header bg-success text-white">
+                    <h6 class="mb-0">
+                        <i class="bi bi-lightning me-2"></i>Quick Actions
+                    </h6>
+                </div>
+                <div class="card-body">
+                    <div class="d-grid gap-2">
+                        <a asp-action="CheckStock" class="btn btn-outline-success">
+                            <i class="bi bi-search me-2"></i>Check Current Stock
+                        </a>
+                        <a asp-action="UpdateStock" class="btn btn-outline-warning">
+                            <i class="bi bi-pencil-square me-2"></i>Update Stock Levels
+                        </a>
+                        <a asp-action="StockTakeHistory" class="btn btn-outline-info">
+                            <i class="bi bi-clock-history me-2"></i>View History
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Consumables Inventory Table -->
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="card shadow">
+                <div class="card-header bg-secondary text-white">
+                    <h5 class="mb-0">
+                        <i class="bi bi-boxes me-2"></i>Current Consumables Inventory
+                    </h5>
+                </div>
+                <div class="card-body">
+                    @if (ViewBag.Consumables != null && ((IEnumerable<dynamic>)ViewBag.Consumables).Any())
+                    {
+                        <div class="table-responsive">
+                            <table class="table table-striped table-hover" id="consumablesTable">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th>
+                                            <a href="#" class="text-white text-decoration-none" onclick="sortTable(0)">
+                                                Ward <i class="bi bi-arrow-down-up"></i>
+                                            </a>
+                                        </th>
+                                        <th>
+                                            <a href="#" class="text-white text-decoration-none" onclick="sortTable(1)">
+                                                Consumable <i class="bi bi-arrow-down-up"></i>
+                                            </a>
+                                        </th>
+                                        <th>
+                                            <a href="#" class="text-white text-decoration-none" onclick="sortTable(2)">
+                                                Current Stock <i class="bi bi-arrow-down-up"></i>
+                                            </a>
+                                        </th>
+                                        <th>
+                                            <a href="#" class="text-white text-decoration-none" onclick="sortTable(3)">
+                                                Unit <i class="bi bi-arrow-down-up"></i>
+                                            </a>
+                                        </th>
+                                        <th>
+                                            <a href="#" class="text-white text-decoration-none" onclick="sortTable(4)">
+                                                Reorder Level <i class="bi bi-arrow-down-up"></i>
+                                            </a>
+                                        </th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var consumable in ViewBag.Consumables)
+                                    {
+                                        <tr>
+                                            <td>
+                                                <span class="badge bg-primary">@consumable.Ward?.Name</span>
+                                            </td>
+                                            <td>
+                                                <strong>@consumable.Name</strong>
+                                                @if (!string.IsNullOrEmpty(consumable.Description))
+                                                {
+                                                    <br><small class="text-muted">@consumable.Description</small>
+                                                }
+                                            </td>
+                                            <td>
+                                                <span class="fw-bold @(consumable.CurrentStock <= consumable.ReorderLevel ? "text-danger" : "text-success")">
+                                                    @consumable.CurrentStock
+                                                </span>
+                                            </td>
+                                            <td>@consumable.Unit</td>
+                                            <td>@consumable.ReorderLevel</td>
+                                            <td>
+                                                @if (consumable.CurrentStock <= 0)
+                                                {
+                                                    <span class="badge bg-danger">Out of Stock</span>
+                                                }
+                                                else if (consumable.CurrentStock <= consumable.ReorderLevel)
+                                                {
+                                                    <span class="badge bg-warning">Low Stock</span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="badge bg-success">In Stock</span>
+                                                }
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Search and Filter -->
+                        <div class="row mt-3">
+                            <div class="col-md-6">
+                                <div class="input-group">
+                                    <span class="input-group-text">
+                                        <i class="bi bi-search"></i>
+                                    </span>
+                                    <input type="text" class="form-control" id="searchInput" placeholder="Search consumables...">
+                                </div>
+                            </div>
+                            <div class="col-md-6 text-end">
+                                <button class="btn btn-outline-secondary" onclick="exportToCSV()">
+                                    <i class="bi bi-download me-2"></i>Export to CSV
+                                </button>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="text-center py-5">
+                            <i class="bi bi-boxes fa-3x text-muted mb-3"></i>
+                            <h5 class="text-muted">No consumables found</h5>
+                            <p class="text-muted">Please check your consumables configuration</p>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Table sorting functionality
+        function sortTable(columnIndex) {
+            const table = document.getElementById('consumablesTable');
+            const tbody = table.querySelector('tbody');
+            const rows = Array.from(tbody.querySelectorAll('tr'));
+            
+            rows.sort((a, b) => {
+                const aValue = a.cells[columnIndex].textContent.trim();
+                const bValue = b.cells[columnIndex].textContent.trim();
+                
+                // Try to parse as number first
+                const aNum = parseFloat(aValue);
+                const bNum = parseFloat(bValue);
+                
+                if (!isNaN(aNum) && !isNaN(bNum)) {
+                    return aNum - bNum;
+                }
+                
+                // Otherwise sort as string
+                return aValue.localeCompare(bValue);
+            });
+            
+            // Re-append sorted rows
+            rows.forEach(row => tbody.appendChild(row));
+        }
+
+        // Search functionality
+        document.getElementById('searchInput').addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            const rows = document.querySelectorAll('#consumablesTable tbody tr');
+            
+            rows.forEach(row => {
+                const text = row.textContent.toLowerCase();
+                if (text.includes(searchTerm)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        });
+
+        // Export to CSV functionality
+        function exportToCSV() {
+            const table = document.getElementById('consumablesTable');
+            const rows = Array.from(table.querySelectorAll('tr'));
+            
+            let csv = [];
+            
+            rows.forEach(row => {
+                const rowData = [];
+                const cells = row.querySelectorAll('td, th');
+                
+                cells.forEach(cell => {
+                    // Remove HTML tags and get clean text
+                    const text = cell.textContent.replace(/\s+/g, ' ').trim();
+                    rowData.push(`"${text}"`);
+                });
+                
+                csv.push(rowData.join(','));
+            });
+            
+            const csvContent = csv.join('\n');
+            const blob = new Blob([csvContent], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'weekly_stock_take.csv';
+            a.click();
+            window.URL.revokeObjectURL(url);
+        }
+
+        // Auto-refresh stock levels every 30 seconds
+        setInterval(function() {
+            // This could be enhanced to make an AJAX call to refresh stock data
+            console.log('Stock levels updated');
+        }, 30000);
+    </script>
+}

@@ -1,0 +1,44 @@
+@model WardSystemProject.Models.DoctorVisit
+
+@{
+    ViewData["Title"] = "Edit Doctor Visit";
+}
+
+<div class="container mt-4">
+    <h2 class="mb-4 text-primary">Edit Doctor Visit</h2>
+
+    <form asp-action="EditDoctorVisit" method="post" class="needs-validation" novalidate>
+        @Html.AntiForgeryToken()
+        <input type="hidden" asp-for="Id" />
+        <div class="form-group">
+            <label asp-for="PatientId" class="control-label text-dark fw-bold"></label>
+            @Html.DropDownListFor(model => model.PatientId, (SelectList)ViewBag.PatientId, "Select Patient", new { @class = "form-control custom-select", required = "required" })
+            <span asp-validation-for="PatientId" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="DoctorId" class="control-label text-dark fw-bold"></label>
+            @Html.DropDownListFor(model => model.DoctorId, (SelectList)ViewBag.DoctorId, "Select Doctor", new { @class = "form-control custom-select", required = "required" })
+            <span asp-validation-for="DoctorId" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="VisitDate" class="control-label text-dark fw-bold"></label>
+            <input asp-for="VisitDate" class="form-control" type="datetime-local" required />
+            <span asp-validation-for="VisitDate" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Notes" class="control-label text-dark fw-bold"></label>
+            <textarea asp-for="Notes" class="form-control" rows="3"></textarea>
+            <span asp-validation-for="Notes" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Save" class="btn btn-primary" />
+            <a asp-action="ManageDoctorVisits" class="btn btn-secondary ms-2">Back to List</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
