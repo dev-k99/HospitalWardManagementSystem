@@ -1,0 +1,227 @@
+﻿@model WardSystemProject.Models.DashboardViewModel
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2 class="mb-0">
+                    <i class="bi bi-speedometer2"></i> Dashboard
+                </h2>
+                <div class="text-muted">
+                    <i class="bi bi-person-circle"></i> Welcome, <strong>@User.Identity.Name</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @if (User.IsInRole("Administrator"))
+    {
+        <!-- Administrator Dashboard -->
+        <div class="row">
+            <div class="col-12">
+                <div class="alert alert-info">
+                    <h5><i class="bi bi-shield-check"></i> Administrator Overview</h5>
+                    <p class="mb-0">Manage the entire hospital system including wards, staff, medications, and patient records.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3 mb-4">
+                <div class="card bg-primary text-white stat-card">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <h4 class="mb-0">@Model.TotalWards</h4>
+                                <p class="mb-0">Total Wards</p>
+                            </div>
+                            <div class="align-self-center">
+                                <i class="bi bi-building" style="font-size: 2rem;"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-4">
+                <div class="card bg-success text-white stat-card">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <h4 class="mb-0">@Model.TotalRooms</h4>
+                                <p class="mb-0">Total Rooms</p>
+                            </div>
+                            <div class="align-self-center">
+                                <i class="bi bi-door-open" style="font-size: 2rem;"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-4">
+                <div class="card bg-info text-white stat-card">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <h4 class="mb-0">@Model.TotalBeds</h4>
+                                <p class="mb-0">Total Beds</p>
+                            </div>
+                            <div class="align-self-center">
+                                <i class="bi bi-bed" style="font-size: 2rem;"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-4">
+                <div class="card bg-warning text-dark stat-card">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <h4 class="mb-0">@Model.TotalStaff</h4>
+                                <p class="mb-0">Total Staff</p>
+                            </div>
+                            <div class="align-self-center">
+                                <i class="bi bi-people" style="font-size: 2rem;"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="card dashboard-card">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0"><i class="bi bi-capsule"></i> Medication Management</h5>
+                    </div>
+                    <div class="card-body">
+                        <p><strong>Total Medications:</strong> @Model.TotalMedications</p>
+                        <a asp-controller="Administration" asp-action="ManageMedications" class="btn btn-primary">
+                            <i class="bi bi-gear"></i> Manage Medications
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card dashboard-card">
+                    <div class="card-header bg-warning text-dark">
+                        <h5 class="mb-0"><i class="bi bi-exclamation-triangle"></i> Allergy Management</h5>
+                    </div>
+                    <div class="card-body">
+                        <p><strong>Total Allergies:</strong> @Model.TotalAllergies</p>
+                        <a asp-controller="Administration" asp-action="ManageAllergies" class="btn btn-warning">
+                            <i class="bi bi-gear"></i> Manage Allergies
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card dashboard-card">
+                    <div class="card-header bg-info text-white">
+                        <h5 class="mb-0"><i class="bi bi-heart-pulse"></i> Medical Conditions</h5>
+                    </div>
+                    <div class="card-body">
+                        <p><strong>Total Conditions:</strong> @Model.TotalMedicalConditions</p>
+                        <a asp-controller="Administration" asp-action="ManageMedicalConditions" class="btn btn-info">
+                            <i class="bi bi-gear"></i> Manage Conditions
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    else if (User.IsInRole("Ward Admin"))
+    {
+        <!-- Ward Admin Dashboard -->
+        <div class="row">
+            <div class="col-12">
+                <div class="alert alert-success">
+                    <h5><i class="bi bi-person-badge"></i> Ward Administrator Overview</h5>
+                    <p class="mb-0">Manage patient admissions, discharges, and ward operations.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="card bg-primary text-white stat-card">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <h4 class="mb-0">@Model.TotalPatients</h4>
+                                <p class="mb-0">Total Patients</p>
+                            </div>
+                            <div class="align-self-center">
+                                <i class="bi bi-people" style="font-size: 2rem;"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card bg-success text-white stat-card">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <h4 class="mb-0">@Model.ActivePatients</h4>
+                                <p class="mb-0">Active Patients</p>
+                            </div>
+                            <div class="align-self-center">
+                                <i class="bi bi-person-check" style="font-size: 2rem;"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card bg-info text-white stat-card">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <h4 class="mb-0">@Model.TotalPatientMovements</h4>
+                                <p class="mb-0">Patient Movements</p>
+                            </div>
+                            <div class="align-self-center">
+                                <i class="bi bi-arrow-left-right" style="font-size: 2rem;"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 mb-4">
+                <div class="card dashboard-card">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0"><i class="bi bi-person-plus"></i> Patient Management</h5>
+                    </div>
+                    <div class="card-body">
+                        <a asp-controller="PatientManagement" asp-action="Index" class="btn btn-primary me-2">
+                            <i class="bi bi-list"></i> View Patients
+                        </a>
+                        <a asp-controller="PatientManagement" asp-action="Admit" class="btn btn-success">
+                            <i class="bi bi-plus-circle"></i> Admit Patient
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <!-- Default Dashboard for other roles -->
+        <div class="row">
+            <div class="col-12">
+                <div class="alert alert-secondary">
+                    <h5><i class="bi bi-person"></i> Welcome to Ward Management System</h5>
+                    <p class="mb-0">Please use the navigation menu to access your assigned modules.</p>
+                </div>
+            </div>
+        </div>
+    }
+</div>

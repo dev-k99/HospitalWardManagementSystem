@@ -1,0 +1,73 @@
+@model WardSystemProject.Models.Allergy
+
+@{
+    ViewData["Title"] = "Create Allergy Record";
+}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card">
+                <div class="card-header bg-warning text-dark">
+                    <h4 class="mb-0">
+                        <i class="bi bi-exclamation-triangle"></i> Create New Allergy Record
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <form asp-action="CreateAllergy" method="post" class="needs-validation" novalidate>
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+                        
+                        <div class="mb-3">
+                            <label asp-for="PatientId" class="form-label fw-bold">
+                                <i class="bi bi-person"></i> Patient
+                            </label>
+                            <select asp-for="PatientId" asp-items="ViewBag.PatientId" class="form-select" required>
+                                <option value="">-- Select Patient --</option>
+                            </select>
+                            <span asp-validation-for="PatientId" class="text-danger"></span>
+                            <div class="form-text">Select the patient who has this allergy</div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="AllergyName" class="form-label fw-bold">
+                                <i class="bi bi-exclamation-triangle"></i> Allergy Name
+                            </label>
+                            <input asp-for="AllergyName" class="form-control" placeholder="Enter allergy name (e.g., Penicillin, Peanuts)" required />
+                            <span asp-validation-for="AllergyName" class="text-danger"></span>
+                            <div class="form-text">Enter the name of the allergen (e.g., Penicillin, Peanuts, Latex)</div>
+                        </div>
+
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <a asp-action="ManageAllergies" class="btn btn-secondary me-md-2">
+                                <i class="bi bi-arrow-left"></i> Back to List
+                            </a>
+                            <button type="submit" class="btn btn-warning">
+                                <i class="bi bi-check-circle"></i> Create Allergy Record
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        // Client-side validation
+        (function () {
+            'use strict'
+            var forms = document.querySelectorAll('.needs-validation')
+            Array.prototype.slice.call(forms).forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+                    form.classList.add('was-validated')
+                }, false)
+            })
+        })()
+    </script>
+} 

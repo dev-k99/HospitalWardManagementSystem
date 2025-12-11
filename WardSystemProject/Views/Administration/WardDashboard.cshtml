@@ -1,0 +1,370 @@
+@model WardSystemProject.Models.WardDashboardViewModel
+@using System.Linq
+
+@{
+    ViewData["Title"] = "Ward Dashboard";
+}
+
+@*
+    This view uses the WardDashboardViewModel which provides strongly-typed data
+    instead of ViewBag. The model includes:
+    
+    - WardStatuses: List of WardStatusInfo objects
+    - RecentAdmissions: List of RecentAdmissionInfo objects  
+    - Alerts: List of AlertInfo objects
+    
+    All properties are nullable-safe and have default values to prevent runtime errors.
+*@
+
+<div class="container-fluid">
+    <!-- Header -->
+    <div class="row mb-4">
+        <div class="col-md-8">
+            <h2 class="text-primary">
+                <i class="bi bi-hospital"></i> Ward Dashboard
+            </h2>
+            <p class="text-muted">Real-time overview of all wards and their status</p>
+        </div>
+        <div class="col-md-4 text-end">
+            <a asp-controller="Administration" asp-action="Index" class="btn btn-outline-secondary">
+                <i class="bi bi-arrow-left"></i> Back to Administration
+            </a>
+        </div>
+    </div>
+
+    <!-- Key Metrics Cards -->
+    <div class="row mb-4">
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-start-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col me-2">
+                            <div class="text-xs fw-bold text-primary text-uppercase mb-1">
+                                Total Wards
+                            </div>
+                            <div class="h5 mb-0 fw-bold text-gray-800">@Model.TotalWards</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="bi bi-hospital fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-start-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col me-2">
+                            <div class="text-xs fw-bold text-success text-uppercase mb-1">
+                                Active Patients
+                            </div>
+                            <div class="h5 mb-0 fw-bold text-gray-800">@Model.ActivePatients</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="bi bi-people fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-start-info shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col me-2">
+                            <div class="text-xs fw-bold text-info text-uppercase mb-1">
+                                Available Beds
+                            </div>
+                            <div class="h5 mb-0 fw-bold text-gray-800">@(Model.TotalBeds - Model.ActivePatients)</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="bi bi-bed fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-start-warning shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col me-2">
+                            <div class="text-xs fw-bold text-warning text-uppercase mb-1">
+                                Occupancy Rate
+                            </div>
+                            <div class="h5 mb-0 fw-bold text-gray-800">
+                                @if (Model.TotalBeds > 0)
+                                {
+                                    @($"{((double)Model.ActivePatients / Model.TotalBeds * 100):F1}%")
+                                }
+                                else
+                                {
+                                    @("0%")
+                                }
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="bi bi-percent fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card shadow">
+                <div class="card-header bg-success text-white">
+                    <h5 class="mb-0">
+                        <i class="bi bi-lightning"></i> Quick Actions
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-3 mb-3">
+                            <a asp-controller="PatientManagement" asp-action="Admit" class="btn btn-success btn-lg w-100 h-100 d-flex flex-column align-items-center justify-content-center">
+                                <i class="bi bi-person-plus fa-2x mb-2"></i>
+                                <span>Admit Patient</span>
+                            </a>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <a asp-controller="Administration" asp-action="CreateWard" class="btn btn-primary btn-lg w-100 h-100 d-flex flex-column align-items-center justify-content-center">
+                                <i class="bi bi-hospital fa-2x mb-2"></i>
+                                <span>Create Ward</span>
+                            </a>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <a asp-controller="Administration" asp-action="CreateStaff" class="btn btn-info btn-lg w-100 h-100 d-flex flex-column align-items-center justify-content-center">
+                                <i class="bi bi-person-badge fa-2x mb-2"></i>
+                                <span>Add Staff</span>
+                            </a>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <a asp-controller="Administration" asp-action="CreateBed" class="btn btn-warning btn-lg w-100 h-100 d-flex flex-column align-items-center justify-content-center">
+                                <i class="bi bi-bed fa-2x mb-2"></i>
+                                <span>Add Bed</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Ward Status Overview -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">
+                        <i class="bi bi-list-ul"></i> Ward Status Overview
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>Ward Name</th>
+                                    <th>Total Rooms</th>
+                                    <th>Total Beds</th>
+                                    <th>Occupied Beds</th>
+                                    <th>Available Beds</th>
+                                    <th>Occupancy Rate</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model.WardStatuses != null && Model.WardStatuses.Any())
+                                {
+                                    foreach (var wardStatus in Model.WardStatuses)
+                                    {
+                                        <tr>
+                                            <td><strong>@(wardStatus.WardName ?? "Unknown")</strong></td>
+                                            <td>@(wardStatus.TotalRooms ?? 0)</td>
+                                            <td>@(wardStatus.TotalBeds ?? 0)</td>
+                                            <td>@(wardStatus.OccupiedBeds ?? 0)</td>
+                                            <td>@(wardStatus.AvailableBeds ?? 0)</td>
+                                            <td>
+                                                @{
+                                                    var totalBeds = wardStatus.TotalBeds ?? 0;
+                                                    var occupiedBeds = wardStatus.OccupiedBeds ?? 0;
+                                                }
+                                                @if (totalBeds > 0)
+                                                {
+                                                    var rate = (double)occupiedBeds / totalBeds * 100;
+                                                    if (rate >= 80)
+                                                    {
+                                                        <span class="badge bg-danger">@($"{rate:F1}%")</span>
+                                                    }
+                                                    else if (rate >= 60)
+                                                    {
+                                                        <span class="badge bg-warning text-dark">@($"{rate:F1}%")</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="badge bg-success">@($"{rate:F1}%")</span>
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    <span class="badge bg-secondary">0%</span>
+                                                }
+                                            </td>
+                                            <td>
+                                                @{
+                                                    var status = wardStatus.Status?.ToString()?.ToLower() ?? "inactive";
+                                                }
+                                                @if (status == "active")
+                                                {
+                                                    <span class="badge bg-success">Active</span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="badge bg-secondary">Inactive</span>
+                                                }
+                                            </td>
+                                            <td>
+                                                @if (wardStatus.WardId != null)
+                                                {
+                                                                                                    <a asp-controller="Administration" asp-action="DetailsWard" asp-route-id="@wardStatus.WardId" 
+                                                   class="btn btn-sm btn-info" title="View Details">
+                                                    <i class="bi bi-eye"></i>
+                                                </a>
+                                                <a asp-controller="Administration" asp-action="EditWard" asp-route-id="@wardStatus.WardId" 
+                                                   class="btn btn-sm btn-warning" title="Edit">
+                                                    <i class="bi bi-pencil"></i>
+                                                </a>
+                                                }
+                                                else
+                                                {
+                                                    <span class="text-muted">No ID</span>
+                                                }
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="8" class="text-center text-muted">
+                                            <i class="bi bi-info-circle"></i> No ward data available
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent Activity -->
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="card shadow">
+                <div class="card-header bg-info text-white">
+                    <h6 class="mb-0">
+                        <i class="bi bi-clock-history"></i> Recent Patient Admissions
+                    </h6>
+                </div>
+                <div class="card-body">
+                    @if (Model.RecentAdmissions != null && Model.RecentAdmissions.Any())
+                    {
+                        <div class="list-group list-group-flush">
+                            @foreach (var admission in Model.RecentAdmissions.Take(5))
+                            {
+                                <div class="list-group-item d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <strong>@(admission.PatientName ?? "Unknown Patient")</strong>
+                                        <br>
+                                        <small class="text-muted">@(admission.WardName ?? "Unknown Ward")</small>
+                                    </div>
+                                    <small class="text-muted">
+                                        @if (admission.AdmissionDate != null)
+                                        {
+                                            @admission.AdmissionDate.Value.ToString("dd/MM/yyyy")
+                                        }
+                                        else
+                                        {
+                                            @("Unknown Date")
+                                        }
+                                    </small>
+                                </div>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <p class="text-muted text-center">No recent admissions</p>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card shadow">
+                <div class="card-header bg-warning text-dark">
+                    <h6 class="mb-0">
+                        <i class="bi bi-exclamation-triangle"></i> Alerts & Notifications
+                    </h6>
+                </div>
+                <div class="card-body">
+                    @if (Model.Alerts != null && Model.Alerts.Any())
+                    {
+                        <div class="list-group list-group-flush">
+                            @foreach (var alert in Model.Alerts.Take(5))
+                            {
+                                <div class="list-group-item d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <strong class="text-@(alert.AlertType ?? "muted")">@(alert.Message ?? "No message")</strong>
+                                        <br>
+                                        <small class="text-muted">@(alert.WardName ?? "Unknown Ward")</small>
+                                    </div>
+                                    <small class="text-muted">
+                                        @if (alert.CreatedDate != null)
+                                        {
+                                            @alert.CreatedDate.Value.ToString("HH:mm")
+                                        }
+                                        else
+                                        {
+                                            @("Unknown Time")
+                                        }
+                                    </small>
+                                </div>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <p class="text-muted text-center">No active alerts</p>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Auto-refresh dashboard every 30 seconds
+        setInterval(function() {
+            location.reload();
+        }, 30000);
+
+        // Add some interactivity
+        $(document).ready(function() {
+            // Highlight high occupancy wards
+            $('.badge.bg-danger').closest('tr').addClass('table-danger');
+            $('.badge.bg-warning').closest('tr').addClass('table-warning');
+        });
+    </script>
+}

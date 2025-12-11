@@ -1,0 +1,51 @@
+@model IEnumerable<WardSystemProject.Models.DoctorVisit>
+
+@{
+    ViewData["Title"] = "Manage Doctor Visits";
+}
+
+<div class="container mt-4">
+    <h2 class="mb-4 text-primary">Manage Doctor Visits</h2>
+
+    <p class="mb-3">
+        <a asp-action="CreateVisit" class="btn btn-success">Create New Visit</a>
+    </p>
+
+    <table class="table table-striped table-hover table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.Id)</th>
+                <th>@Html.DisplayNameFor(model => model.Patient.FirstName)</th>
+                <th>@Html.DisplayNameFor(model => model.Patient.LastName)</th>
+                <th>@Html.DisplayNameFor(model => model.Doctor.FirstName)</th>
+                <th>@Html.DisplayNameFor(model => model.Doctor.LastName)</th>
+                <th>@Html.DisplayNameFor(model => model.VisitDate)</th>
+                <th>@Html.DisplayNameFor(model => model.Notes)</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.Id)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Patient.FirstName)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Patient.LastName)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Doctor.FirstName)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Doctor.LastName)</td>
+                    <td>@Html.DisplayFor(modelItem => item.VisitDate)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Notes)</td>
+                    <td>
+                        <a asp-action="EditDoctorVisit" asp-route-id="@item.Id" class="btn btn-sm btn-primary me-1">Edit</a>
+                        <a asp-action="DetailsDoctorVisit" asp-route-id="@item.Id" class="btn btn-sm btn-info me-1">Details</a>
+                        <form asp-action="SoftDeleteDoctorVisit" method="post" style="display:inline;">
+                            @Html.AntiForgeryToken()
+                            <input type="hidden" name="id" value="@item.Id" />
+                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to soft delete this visit?');">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

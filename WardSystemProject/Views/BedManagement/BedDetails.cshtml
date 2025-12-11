@@ -1,0 +1,119 @@
+﻿@model WardSystemProject.Models.Bed
+
+@{
+    ViewData["Title"] = "Bed Details";
+}
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-10 offset-md-1">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title text-primary mb-0">
+                        <i class="bi bi-bed"></i> Bed Details
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-8">
+    <div class="card">
+        <div class="card-body">
+                                    <h5 class="card-title text-primary">
+                                        <i class="bi bi-info-circle"></i> Bed Information
+                                    </h5>
+            <hr />
+            <dl class="row">
+                                        <dt class="col-sm-4 text-dark fw-bold">
+                                            <i class="bi bi-hash"></i> Bed Number
+                                        </dt>
+                                        <dd class="col-sm-8">
+                                            <span class="badge bg-primary fs-6">@Html.DisplayFor(model => model.BedNumber)</span>
+                                        </dd>
+                                        
+                                        <dt class="col-sm-4 text-dark fw-bold">
+                                            <i class="bi bi-door-open"></i> Room Number
+                                        </dt>
+                                        <dd class="col-sm-8">@Html.DisplayFor(model => model.Room.RoomNumber)</dd>
+                                        
+                                        <dt class="col-sm-4 text-dark fw-bold">
+                                            <i class="bi bi-hospital"></i> Ward
+                                        </dt>
+                                        <dd class="col-sm-8">@Html.DisplayFor(model => model.Room.Ward.Name)</dd>
+                                        
+                                        <dt class="col-sm-4 text-dark fw-bold">
+                                            <i class="bi bi-person"></i> Status
+                                        </dt>
+                                        <dd class="col-sm-8">
+                                            @if (Model.PatientId.HasValue)
+                                            {
+                                                <span class="badge bg-warning text-dark fs-6">Occupied</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="badge bg-success fs-6">Available</span>
+                                            }
+                                        </dd>
+                                        
+                                        <dt class="col-sm-4 text-dark fw-bold">
+                                            <i class="bi bi-toggle-on"></i> Active Status
+                                        </dt>
+                                        <dd class="col-sm-8">
+                                            @if (Model.IsActive)
+                                            {
+                                                <span class="badge bg-success">Active</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="badge bg-danger">Inactive</span>
+                                            }
+                                        </dd>
+            </dl>
+        </div>
+    </div>
+                        </div>
+                        
+                        <div class="col-md-4">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h6 class="card-title mb-0">
+                                        <i class="bi bi-gear"></i> Quick Actions
+                                    </h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="d-grid gap-2">
+                                        <a asp-action="EditBed" asp-route-id="@Model.Id" class="btn btn-primary">
+                                            <i class="bi bi-pencil"></i> Edit Bed
+                                        </a>
+                                        <a asp-action="DeleteBed" asp-route-id="@Model.Id" class="btn btn-danger">
+                                            <i class="bi bi-trash"></i> Delete Bed
+                                        </a>
+                                        <a asp-action="Index" class="btn btn-secondary">
+                                            <i class="bi bi-arrow-left"></i> Back to List
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            @if (Model.PatientId.HasValue)
+                            {
+                                <div class="card mt-3">
+                                    <div class="card-header">
+                                        <h6 class="card-title mb-0">
+                                            <i class="bi bi-person-x"></i> Patient Information
+                                        </h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <p class="text-muted">
+                                            This bed is currently occupied by a patient.
+                                        </p>
+                                        <!-- Add patient details here if needed -->
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,242 @@
+@model dynamic
+
+@{
+    var filterId = ViewData["FilterId"] ?? "filterPanel";
+    var targetTable = ViewData["TargetTable"] ?? "dataTable";
+    var showExport = ViewData["ShowExport"] != null ? (bool)ViewData["ShowExport"] : true;
+    var showSearch = ViewData["ShowSearch"] != null ? (bool)ViewData["ShowSearch"] : true;
+}
+
+<div class="card shadow-sm mb-4" id="@filterId">
+    <div class="card-header bg-light">
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <h6 class="mb-0">
+                    <i class="bi bi-funnel"></i> Filters & Search
+                </h6>
+            </div>
+            <div class="col-md-6 text-end">
+                @if (showExport)
+                {
+                    <button type="button" class="btn btn-outline-success btn-sm me-2" onclick="exportFilteredData()">
+                        <i class="bi bi-download"></i> Export
+                    </button>
+                }
+                <button type="button" class="btn btn-outline-secondary btn-sm" onclick="clearAllFilters()">
+                    <i class="bi bi-arrow-clockwise"></i> Clear All
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <form id="@(filterId)Form" class="row g-3">
+            @if (showSearch)
+            {
+                <div class="col-md-4">
+                    <label class="form-label fw-bold">Search</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="@(filterId)Search" 
+                               placeholder="Search..." onkeyup="applyFilters()">
+                        <button class="btn btn-outline-secondary" type="button" onclick="applyFilters()">
+                            <i class="bi bi-search"></i>
+                        </button>
+                    </div>
+                </div>
+            }
+            
+            <div class="col-md-2">
+                <label class="form-label fw-bold">Status</label>
+                <select class="form-select" id="@(filterId)Status" onchange="applyFilters()">
+                    <option value="">All</option>
+                    <option value="active">Active</option>
+                    <option value="inactive">Inactive</option>
+                    <option value="pending">Pending</option>
+                    <option value="completed">Completed</option>
+                </select>
+            </div>
+            
+            <div class="col-md-2">
+                <label class="form-label fw-bold">Sort By</label>
+                <select class="form-select" id="@(filterId)SortBy" onchange="applyFilters()">
+                    <option value="name">Name</option>
+                    <option value="date">Date</option>
+                    <option value="status">Status</option>
+                    <option value="id">ID</option>
+                </select>
+            </div>
+            
+            <div class="col-md-2">
+                <label class="form-label fw-bold">Order</label>
+                <select class="form-select" id="@(filterId)Order" onchange="applyFilters()">
+                    <option value="asc">Ascending</option>
+                    <option value="desc">Descending</option>
+                </select>
+            </div>
+            
+            <div class="col-md-2">
+                <label class="form-label fw-bold">Per Page</label>
+                <select class="form-select" id="@(filterId)PerPage" onchange="applyFilters()">
+                    <option value="10">10</option>
+                    <option value="25" selected>25</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                </select>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    // Filter functionality
+    function applyFilters() {
+        const searchTerm = $('#@(filterId)Search').val().toLowerCase();
+        const status = $('#@(filterId)Status').val();
+        const sortBy = $('#@(filterId)SortBy').val();
+        const order = $('#@(filterId)Order').val();
+        const perPage = $('#@(filterId)PerPage').val();
+        
+        // Apply search filter
+        $(`#@targetTable tbody tr`).each(function() {
+            const row = $(this);
+            const text = row.text().toLowerCase();
+            const rowStatus = row.find('td:contains("Active"), td:contains("Inactive"), td:contains("Pending"), td:contains("Completed")').text().toLowerCase();
+            
+            let showRow = true;
+            
+            // Search filter
+            if (searchTerm && !text.includes(searchTerm)) {
+                showRow = false;
+            }
+            
+            // Status filter
+            if (status && rowStatus !== status) {
+                showRow = false;
+            }
+            
+            row.toggle(showRow);
+        });
+        
+        // Update row count
+        updateRowCount();
+        
+        // Apply sorting (basic client-side sorting)
+        if (sortBy) {
+            sortTable(sortBy, order);
+        }
+        
+        // Apply pagination
+        applyPagination(perPage);
+    }
+    
+    function updateRowCount() {
+        const visibleRows = $(`#@targetTable tbody tr:visible`).length;
+        const totalRows = $(`#@targetTable tbody tr`).length;
+        
+        // Update any count display elements
+        $('.row-count').text(`${visibleRows} of ${totalRows} items`);
+    }
+    
+    function sortTable(column, order) {
+        const table = $(`#@targetTable tbody`);
+        const rows = table.find('tr:visible').get();
+        
+        rows.sort(function(a, b) {
+            let aVal, bVal;
+            
+            switch(column) {
+                case 'name':
+                    aVal = $(a).find('td:eq(1)').text().toLowerCase();
+                    bVal = $(b).find('td:eq(1)').text().toLowerCase();
+                    break;
+                case 'date':
+                    aVal = new Date($(a).find('td:eq(2)').text());
+                    bVal = new Date($(b).find('td:eq(2)').text());
+                    break;
+                case 'status':
+                    aVal = $(a).find('td:eq(3)').text().toLowerCase();
+                    bVal = $(b).find('td:eq(3)').text().toLowerCase();
+                    break;
+                case 'id':
+                    aVal = parseInt($(a).find('td:eq(0)').text());
+                    bVal = parseInt($(b).find('td:eq(0)').text());
+                    break;
+                default:
+                    aVal = $(a).find('td:eq(0)').text().toLowerCase();
+                    bVal = $(b).find('td:eq(0)').text().toLowerCase();
+            }
+            
+            if (order === 'asc') {
+                return aVal > bVal ? 1 : -1;
+            } else {
+                return aVal < bVal ? 1 : -1;
+            }
+        });
+        
+        table.empty().append(rows);
+    }
+    
+    function applyPagination(perPage) {
+        const rows = $(`#@targetTable tbody tr:visible`);
+        const totalPages = Math.ceil(rows.length / perPage);
+        
+        // Hide all rows first
+        rows.hide();
+        
+        // Show only first page
+        rows.slice(0, perPage).show();
+        
+        // Update pagination info
+        updatePaginationInfo(1, totalPages, rows.length);
+    }
+    
+    function updatePaginationInfo(currentPage, totalPages, totalItems) {
+        // Update pagination display if it exists
+        $('.pagination-info').text(`Page ${currentPage} of ${totalPages} (${totalItems} items)`);
+    }
+    
+    function clearAllFilters() {
+        $(`#@(filterId)Form`)[0].reset();
+        $(`#@targetTable tbody tr`).show();
+        updateRowCount();
+    }
+    
+    function exportFilteredData() {
+        const visibleRows = $(`#@targetTable tbody tr:visible`);
+        const data = [];
+        
+        // Get headers
+        const headers = [];
+        $(`#@targetTable thead th`).each(function() {
+            headers.push($(this).text().trim());
+        });
+        
+        // Get visible row data
+        visibleRows.each(function() {
+            const row = [];
+            $(this).find('td').each(function() {
+                row.push($(this).text().trim());
+            });
+            data.push(row);
+        });
+        
+        // Create CSV content
+        let csvContent = headers.join(',') + '\n';
+        data.forEach(row => {
+            csvContent += row.join(',') + '\n';
+        });
+        
+        // Download CSV file
+        const blob = new Blob([csvContent], { type: 'text/csv' });
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'filtered_data.csv';
+        a.click();
+        window.URL.revokeObjectURL(url);
+    }
+    
+    // Initialize filters on page load
+    $(document).ready(function() {
+        updateRowCount();
+    });
+</script>

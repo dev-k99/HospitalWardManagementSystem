@@ -1,0 +1,146 @@
+﻿@model WardSystemProject.Models.Ward
+
+@{
+    ViewData["Title"] = "Ward Details";
+}
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-10 offset-md-1">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title text-primary mb-0">
+                        <i class="bi bi-hospital"></i> Ward Details
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title text-primary">
+                                        <i class="bi bi-info-circle"></i> Ward Information
+                                    </h5>
+                                    <hr />
+                    <dl class="row">
+                                        <dt class="col-sm-4 text-dark fw-bold">
+                                            <i class="bi bi-hash"></i> Ward ID
+                                        </dt>
+                                        <dd class="col-sm-8">
+                                            <span class="badge bg-primary fs-6">@Html.DisplayFor(model => model.Id)</span>
+                                        </dd>
+                                        
+                                        <dt class="col-sm-4 text-dark fw-bold">
+                                            <i class="bi bi-building"></i> Ward Name
+                                        </dt>
+                                        <dd class="col-sm-8">
+                                            <strong>@Html.DisplayFor(model => model.Name)</strong>
+                                        </dd>
+                                        
+                                        <dt class="col-sm-4 text-dark fw-bold">
+                                            <i class="bi bi-text-paragraph"></i> Description
+                                        </dt>
+                                        <dd class="col-sm-8">
+                                            @if (!string.IsNullOrEmpty(Model.Description))
+                                            {
+                                                @Html.DisplayFor(model => model.Description)
+                                            }
+                                            else
+                                            {
+                                                <span class="text-muted">No description provided</span>
+                                            }
+                                        </dd>
+                                        
+                                        <dt class="col-sm-4 text-dark fw-bold">
+                                            <i class="bi bi-door-open"></i> Rooms Count
+                                        </dt>
+                                        <dd class="col-sm-8">
+                                            <span class="badge bg-info fs-6">@(Model.Rooms?.Count ?? 0) rooms</span>
+                                        </dd>
+                                        
+                                        <dt class="col-sm-4 text-dark fw-bold">
+                                            <i class="bi bi-toggle-on"></i> Active Status
+                                        </dt>
+                                        <dd class="col-sm-8">
+                                            @if (Model.IsActive)
+                                            {
+                                                <span class="badge bg-success">Active</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="badge bg-danger">Inactive</span>
+                                            }
+                                        </dd>
+                                    </dl>
+                                </div>
+                            </div>
+                            
+                            @if (Model.Rooms != null && Model.Rooms.Any())
+                            {
+                                <div class="card mt-3">
+                                    <div class="card-body">
+                                        <h5 class="card-title text-primary">
+                                            <i class="bi bi-door-open"></i> Rooms in this Ward
+                                        </h5>
+                                        <hr />
+                                        <div class="table-responsive">
+                                            <table class="table table-sm">
+                                                <thead class="table-light">
+                                                    <tr>
+                                                        <th>Room Number</th>
+                                                        <th>Status</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                    @foreach (var room in Model.Rooms)
+                                    {
+                                                        <tr>
+                                                            <td>@room.RoomNumber</td>
+                                                            <td>
+                                                                @if (room.IsActive)
+                                                                {
+                                                                    <span class="badge bg-success">Active</span>
+                            }
+                            else
+                            {
+                                                                    <span class="badge bg-secondary">Inactive</span>
+                                                                }
+                                                            </td>
+                                                        </tr>
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                        
+                        <div class="col-md-4">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h6 class="card-title mb-0">
+                                        <i class="bi bi-gear"></i> Quick Actions
+                                    </h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="d-grid gap-2">
+                                        <a asp-action="EditWard" asp-route-id="@Model.Id" class="btn btn-primary">
+                                            <i class="bi bi-pencil"></i> Edit Ward
+                                        </a>
+                                        <a asp-action="DeleteWard" asp-route-id="@Model.Id" class="btn btn-danger">
+                                            <i class="bi bi-trash"></i> Delete Ward
+                                        </a>
+                                        <a asp-action="Index" class="btn btn-secondary">
+                                            <i class="bi bi-arrow-left"></i> Back to List
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

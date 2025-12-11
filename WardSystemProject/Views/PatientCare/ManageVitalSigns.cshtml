@@ -1,0 +1,49 @@
+@model IEnumerable<WardSystemProject.Models.VitalSign>
+
+@{
+    ViewData["Title"] = "Manage Vital Signs";
+}
+
+<div class="container mt-4">
+    <h2 class="mb-4 text-primary">Manage Vital Signs</h2>
+
+    <p class="mb-3">
+        <a asp-action="CreateVitalSign" class="btn btn-success">Create New Vital Sign</a>
+    </p>
+
+    <table class="table table-striped table-hover table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.Id)</th>
+                <th>@Html.DisplayNameFor(model => model.Patient.FirstName)</th>
+                <th>@Html.DisplayNameFor(model => model.Patient.LastName)</th>
+                <th>@Html.DisplayNameFor(model => model.Temperature)</th>
+                <th>@Html.DisplayNameFor(model => model.Pulse)</th>
+                <th>@Html.DisplayNameFor(model => model.RecordDate)</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.Id)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Patient.FirstName)</td>
+                    <td>@Html.DisplayFor(modelItem=>item.Patient.LastName)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Temperature) °C</td>
+                    <td>@Html.DisplayFor(modelItem => item.Pulse) bpm</td>
+                    <td>@Html.DisplayFor(modelItem => item.RecordDate)</td>
+                    <td>
+                        <a asp-action="EditVitalSign" asp-route-id="@item.Id" class="btn btn-sm btn-primary me-1">Edit</a>
+                        <a asp-action="DetailsVitalSign" asp-route-id="@item.Id" class="btn btn-sm btn-info me-1">Details</a>
+                        <form asp-action="SoftDeleteVitalSign" method="post" style="display:inline;">
+                            @Html.AntiForgeryToken()
+                            <input type="hidden" name="id" value="@item.Id" />
+                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to soft delete this vital sign?');">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

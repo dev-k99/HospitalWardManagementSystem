@@ -1,0 +1,357 @@
+@model WardSystemProject.Models.ConsumablesScriptViewModel
+
+@{
+    ViewData["Title"] = "Consumables & Script Management";
+}
+
+<div class="container-fluid">
+    <div class="row mb-4">
+        <div class="col-md-8">
+            <h2 class="text-primary">
+                <i class="bi bi-box-seam"></i> Consumables & Script Management
+            </h2>
+            <p class="text-muted">Manage prescriptions and consumables inventory</p>
+        </div>
+        <div class="col-md-4 text-end">
+            @if (Model.IsScriptManager)
+            {
+                <a asp-controller="ConsumableScript" asp-action="NewPrescriptions" class="btn btn-success">
+                    <i class="bi bi-clipboard-plus"></i> New Prescriptions
+                </a>
+            }
+            @if (Model.IsConsumablesManager)
+            {
+                <a asp-controller="ConsumableScript" asp-action="CheckStock" class="btn btn-warning">
+                    <i class="bi bi-box-seam"></i> Check Stock
+                </a>
+            }
+        </div>
+    </div>
+
+    <!-- Role-based Statistics -->
+    @if (Model.IsScriptManager)
+    {
+        <div class="row mb-4">
+            <div class="col-md-3">
+                <div class="card bg-success text-white">
+                    <div class="card-body text-center">
+                        <i class="bi bi-clipboard-plus fs-1"></i>
+                        <h3 class="card-title">@Model.NewPrescriptions.Count</h3>
+                        <p class="card-text">New Prescriptions</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card bg-warning text-dark">
+                    <div class="card-body text-center">
+                        <i class="bi bi-clock fs-1"></i>
+                        <h3 class="card-title">@Model.PendingOrders.Count</h3>
+                        <p class="card-text">Pending Orders</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card bg-info text-white">
+                    <div class="card-body text-center">
+                        <i class="bi bi-check-circle fs-1"></i>
+                        <h3 class="card-title">Today</h3>
+                        <p class="card-text">Processed</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card bg-primary text-white">
+                    <div class="card-body text-center">
+                        <i class="bi bi-calendar-check fs-1"></i>
+                        <h3 class="card-title">This Week</h3>
+                        <p class="card-text">Delivered</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+    @if (Model.IsConsumablesManager)
+    {
+        <div class="row mb-4">
+            <div class="col-md-3">
+                <div class="card bg-danger text-white">
+                    <div class="card-body text-center">
+                        <i class="bi bi-exclamation-triangle fs-1"></i>
+                        <h3 class="card-title">@Model.LowStockItems.Count</h3>
+                        <p class="card-text">Low Stock Items</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card bg-warning text-dark">
+                    <div class="card-body text-center">
+                        <i class="bi bi-clock fs-1"></i>
+                        <h3 class="card-title">@Model.PendingConsumableOrders.Count</h3>
+                        <p class="card-text">Pending Orders</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card bg-success text-white">
+                    <div class="card-body text-center">
+                        <i class="bi bi-box-seam fs-1"></i>
+                        <h3 class="card-title">Stock Take</h3>
+                        <p class="card-text">Weekly</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card bg-info text-white">
+                    <div class="card-body text-center">
+                        <i class="bi bi-calendar-check fs-1"></i>
+                        <h3 class="card-title">@(Model.LastStockTake?.StockTakeDate.ToString("dd/MM") ?? "Never")</h3>
+                        <p class="card-text">Last Stock Take</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+    <div class="row">
+        @if (Model.IsScriptManager)
+        {
+            <!-- New Prescriptions -->
+            <div class="col-md-6">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-success text-white">
+                        <h5 class="mb-0">
+                            <i class="bi bi-clipboard-plus"></i> New Prescriptions
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        @if (Model.NewPrescriptions.Any())
+                        {
+                            <div class="list-group list-group-flush">
+                                @foreach (var prescription in Model.NewPrescriptions.Take(5))
+                                {
+                                    <div class="list-group-item">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div>
+                                                <strong>@prescription.Patient?.FullName</strong>
+                                                <br />
+                                                <small class="text-muted">
+                                                    @prescription.Medication?.Name - @prescription.DosageInstructions
+                                                </small>
+                                            </div>
+                                            <div class="text-end">
+                                                <small class="text-muted">@prescription.PrescriptionDate.ToString("dd/MM/yyyy")</small>
+                                                <br />
+                                                                                <a asp-controller="ConsumableScript" asp-action="ProcessPrescription" asp-route-id="@prescription.Id" class="btn btn-sm btn-outline-success">
+                                    <i class="bi bi-play-circle"></i> Process
+                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                            <div class="text-center mt-3">
+                                <a asp-controller="ConsumableScript" asp-action="NewPrescriptions" class="btn btn-outline-success">View All New Prescriptions</a>
+                            </div>
+                        }
+                        else
+                        {
+                            <p class="text-muted">No new prescriptions to process</p>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pending Orders -->
+            <div class="col-md-6">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-warning text-dark">
+                        <h5 class="mb-0">
+                            <i class="bi bi-clock"></i> Pending Orders
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        @if (Model.PendingOrders.Any())
+                        {
+                            <div class="list-group list-group-flush">
+                                @foreach (var order in Model.PendingOrders.Take(5))
+                                {
+                                    <div class="list-group-item">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div>
+                                                <strong>@order.Prescription?.Patient?.FullName</strong>
+                                                <br />
+                                                <small class="text-muted">
+                                                    @order.Prescription?.Medication?.Name - @order.OrderDate.ToString("dd/MM/yyyy")
+                                                </small>
+                                            </div>
+                                            <div class="text-end">
+                                                <span class="badge bg-warning">@order.Status</span>
+                                                <a asp-controller="ConsumableScript" asp-action="ManagePrescriptionOrders" class="btn btn-sm btn-outline-warning ms-1">
+                                                    <i class="bi bi-eye"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                            <div class="text-center mt-3">
+                                <a asp-controller="ConsumableScript" asp-action="ManagePrescriptionOrders" class="btn btn-outline-warning">View All Orders</a>
+                            </div>
+                        }
+                        else
+                        {
+                            <p class="text-muted">No pending orders</p>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+
+        @if (Model.IsConsumablesManager)
+        {
+            <!-- Low Stock Items -->
+            <div class="col-md-6">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-danger text-white">
+                        <h5 class="mb-0">
+                            <i class="bi bi-exclamation-triangle"></i> Low Stock Items
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        @if (Model.LowStockItems.Any())
+                        {
+                            <div class="list-group list-group-flush">
+                                @foreach (var item in Model.LowStockItems.Take(5))
+                                {
+                                    <div class="list-group-item">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div>
+                                                <strong>@item.Name</strong>
+                                                <br />
+                                                <small class="text-muted">
+                                                    @item.Ward?.Name - @item.QuantityOnHand @item.Unit remaining
+                                                </small>
+                                            </div>
+                                            <div class="text-end">
+                                                <span class="badge bg-danger">@item.StockStatus</span>
+                                                <a asp-controller="ConsumableScript" asp-action="UpdateStock" asp-route-id="@item.Id" class="btn btn-sm btn-outline-danger ms-1">
+                                                    <i class="bi bi-pencil"></i> Update
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                            <div class="text-center mt-3">
+                                <a asp-controller="ConsumableScript" asp-action="CheckStock" class="btn btn-outline-danger">View All Stock</a>
+                            </div>
+                        }
+                        else
+                        {
+                            <p class="text-muted">No low stock items</p>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pending Consumable Orders -->
+            <div class="col-md-6">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-warning text-dark">
+                        <h5 class="mb-0">
+                            <i class="bi bi-clock"></i> Pending Orders
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        @if (Model.PendingConsumableOrders.Any())
+                        {
+                            <div class="list-group list-group-flush">
+                                @foreach (var order in Model.PendingConsumableOrders.Take(5))
+                                {
+                                    <div class="list-group-item">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div>
+                                                <strong>@order.Consumable?.Name</strong>
+                                                <br />
+                                                <small class="text-muted">
+                                                    @order.Quantity @order.Consumable?.Unit - @order.OrderDate.ToString("dd/MM/yyyy")
+                                                </small>
+                                            </div>
+                                            <div class="text-end">
+                                                <span class="badge bg-warning">@order.Status</span>
+                                                <a asp-controller="ConsumableScript" asp-action="ManageConsumableOrders" class="btn btn-sm btn-outline-warning ms-1">
+                                                    <i class="bi bi-eye"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                            <div class="text-center mt-3">
+                                <a asp-controller="ConsumableScript" asp-action="ManageConsumableOrders" class="btn btn-outline-warning">View All Orders</a>
+                            </div>
+                        }
+                        else
+                        {
+                            <p class="text-muted">No pending orders</p>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">
+                        <i class="bi bi-lightning"></i> Quick Actions
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        @if (Model.IsScriptManager)
+                        {
+                            <div class="col-md-3">
+                                <a asp-controller="ConsumableScript" asp-action="NewPrescriptions" class="btn btn-outline-success w-100 mb-2">
+                                    <i class="bi bi-clipboard-plus"></i> New Prescriptions
+                                </a>
+                            </div>
+                            <div class="col-md-3">
+                                <a asp-controller="ConsumableScript" asp-action="ManagePrescriptionOrders" class="btn btn-outline-warning w-100 mb-2">
+                                    <i class="bi bi-clock"></i> Manage Orders
+                                </a>
+                            </div>
+                        }
+                        @if (Model.IsConsumablesManager)
+                        {
+                            <div class="col-md-3">
+                                <a asp-controller="ConsumableScript" asp-action="CheckStock" class="btn btn-outline-danger w-100 mb-2">
+                                    <i class="bi bi-box-seam"></i> Check Stock
+                                </a>
+                            </div>
+                            <div class="col-md-3">
+                                <a asp-controller="ConsumableScript" asp-action="CreateConsumableOrder" class="btn btn-outline-warning w-100 mb-2">
+                                    <i class="bi bi-plus-circle"></i> Create Order
+                                </a>
+                            </div>
+                            <div class="col-md-3">
+                                <a asp-controller="ConsumableScript" asp-action="WeeklyStockTake" class="btn btn-outline-info w-100 mb-2">
+                                    <i class="bi bi-calendar-check"></i> Weekly Stock Take
+                                </a>
+                            </div>
+                            <div class="col-md-3">
+                                <a asp-controller="ConsumableScript" asp-action="StockTakeHistory" class="btn btn-outline-secondary w-100 mb-2">
+                                    <i class="bi bi-clock-history"></i> Stock Take History
+                                </a>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
