@@ -12,8 +12,8 @@ using WardSystemProject.Data;
 namespace WardSystemProject.Migrations
 {
     [DbContext(typeof(WardSystemDBContext))]
-    [Migration("20251027115502_initial")]
-    partial class initial
+    [Migration("20251211195523_IntialMigration")]
+    partial class IntialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

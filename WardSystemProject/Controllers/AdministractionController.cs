@@ -601,26 +601,70 @@ namespace WardSystemProject.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditRoom(int id, [Bind("Id,RoomNumber,WardId,IsActive")] Room room)
+        public async Task<IActionResult> EditRoom(int id, Room roomFromForm)
         {
-            if (id != room.Id) return NotFound();
-
-            if (ModelState.IsValid)
+            if (id != roomFromForm.Id)
             {
-                try
+                return NotFound();
+            }
+
+            if (!ModelState.IsValid)
+            {
+                ViewBag.WardList = new SelectList(_context.Wards.Where(w => w.IsActive), "Id", "Name");
+                return View(roomFromForm);
+            }
+
+            try
+            {
+                // Load the existing room from DB (with tracking)
+                var roomToUpdate = await _context.Rooms.FindAsync(id);
+                if (roomToUpdate == null)
                 {
-                    _context.Update(room);
-                    await _context.SaveChangesAsync();
-                    TempData["SuccessMessage"] = $"Room '{room.RoomNumber}' updated successfully!";
+                    return NotFound();
                 }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!RoomExists(room.Id)) return NotFound();
-                    else throw;
-                }
+
+                // Manually update only the fields we allow
+                roomToUpdate.RoomNumber = roomFromForm.RoomNumber;
+                roomToUpdate.WardId = roomFromForm.WardId;
+                roomToUpdate.IsActive = roomFromForm.IsActive;
+
+                // No need to call Update() — it's already tracked
+                await _context.SaveChangesAsync();
+
+                TempData["SuccessMessage"] = $"Room '{roomToUpdate.RoomNumber}' updated successfully!";
                 return RedirectToAction(nameof(ManageRooms));
             }
-            ViewBag.WardList = new SelectList(_context.Wards.Where(w => w.IsActive).ToList(), "Id", "Name");
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!RoomExists(id))
+                    return NotFound();
+                else
+                    throw;
+            }
+
+            // If we get here, something went wrong
+            ViewBag.WardList = new SelectList(_context.Wards.Where(w => w.IsActive), "Id", "Name");
+            return View(roomFromForm);
+        }
+
+        // GET: Administration/DetailsRoom/5
+        public async Task<IActionResult> DetailsRoom(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var room = await _context.Rooms
+                .Include(r => r.Ward)
+                .Include(r => r.Beds)
+                .FirstOrDefaultAsync(r => r.Id == id && r.IsActive);
+
+            if (room == null)
+            {
+                return NotFound();
+            }
+
             return View(room);
         }
 

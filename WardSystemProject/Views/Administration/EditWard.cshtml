@@ -43,6 +43,16 @@
                                 Provide a brief description of this ward (optional, max 500 characters)
                             </div>
                         </div>
+
+                        <div class="mb-3 form-check">
+                            <input asp-for="IsActive" class="form-check-input" type="checkbox" />
+                            <label asp-for="IsActive" class="form-check-label fw-bold">
+                                Ward is Active
+                            </label>
+                            <div class="form-text">
+                                Uncheck to deactivate this ward (it will no longer appear in dropdowns for new admissions)
+                            </div>
+                        </div>
                         
                         <div class="mt-4">
                             <button type="submit" class="btn btn-primary">
