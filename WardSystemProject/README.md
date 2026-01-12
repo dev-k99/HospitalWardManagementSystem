@@ -37,15 +37,6 @@ The Ward Management System is designed to manage hospital wards, patients, staff
 - **Scheduled Medication**: Administer scheduled medications
 - **Patient Care**: All nurse responsibilities plus additional supervisory duties
 
-### Script Manager
-- **Prescription Orders**: View, process, and manage prescription orders
-- **Script Processing**: Forward scripts to pharmacy and receive medications
-
-### Consumables Manager
-- **Consumable Orders**: Create, edit, delete, and view consumable orders
-- **Stock Management**: Check and update consumable stock levels
-- **Inventory Control**: Manage hospital consumables and supplies
-
 ## 🚀 Getting Started
 
 ### Prerequisites
@@ -144,8 +135,7 @@ New users can register themselves through the registration system:
 - **Nurse**: Access to patient care, vital signs, and medication administration
 - **Nursing Sister**: All nurse permissions plus supervisory duties
 - **Ward Admin**: Access to patient admission, discharge, and ward management
-- **Script Manager**: Access to prescription processing and medication management
-- **Consumables Manager**: Access to inventory and supply management
+
 
 ### Login System
 - **Flexible Authentication**: Login with username or email
@@ -212,11 +202,6 @@ All views are built with Bootstrap 5 and include:
 - Medication administration records
 - Doctor visit and instruction management
 - Prescription management
-
-### Inventory Management
-- Consumable stock tracking
-- Order management for supplies
-- Stock level monitoring
 
 ### User Interface
 - Modern Bootstrap 5 design
@@ -332,8 +317,7 @@ For technical support or questions about the Ward Management System, please cont
 
 ## 📄 License
 
-This project is developed for educational purposes as part of the ONT3010 course at Nelson Mandela University.
-
+This project is developed for educational purposes
 ---
 
 **Note**: This system is designed for educational demonstration and should be thoroughly tested before use in a production healthcare environment. 
