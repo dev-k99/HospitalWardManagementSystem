@@ -14,14 +14,14 @@
                     </h4>
                 </div>
                 <div class="card-body">
-                    <form asp-controller="Administration" asp-action="CreateAllergy" method="post" class="needs-validation" novalidate>
+                    <form asp-controller="PatientManagement" asp-action="CreateAllergy" method="post" class="needs-validation" novalidate>
                         <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
                         
                         <div class="mb-3">
                             <label asp-for="PatientId" class="form-label fw-bold">
                                 <i class="bi bi-person"></i> Patient
                             </label>
-                            <select asp-for="PatientId" asp-items="ViewBag.PatientId" class="form-select" required>
+                            <select name="patientId" asp-items="ViewBag.PatientId" class="form-select" required>
                                 <option value="">-- Select Patient --</option>
                             </select>
                             <span asp-validation-for="PatientId" class="text-danger"></span>

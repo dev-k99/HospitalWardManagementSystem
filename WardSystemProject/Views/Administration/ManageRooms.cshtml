@@ -80,9 +80,8 @@
                                                class="btn btn-sm btn-primary" title="Edit">
                                                 <i class="bi bi-pencil"></i>
                                             </a>
-                                            <a asp-action="DetailsRoom" asp-route-id="@item.Id"
-                                               class="btn btn-sm btn-info" title="Details">
-                                                <i class="bi bi-info-circle"></i>
+                                            <a asp-controller="Administration" asp-action="DetailsRoom" asp-route-id="@item.Id" class="btn btn-sm btn-info">
+                                                <i class="bi bi-info-circle"></i> Details
                                             </a>
                                             <form asp-action="SoftDelete" method="post" style="display:inline;">
                                                 @Html.AntiForgeryToken()

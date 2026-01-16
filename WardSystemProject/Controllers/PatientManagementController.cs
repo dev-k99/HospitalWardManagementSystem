@@ -213,15 +213,21 @@ namespace WardSystemProject.Controllers
             return RedirectToAction(nameof(ManageMedications));
         }
 
-        // Allergy Management Actions
-        //public async Task<IActionResult> ManageAllergies()
-        //{
-        //    var allergies = await _context.Allergies
-        //        .Include(a => a.Patient)
-        //        .Where(a => a.IsActive)
-        //        .ToListAsync();
-        //    return View(allergies);
-        //}
+      
+
+        //GET: PatientManagement/ManageAllergies - Manage patient allergies
+        public async Task<IActionResult> ManageAllergies(int? id)
+        {
+            if (id == null) return NotFound();
+
+            var allergies = await _context.Allergies
+                .Include(a => a.Patient)
+                .Where(a => a.PatientId == id && a.IsActive)
+                .ToListAsync();
+
+            ViewBag.PatientId = id;
+            return View(allergies);
+        }
 
         public IActionResult CreateAllergy()
         {
@@ -245,7 +251,7 @@ namespace WardSystemProject.Controllers
                 _context.Add(allergy);
                 await _context.SaveChangesAsync();
                 TempData["SuccessMessage"] = $" Allergy added";
-                return RedirectToAction(nameof(ManageAllergies));
+                return RedirectToAction("ManageAllergies", new { id = patientId });
             }
             catch (Exception ex)
             {
@@ -277,7 +283,7 @@ namespace WardSystemProject.Controllers
                 _context.Add(medicalCondition);
                 await _context.SaveChangesAsync();
                 TempData["SuccessMessage"] = $" Condition added";
-                return RedirectToAction(nameof(ManageAllergies));
+                return RedirectToAction(nameof(ManageMedicalConditions));
             }
             catch (Exception ex)
             {
@@ -334,15 +340,19 @@ namespace WardSystemProject.Controllers
         public async Task<IActionResult> DeleteAllergyConfirmed(int id)
         {
             var allergy = await _context.Allergies.FindAsync(id);
-            if (allergy != null)
-            {
-                var allergyName = allergy.AllergyName;
-                allergy.IsActive = false;
-                _context.Update(allergy);
-                await _context.SaveChangesAsync();
-                TempData["SuccessMessage"] = $"Allergy '{allergyName}' deactivated successfully!";
-            }
-            return RedirectToAction(nameof(ManageAllergies));
+            if (allergy == null)
+                return NotFound();
+
+            var patientId = allergy.PatientId;   
+            var allergyName = allergy.AllergyName;
+
+            allergy.IsActive = false;
+            _context.Update(allergy);
+            await _context.SaveChangesAsync();
+
+            TempData["SuccessMessage"] = $"Allergy '{allergyName}' deactivated successfully!";
+
+            return RedirectToAction(nameof(ManageAllergies), new { id = patientId });
         }
 
         // Medical Condition Management Actions
@@ -745,77 +755,7 @@ namespace WardSystemProject.Controllers
             }
         }
 
-        // GET: PatientManagement/Movement - Record patient movement
-        public async Task<IActionResult> Movement(int? id)
-        {
-            if (id == null) return NotFound();
-
-            var patient = await _context.Patients
-                .Include(p => p.Ward)
-                .FirstOrDefaultAsync(p => p.Id == id);
-
-            if (patient == null) return NotFound();
-
-            var movement = new PatientMovement
-            {
-                PatientId = patient.Id,
-                FromWardId = patient.WardId ?? 0,
-                MovementDate = DateTime.Now
-            };
-
-            ViewBag.FromWardId = new SelectList(_context.Wards.Where(w => w.IsActive), "Id", "Name", movement.FromWardId);
-            ViewBag.ToWardId = new SelectList(_context.Wards.Where(w => w.IsActive), "Id", "Name");
-            return View(movement);
-        }
-
-        // POST: PatientManagement/Movement - Process patient movement
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Movement([Bind("PatientId,FromWardId,ToWardId,MovementDate")] PatientMovement movement)
-        {
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    movement.IsActive = true;
-                    _context.Add(movement);
-
-                    // Update patient's current ward
-                    var patient = await _context.Patients.FindAsync(movement.PatientId);
-                    if (patient != null)
-                    {
-                        patient.WardId = movement.ToWardId;
-                        _context.Update(patient);
-                    }
-
-                    await _context.SaveChangesAsync();
-
-                    TempData["SuccessMessage"] = "Patient movement recorded successfully.";
-                    return RedirectToAction(nameof(PatientFolder), new { id = movement.PatientId });
-                }
-                catch (Exception ex)
-                {
-                    ModelState.AddModelError("", $"Error recording movement: {ex.Message}");
-                }
-            }
-
-            ViewBag.FromWardId = new SelectList(_context.Wards.Where(w => w.IsActive), "Id", "Name", movement.FromWardId);
-            ViewBag.ToWardId = new SelectList(_context.Wards.Where(w => w.IsActive), "Id", "Name", movement.ToWardId);
-            return View(movement);
-        }
-        //GET: PatientManagement/ManageAllergies - Manage patient allergies
-        public async Task<IActionResult> ManageAllergies(int? id)
-        {
-            if (id == null) return NotFound();
-
-            var allergies = await _context.Allergies
-                .Include(a => a.Patient)
-                .Where(a => a.PatientId == id && a.IsActive)
-                .ToListAsync();
-
-            ViewBag.PatientId = id;
-            return View(allergies);
-        }
+       
 
         // GET: PatientManagement/ManageConditions - Manage patient medical conditions
         public async Task<IActionResult> ManageConditions(int? id)
@@ -832,21 +772,7 @@ namespace WardSystemProject.Controllers
         }
 
         // GET: PatientManagement/ManageMovements - Manage patient movements
-        public async Task<IActionResult> ManageMovements(int? id)
-        {
-            if (id == null) return NotFound();
-
-            var movements = await _context.PatientMovements
-                .Include(pm => pm.Patient)
-                .Include(pm => pm.FromWard)
-                .Include(pm => pm.ToWard)
-                .Where(pm => pm.PatientId == id && pm.IsActive)
-                .OrderByDescending(pm => pm.MovementDate)
-                .ToListAsync();
-
-            ViewBag.PatientId = id;
-            return View(movements);
-        }
+      
         private bool WardExists(int id)
         {
             return _context.Wards.Any(e => e.Id == id);

@@ -107,19 +107,19 @@ namespace WardSystemProject.Controllers
             return View(bed);
         }
 
-        // GET: Beds/Details/5
-        public async Task<IActionResult> DetailsBed(int id)
-        {
-            var bed = await _context.Beds
-                                    .Include(b => b.Room)
-                                    .ThenInclude(r => r.Ward)
-                                    .Include(b => b.Patient)
-                                    .FirstOrDefaultAsync(b => b.Id == id);
+        //// GET: Beds/Details/5
+        //public async Task<IActionResult> DetailsBed(int id)
+        //{
+        //    var bed = await _context.Beds
+        //                            .Include(b => b.Room)
+        //                            .ThenInclude(r => r.Ward)
+        //                            .Include(b => b.Patient)
+        //                            .FirstOrDefaultAsync(b => b.Id == id);
 
-            if (bed == null) return NotFound();
+        //    if (bed == null) return NotFound();
 
-            return View(bed);
-        }
+        //    return View(bed);
+        //}
 
      
      
@@ -169,18 +169,14 @@ namespace WardSystemProject.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // GET: A specific bed details
-        public async Task<IActionResult> DetailsBed(int? id)
+        // GET: Beds/Details/5
+        public async Task<IActionResult> DetailsBed(int id)
         {
-            if (id == null || _context.Beds == null)
-            {
-                return NotFound();
-            }
-
             var bed = await _context.Beds
-                .Include(b => b.Room)
-                .ThenInclude(r => r.Ward)
-                .FirstOrDefaultAsync(b => b.Id == id);
+                                    .Include(b => b.Room)
+                                    .ThenInclude(r => r.Ward)
+                                    .Include(b => b.Patient)
+                                    .FirstOrDefaultAsync(b => b.Id == id);
 
             if (bed == null) return NotFound();
 

@@ -647,26 +647,7 @@ namespace WardSystemProject.Controllers
             return View(roomFromForm);
         }
 
-        // GET: Administration/DetailsRoom/5
-        public async Task<IActionResult> DetailsRoom(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var room = await _context.Rooms
-                .Include(r => r.Ward)
-                .Include(r => r.Beds)
-                .FirstOrDefaultAsync(r => r.Id == id && r.IsActive);
-
-            if (room == null)
-            {
-                return NotFound();
-            }
-
-            return View(room);
-        }
+     
 
         public async Task<IActionResult> DeleteRoom(int? id)
         {

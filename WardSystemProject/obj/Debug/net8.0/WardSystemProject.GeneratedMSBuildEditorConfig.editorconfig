@@ -180,16 +180,16 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5pc3RyYXRpb25cV2FyZERhc2hib2FyZC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/kwanele/Documents/PROJECTS/HospitalManagement/WardSystemProject/Views/BedManagement/BedDetails.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmVkTWFuYWdlbWVudFxCZWREZXRhaWxzLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
 [C:/Users/kwanele/Documents/PROJECTS/HospitalManagement/WardSystemProject/Views/BedManagement/CreateBed.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmVkTWFuYWdlbWVudFxDcmVhdGVCZWQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/kwanele/Documents/PROJECTS/HospitalManagement/WardSystemProject/Views/BedManagement/DeleteBed.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmVkTWFuYWdlbWVudFxEZWxldGVCZWQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kwanele/Documents/PROJECTS/HospitalManagement/WardSystemProject/Views/BedManagement/DetailsBed.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmVkTWFuYWdlbWVudFxEZXRhaWxzQmVkLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/kwanele/Documents/PROJECTS/HospitalManagement/WardSystemProject/Views/BedManagement/EditBed.cshtml]
@@ -482,14 +482,6 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/kwanele/Documents/PROJECTS/HospitalManagement/WardSystemProject/Views/PatientManagement/ManageMedications.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF0aWVudE1hbmFnZW1lbnRcTWFuYWdlTWVkaWNhdGlvbnMuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/kwanele/Documents/PROJECTS/HospitalManagement/WardSystemProject/Views/PatientManagement/ManageMovements.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF0aWVudE1hbmFnZW1lbnRcTWFuYWdlTW92ZW1lbnRzLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/kwanele/Documents/PROJECTS/HospitalManagement/WardSystemProject/Views/PatientManagement/Movement.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF0aWVudE1hbmFnZW1lbnRcTW92ZW1lbnQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/kwanele/Documents/PROJECTS/HospitalManagement/WardSystemProject/Views/PatientManagement/PatientFolder.cshtml]

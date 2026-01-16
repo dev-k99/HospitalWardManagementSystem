@@ -89,11 +89,10 @@
                                             <a href="@Url.Action("DeletePatient", new { id = patient.Id })" class="btn btn-sm btn-danger" title="Delete"><i class="bi bi-trash"></i></a>
                                             <a href="@Url.Action("PatientFolder", new { id = patient.Id })" class="btn btn-sm btn-primary" title="Patient Folder"><i class="bi bi-folder"></i></a>
                                             <a href="@Url.Action("Discharge", new { id = patient.Id })" class="btn btn-sm btn-secondary" title="Discharge"><i class="bi bi-box-arrow-right"></i></a>
-                                            <a href="@Url.Action("Movement", new { id = patient.Id })" class="btn btn-sm btn-success" title="Record Movement"><i class="bi bi-arrow-right-circle"></i></a>
-                                            <a href="@Url.Action("ManageAllergies", new { id = patient.Id })" class="btn btn-sm btn-info" title="Manage Allergies"><i class="bi bi-shield-exclamation"></i></a>
                                             <a href="@Url.Action("ManageConditions", new { id = patient.Id })" class="btn btn-sm btn-warning" title="Manage Conditions"><i class="bi bi-heart-pulse"></i></a>
-                                            <a href="@Url.Action("ManageMovements", new { id = patient.Id })" class="btn btn-sm btn-primary" title="Manage Movements"><i class="bi bi-arrow-repeat"></i></a>
-                                             
+                                            <a asp-action="ManageAllergies" asp-route-Id="@patient.Id" class="btn btn-sm btn-info" title="Manage Allergies">
+                                                <i class="bi bi-shield-exclamation"></i>
+                                            </a>
                                         </td>
                                     </tr>
                                 }

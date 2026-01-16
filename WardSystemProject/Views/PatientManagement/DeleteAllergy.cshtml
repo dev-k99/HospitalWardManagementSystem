@@ -61,7 +61,7 @@
                     <form asp-action="DeleteAllergy" method="post">
                         <input type="hidden" asp-for="Id" />
                         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                            <a asp-action="ManageAllergies" class="btn btn-secondary me-md-2">
+                            <a asp-action="ManageAllergies" asp-route-id="@Model.PatientId" class="btn btn-secondary me-md-2">
                                 <i class="bi bi-arrow-left"></i> Cancel
                             </a>
                             <button type="submit" class="btn btn-danger">
