@@ -128,7 +128,7 @@
               "RelativeDocumentMoniker": "WardSystemProject\\Views\\PatientManagement\\DeleteAllergy.cshtml",
               "ToolTip": "C:\\Users\\kwanele\\Documents\\PROJECTS\\HospitalManagement\\WardSystemProject\\Views\\PatientManagement\\DeleteAllergy.cshtml",
               "RelativeToolTip": "WardSystemProject\\Views\\PatientManagement\\DeleteAllergy.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAD8AAAB+AAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAnAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2026-01-16T15:30:51.66Z",
               "EditorCaption": ""
@@ -143,8 +143,7 @@
               "RelativeToolTip": "WardSystemProject\\Views\\PatientManagement\\ManageAllergies.cshtml",
               "ViewState": "AgIAADgAAAAAAAAAAAAwwFgAAAAVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-01-16T14:09:53.279Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-16T14:09:53.279Z"
             },
             {
               "$type": "Document",
@@ -156,8 +155,7 @@
               "RelativeToolTip": "WardSystemProject\\Views\\PatientManagement\\Index.cshtml",
               "ViewState": "AgIAAFoAAAAAAAAAAAAwwH8AAAAHAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-01-16T14:08:58.118Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-16T14:08:58.118Z"
             },
             {
               "$type": "Document",
@@ -169,8 +167,7 @@
               "RelativeToolTip": "WardSystemProject\\Controllers\\PatientManagementController.cs",
               "ViewState": "AgIAAAwBAAAAAAAAAAAIwFkBAAAxAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-16T14:01:32.199Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-16T14:01:32.199Z"
             },
             {
               "$type": "Document",
@@ -182,8 +179,7 @@
               "RelativeToolTip": "WardSystemProject\\Controllers\\PatientCareController.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-16T14:01:30.024Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-16T14:01:30.024Z"
             },
             {
               "$type": "Document",
@@ -195,8 +191,7 @@
               "RelativeToolTip": "WardSystemProject\\Views\\PatientManagement\\CreateAllergy.cshtml",
               "ViewState": "AgIAACMAAAAAAAAAAAAwwEgAAAACAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-01-16T14:01:12.02Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-16T14:01:12.02Z"
             },
             {
               "$type": "Document",
@@ -208,8 +203,7 @@
               "RelativeToolTip": "WardSystemProject\\Views\\PatientManagement\\ManageMedicalConditions.cshtml",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-01-16T14:19:16.913Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-16T14:19:16.913Z"
             },
             {
               "$type": "Document",
@@ -221,8 +215,7 @@
               "RelativeToolTip": "WardSystemProject\\Views\\Accounts\\index.html",
               "ViewState": "AgIAAO4CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
-              "WhenOpened": "2026-01-16T13:55:25.32Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-16T13:55:25.32Z"
             },
             {
               "$type": "Document",
@@ -234,8 +227,7 @@
               "RelativeToolTip": "WardSystemProject\\Views\\Accounts\\AccessDenied.cshtml",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-01-16T13:54:55.032Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-16T13:54:55.032Z"
             },
             {
               "$type": "Document",
@@ -247,8 +239,7 @@
               "RelativeToolTip": "WardSystemProject\\Views\\BedManagement\\DeleteBed.cshtml",
               "ViewState": "AgIAAC4AAAAAAAAAAAAwwEMAAABJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-01-16T13:33:59.335Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-16T13:33:59.335Z"
             },
             {
               "$type": "Document",
@@ -260,8 +251,7 @@
               "RelativeToolTip": "WardSystemProject\\Controllers\\BedManagementController.cs",
               "ViewState": "AgIAAJ8AAAAAAAAAAAAkwKoAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-16T13:30:44.596Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-16T13:30:44.596Z"
             },
             {
               "$type": "Document",
@@ -273,8 +263,7 @@
               "RelativeToolTip": "WardSystemProject\\Views\\RoomManagement\\DetailsRoom.cshtml",
               "ViewState": "AgIAABgAAAAAAAAAAAAAAC4AAAAQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-01-16T13:20:00.787Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-16T13:20:00.787Z"
             },
             {
               "$type": "Document",
@@ -286,8 +275,7 @@
               "RelativeToolTip": "WardSystemProject\\Controllers\\RoomManagementController.cs",
               "ViewState": "AgIAAD0AAAAAAAAAAAAkwKoAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-16T13:17:27.348Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-16T13:17:27.348Z"
             },
             {
               "$type": "Document",
@@ -299,8 +287,7 @@
               "RelativeToolTip": "WardSystemProject\\Views\\Administration\\DetailsRoom.cshtml",
               "ViewState": "AgIAAAkAAAAAAAAAAAAAAE8AAAAoAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-12-18T15:39:56.402Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-18T15:39:56.402Z"
             },
             {
               "$type": "Document",
@@ -324,8 +311,7 @@
               "RelativeToolTip": "WardSystemProject\\Controllers\\AdministractionController.cs",
               "ViewState": "AgIAAIICAAAAAAAAAAAmwIkCAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-18T15:02:42.222Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-18T15:02:42.222Z"
             },
             {
               "$type": "Document",
@@ -337,8 +323,7 @@
               "RelativeToolTip": "WardSystemProject\\Views\\Administration\\DetailsWard.cshtml",
               "ViewState": "AgIAAGwAAAAAAAAAAAAAAH8AAAAnAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-01-16T12:54:56.884Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-16T12:54:56.884Z"
             },
             {
               "$type": "Document",
@@ -350,8 +335,7 @@
               "RelativeToolTip": "WardSystemProject\\Views\\Administration\\ManageRooms.cshtml",
               "ViewState": "AgIAAD8AAAAAAAAAAAAAAEsAAAApAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-01-16T12:57:03.806Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-16T12:57:03.806Z"
             },
             {
               "$type": "Document",
@@ -363,8 +347,7 @@
               "RelativeToolTip": "WardSystemProject\\Views\\Administration\\ManageWards.cshtml",
               "ViewState": "AgIAADYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-01-16T12:56:30.098Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-16T12:56:30.098Z"
             },
             {
               "$type": "Document",
@@ -388,8 +371,7 @@
               "RelativeToolTip": "WardSystemProject\\Views\\Administration\\EditWard.cshtml",
               "ViewState": "AgIAADYAAAAAAAAAAADwv1MAAAArAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-12-18T15:22:18.635Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-18T15:22:18.635Z"
             },
             {
               "$type": "Document",
@@ -426,6 +408,10 @@
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAB8AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
               "WhenOpened": "2025-12-11T19:51:04.548Z"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{eefa5220-e298-11d0-8f78-00a0c9110057}"
             }
           ]
         }

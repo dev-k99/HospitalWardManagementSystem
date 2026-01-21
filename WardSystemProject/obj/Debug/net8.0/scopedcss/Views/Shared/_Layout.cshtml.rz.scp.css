@@ -8,19 +8,19 @@ a.navbar-brand[b-djio2lw78w] {
 }
 
 a[b-djio2lw78w] {
-  color: #0077cc;
+  color: #e5e5e5;
 }
 
 .btn-primary[b-djio2lw78w] {
   color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+  background-color: #e5e5e5;
+  border-color: #e5e5e5;
 }
 
 .nav-pills .nav-link.active[b-djio2lw78w], .nav-pills .show > .nav-link[b-djio2lw78w] {
   color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+  background-color: #e5e5e5;
+  border-color: #e5e5e5;
 }
 
 .border-top[b-djio2lw78w] {
