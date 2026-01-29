@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("WardSystemProject")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f414f8435f3e3b248d861c4f2f5a622498b597e5")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+fe72c8ebd1e4b0948d1b8955ce70cabde5a7e7c4")]
 [assembly: System.Reflection.AssemblyProductAttribute("WardSystemProject")]
 [assembly: System.Reflection.AssemblyTitleAttribute("WardSystemProject")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
