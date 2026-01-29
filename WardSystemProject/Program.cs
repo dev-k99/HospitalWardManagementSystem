@@ -151,8 +151,8 @@ using (var scope = app.Services.CreateScope())
     app.UseAuthentication();
     app.UseAuthorization();
     app.MapControllerRoute(
-        name: "default",
-        pattern: "{controller=Home}/{action=Index}/{id?}");
+    name: "default",
+    pattern: "{controller=Accounts}/{action=Index}/{id?}");
     app.MapRazorPages(); // For Identity pages
 
     app.Run();

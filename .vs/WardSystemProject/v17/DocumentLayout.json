@@ -3,20 +3,48 @@
   "WorkspaceRootPath": "C:\\Users\\kwanele\\Documents\\PROJECTS\\HospitalManagement\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{F0DE6511-D8EA-4CF5-B354-3F64CD3F3AED}|WardSystemProject\\WardSystemProject.csproj|c:\\users\\kwanele\\documents\\projects\\hospitalmanagement\\wardsystemproject\\views\\patientmanagement\\deleteallergy.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{F0DE6511-D8EA-4CF5-B354-3F64CD3F3AED}|WardSystemProject\\WardSystemProject.csproj|solutionrelative:wardsystemproject\\views\\patientmanagement\\deleteallergy.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{F0DE6511-D8EA-4CF5-B354-3F64CD3F3AED}|WardSystemProject\\WardSystemProject.csproj|c:\\users\\kwanele\\documents\\projects\\hospitalmanagement\\wardsystemproject\\views\\accounts\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{F0DE6511-D8EA-4CF5-B354-3F64CD3F3AED}|WardSystemProject\\WardSystemProject.csproj|solutionrelative:wardsystemproject\\views\\accounts\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F0DE6511-D8EA-4CF5-B354-3F64CD3F3AED}|WardSystemProject\\WardSystemProject.csproj|c:\\users\\kwanele\\documents\\projects\\hospitalmanagement\\wardsystemproject\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{F0DE6511-D8EA-4CF5-B354-3F64CD3F3AED}|WardSystemProject\\WardSystemProject.csproj|solutionrelative:wardsystemproject\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F0DE6511-D8EA-4CF5-B354-3F64CD3F3AED}|WardSystemProject\\WardSystemProject.csproj|c:\\users\\kwanele\\documents\\projects\\hospitalmanagement\\wardsystemproject\\views\\accounts\\register.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{F0DE6511-D8EA-4CF5-B354-3F64CD3F3AED}|WardSystemProject\\WardSystemProject.csproj|solutionrelative:wardsystemproject\\views\\accounts\\register.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F0DE6511-D8EA-4CF5-B354-3F64CD3F3AED}|WardSystemProject\\WardSystemProject.csproj|c:\\users\\kwanele\\documents\\projects\\hospitalmanagement\\wardsystemproject\\views\\accounts\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{F0DE6511-D8EA-4CF5-B354-3F64CD3F3AED}|WardSystemProject\\WardSystemProject.csproj|solutionrelative:wardsystemproject\\views\\accounts\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F0DE6511-D8EA-4CF5-B354-3F64CD3F3AED}|WardSystemProject\\WardSystemProject.csproj|c:\\users\\kwanele\\documents\\projects\\hospitalmanagement\\wardsystemproject\\controllers\\patientcarecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F0DE6511-D8EA-4CF5-B354-3F64CD3F3AED}|WardSystemProject\\WardSystemProject.csproj|solutionrelative:wardsystemproject\\controllers\\patientcarecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{F0DE6511-D8EA-4CF5-B354-3F64CD3F3AED}|WardSystemProject\\WardSystemProject.csproj|c:\\users\\kwanele\\documents\\projects\\hospitalmanagement\\wardsystemproject\\controllers\\patientmanagementcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F0DE6511-D8EA-4CF5-B354-3F64CD3F3AED}|WardSystemProject\\WardSystemProject.csproj|solutionrelative:wardsystemproject\\controllers\\patientmanagementcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F0DE6511-D8EA-4CF5-B354-3F64CD3F3AED}|WardSystemProject\\WardSystemProject.csproj|c:\\users\\kwanele\\documents\\projects\\hospitalmanagement\\wardsystemproject\\views\\patientmanagement\\createallergy.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{F0DE6511-D8EA-4CF5-B354-3F64CD3F3AED}|WardSystemProject\\WardSystemProject.csproj|solutionrelative:wardsystemproject\\views\\patientmanagement\\createallergy.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{F0DE6511-D8EA-4CF5-B354-3F64CD3F3AED}|WardSystemProject\\WardSystemProject.csproj|c:\\users\\kwanele\\documents\\projects\\hospitalmanagement\\wardsystemproject\\views\\patientmanagement\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{F0DE6511-D8EA-4CF5-B354-3F64CD3F3AED}|WardSystemProject\\WardSystemProject.csproj|solutionrelative:wardsystemproject\\views\\patientmanagement\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F0DE6511-D8EA-4CF5-B354-3F64CD3F3AED}|WardSystemProject\\WardSystemProject.csproj|c:\\users\\kwanele\\documents\\projects\\hospitalmanagement\\wardsystemproject\\controllers\\accountscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F0DE6511-D8EA-4CF5-B354-3F64CD3F3AED}|WardSystemProject\\WardSystemProject.csproj|solutionrelative:wardsystemproject\\controllers\\accountscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F0DE6511-D8EA-4CF5-B354-3F64CD3F3AED}|WardSystemProject\\WardSystemProject.csproj|c:\\users\\kwanele\\documents\\projects\\hospitalmanagement\\wardsystemproject\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F0DE6511-D8EA-4CF5-B354-3F64CD3F3AED}|WardSystemProject\\WardSystemProject.csproj|solutionrelative:wardsystemproject\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F0DE6511-D8EA-4CF5-B354-3F64CD3F3AED}|WardSystemProject\\WardSystemProject.csproj|c:\\users\\kwanele\\documents\\projects\\hospitalmanagement\\wardsystemproject\\views\\patientmanagement\\deleteallergy.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{F0DE6511-D8EA-4CF5-B354-3F64CD3F3AED}|WardSystemProject\\WardSystemProject.csproj|solutionrelative:wardsystemproject\\views\\patientmanagement\\deleteallergy.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F0DE6511-D8EA-4CF5-B354-3F64CD3F3AED}|WardSystemProject\\WardSystemProject.csproj|c:\\users\\kwanele\\documents\\projects\\hospitalmanagement\\wardsystemproject\\views\\patientmanagement\\createallergy.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{F0DE6511-D8EA-4CF5-B354-3F64CD3F3AED}|WardSystemProject\\WardSystemProject.csproj|solutionrelative:wardsystemproject\\views\\patientmanagement\\createallergy.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{F0DE6511-D8EA-4CF5-B354-3F64CD3F3AED}|WardSystemProject\\WardSystemProject.csproj|c:\\users\\kwanele\\documents\\projects\\hospitalmanagement\\wardsystemproject\\views\\patientmanagement\\manageallergies.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
@@ -25,10 +53,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{F0DE6511-D8EA-4CF5-B354-3F64CD3F3AED}|WardSystemProject\\WardSystemProject.csproj|c:\\users\\kwanele\\documents\\projects\\hospitalmanagement\\wardsystemproject\\views\\patientmanagement\\managemedicalconditions.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{F0DE6511-D8EA-4CF5-B354-3F64CD3F3AED}|WardSystemProject\\WardSystemProject.csproj|solutionrelative:wardsystemproject\\views\\patientmanagement\\managemedicalconditions.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F0DE6511-D8EA-4CF5-B354-3F64CD3F3AED}|WardSystemProject\\WardSystemProject.csproj|c:\\users\\kwanele\\documents\\projects\\hospitalmanagement\\wardsystemproject\\controllers\\patientcarecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F0DE6511-D8EA-4CF5-B354-3F64CD3F3AED}|WardSystemProject\\WardSystemProject.csproj|solutionrelative:wardsystemproject\\controllers\\patientcarecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{F0DE6511-D8EA-4CF5-B354-3F64CD3F3AED}|WardSystemProject\\WardSystemProject.csproj|c:\\users\\kwanele\\documents\\projects\\hospitalmanagement\\wardsystemproject\\views\\accounts\\accessdenied.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
@@ -87,10 +111,6 @@
       "RelativeMoniker": "D:0:0:{F0DE6511-D8EA-4CF5-B354-3F64CD3F3AED}|WardSystemProject\\WardSystemProject.csproj|solutionrelative:wardsystemproject\\migrations\\20251211195523_intialmigration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F0DE6511-D8EA-4CF5-B354-3F64CD3F3AED}|WardSystemProject\\WardSystemProject.csproj|c:\\users\\kwanele\\documents\\projects\\hospitalmanagement\\wardsystemproject\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F0DE6511-D8EA-4CF5-B354-3F64CD3F3AED}|WardSystemProject\\WardSystemProject.csproj|solutionrelative:wardsystemproject\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{F0DE6511-D8EA-4CF5-B354-3F64CD3F3AED}|WardSystemProject\\WardSystemProject.csproj|c:\\users\\kwanele\\documents\\projects\\hospitalmanagement\\wardsystemproject\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{F0DE6511-D8EA-4CF5-B354-3F64CD3F3AED}|WardSystemProject\\WardSystemProject.csproj|solutionrelative:wardsystemproject\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     }
@@ -102,7 +122,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 6,
           "Children": [
             {
               "$type": "Bookmark",
@@ -118,7 +138,124 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Register.cshtml",
+              "DocumentMoniker": "C:\\Users\\kwanele\\Documents\\PROJECTS\\HospitalManagement\\WardSystemProject\\Views\\Accounts\\Register.cshtml",
+              "RelativeDocumentMoniker": "WardSystemProject\\Views\\Accounts\\Register.cshtml",
+              "ToolTip": "C:\\Users\\kwanele\\Documents\\PROJECTS\\HospitalManagement\\WardSystemProject\\Views\\Accounts\\Register.cshtml",
+              "RelativeToolTip": "WardSystemProject\\Views\\Accounts\\Register.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-01-29T21:23:20.562Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Login.cshtml",
+              "DocumentMoniker": "C:\\Users\\kwanele\\Documents\\PROJECTS\\HospitalManagement\\WardSystemProject\\Views\\Accounts\\Login.cshtml",
+              "RelativeDocumentMoniker": "WardSystemProject\\Views\\Accounts\\Login.cshtml",
+              "ToolTip": "C:\\Users\\kwanele\\Documents\\PROJECTS\\HospitalManagement\\WardSystemProject\\Views\\Accounts\\Login.cshtml",
+              "RelativeToolTip": "WardSystemProject\\Views\\Accounts\\Login.cshtml",
+              "ViewState": "AgIAAJYAAAAAAAAAAAAAABAAAABFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-01-29T21:22:47.18Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\kwanele\\Documents\\PROJECTS\\HospitalManagement\\WardSystemProject\\Views\\PatientManagement\\Index.cshtml",
+              "RelativeDocumentMoniker": "WardSystemProject\\Views\\PatientManagement\\Index.cshtml",
+              "ToolTip": "C:\\Users\\kwanele\\Documents\\PROJECTS\\HospitalManagement\\WardSystemProject\\Views\\PatientManagement\\Index.cshtml",
+              "RelativeToolTip": "WardSystemProject\\Views\\PatientManagement\\Index.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAH8AAAAHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-01-16T14:08:58.118Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\kwanele\\Documents\\PROJECTS\\HospitalManagement\\WardSystemProject\\Views\\Accounts\\Index.cshtml",
+              "RelativeDocumentMoniker": "WardSystemProject\\Views\\Accounts\\Index.cshtml",
+              "ToolTip": "C:\\Users\\kwanele\\Documents\\PROJECTS\\HospitalManagement\\WardSystemProject\\Views\\Accounts\\Index.cshtml",
+              "RelativeToolTip": "WardSystemProject\\Views\\Accounts\\Index.cshtml",
+              "ViewState": "AgIAAK0AAAAAAAAAAAAAALQAAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-01-29T19:50:51.329Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "AccountsController.cs",
+              "DocumentMoniker": "C:\\Users\\kwanele\\Documents\\PROJECTS\\HospitalManagement\\WardSystemProject\\Controllers\\AccountsController.cs",
+              "RelativeDocumentMoniker": "WardSystemProject\\Controllers\\AccountsController.cs",
+              "ToolTip": "C:\\Users\\kwanele\\Documents\\PROJECTS\\HospitalManagement\\WardSystemProject\\Controllers\\AccountsController.cs",
+              "RelativeToolTip": "WardSystemProject\\Controllers\\AccountsController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAANsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-29T19:54:50.077Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\kwanele\\Documents\\PROJECTS\\HospitalManagement\\WardSystemProject\\Views\\Home\\Index.cshtml",
+              "RelativeDocumentMoniker": "WardSystemProject\\Views\\Home\\Index.cshtml",
+              "ToolTip": "C:\\Users\\kwanele\\Documents\\PROJECTS\\HospitalManagement\\WardSystemProject\\Views\\Home\\Index.cshtml",
+              "RelativeToolTip": "WardSystemProject\\Views\\Home\\Index.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAANwAAABJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-01-29T20:03:58.14Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "PatientManagementController.cs",
+              "DocumentMoniker": "C:\\Users\\kwanele\\Documents\\PROJECTS\\HospitalManagement\\WardSystemProject\\Controllers\\PatientManagementController.cs",
+              "RelativeDocumentMoniker": "WardSystemProject\\Controllers\\PatientManagementController.cs",
+              "ToolTip": "C:\\Users\\kwanele\\Documents\\PROJECTS\\HospitalManagement\\WardSystemProject\\Controllers\\PatientManagementController.cs",
+              "RelativeToolTip": "WardSystemProject\\Controllers\\PatientManagementController.cs",
+              "ViewState": "AgIAAEEAAAAAAAAAAAAtwFIAAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-16T14:01:32.199Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "PatientCareController.cs",
+              "DocumentMoniker": "C:\\Users\\kwanele\\Documents\\PROJECTS\\HospitalManagement\\WardSystemProject\\Controllers\\PatientCareController.cs",
+              "RelativeDocumentMoniker": "WardSystemProject\\Controllers\\PatientCareController.cs",
+              "ToolTip": "C:\\Users\\kwanele\\Documents\\PROJECTS\\HospitalManagement\\WardSystemProject\\Controllers\\PatientCareController.cs",
+              "RelativeToolTip": "WardSystemProject\\Controllers\\PatientCareController.cs",
+              "ViewState": "AgIAAFAAAAAAAAAAAAD4v2EAAAArAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-16T14:01:30.024Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\kwanele\\Documents\\PROJECTS\\HospitalManagement\\WardSystemProject\\Program.cs",
+              "RelativeDocumentMoniker": "WardSystemProject\\Program.cs",
+              "ToolTip": "C:\\Users\\kwanele\\Documents\\PROJECTS\\HospitalManagement\\WardSystemProject\\Program.cs",
+              "RelativeToolTip": "WardSystemProject\\Program.cs",
+              "ViewState": "AgIAAIoAAAAAAAAAAAAAAJgAAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-11T19:52:28.722Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
               "Title": "DeleteAllergy.cshtml",
               "DocumentMoniker": "C:\\Users\\kwanele\\Documents\\PROJECTS\\HospitalManagement\\WardSystemProject\\Views\\PatientManagement\\DeleteAllergy.cshtml",
               "RelativeDocumentMoniker": "WardSystemProject\\Views\\PatientManagement\\DeleteAllergy.cshtml",
@@ -131,7 +268,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 11,
               "Title": "ManageAllergies.cshtml",
               "DocumentMoniker": "C:\\Users\\kwanele\\Documents\\PROJECTS\\HospitalManagement\\WardSystemProject\\Views\\PatientManagement\\ManageAllergies.cshtml",
               "RelativeDocumentMoniker": "WardSystemProject\\Views\\PatientManagement\\ManageAllergies.cshtml",
@@ -143,43 +280,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "C:\\Users\\kwanele\\Documents\\PROJECTS\\HospitalManagement\\WardSystemProject\\Views\\PatientManagement\\Index.cshtml",
-              "RelativeDocumentMoniker": "WardSystemProject\\Views\\PatientManagement\\Index.cshtml",
-              "ToolTip": "C:\\Users\\kwanele\\Documents\\PROJECTS\\HospitalManagement\\WardSystemProject\\Views\\PatientManagement\\Index.cshtml",
-              "RelativeToolTip": "WardSystemProject\\Views\\PatientManagement\\Index.cshtml",
-              "ViewState": "AgIAAFoAAAAAAAAAAAAwwH8AAAAHAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-01-16T14:08:58.118Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "PatientManagementController.cs",
-              "DocumentMoniker": "C:\\Users\\kwanele\\Documents\\PROJECTS\\HospitalManagement\\WardSystemProject\\Controllers\\PatientManagementController.cs",
-              "RelativeDocumentMoniker": "WardSystemProject\\Controllers\\PatientManagementController.cs",
-              "ToolTip": "C:\\Users\\kwanele\\Documents\\PROJECTS\\HospitalManagement\\WardSystemProject\\Controllers\\PatientManagementController.cs",
-              "RelativeToolTip": "WardSystemProject\\Controllers\\PatientManagementController.cs",
-              "ViewState": "AgIAAAwBAAAAAAAAAAAIwFkBAAAxAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-16T14:01:32.199Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "PatientCareController.cs",
-              "DocumentMoniker": "C:\\Users\\kwanele\\Documents\\PROJECTS\\HospitalManagement\\WardSystemProject\\Controllers\\PatientCareController.cs",
-              "RelativeDocumentMoniker": "WardSystemProject\\Controllers\\PatientCareController.cs",
-              "ToolTip": "C:\\Users\\kwanele\\Documents\\PROJECTS\\HospitalManagement\\WardSystemProject\\Controllers\\PatientCareController.cs",
-              "RelativeToolTip": "WardSystemProject\\Controllers\\PatientCareController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-16T14:01:30.024Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 10,
               "Title": "CreateAllergy.cshtml",
               "DocumentMoniker": "C:\\Users\\kwanele\\Documents\\PROJECTS\\HospitalManagement\\WardSystemProject\\Views\\PatientManagement\\CreateAllergy.cshtml",
               "RelativeDocumentMoniker": "WardSystemProject\\Views\\PatientManagement\\CreateAllergy.cshtml",
@@ -191,7 +292,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 12,
               "Title": "ManageMedicalConditions.cshtml",
               "DocumentMoniker": "C:\\Users\\kwanele\\Documents\\PROJECTS\\HospitalManagement\\WardSystemProject\\Views\\PatientManagement\\ManageMedicalConditions.cshtml",
               "RelativeDocumentMoniker": "WardSystemProject\\Views\\PatientManagement\\ManageMedicalConditions.cshtml",
@@ -203,7 +304,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 13,
               "Title": "AccessDenied.cshtml",
               "DocumentMoniker": "C:\\Users\\kwanele\\Documents\\PROJECTS\\HospitalManagement\\WardSystemProject\\Views\\Accounts\\AccessDenied.cshtml",
               "RelativeDocumentMoniker": "WardSystemProject\\Views\\Accounts\\AccessDenied.cshtml",
@@ -215,7 +316,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 15,
               "Title": "DeleteBed.cshtml",
               "DocumentMoniker": "C:\\Users\\kwanele\\Documents\\PROJECTS\\HospitalManagement\\WardSystemProject\\Views\\BedManagement\\DeleteBed.cshtml",
               "RelativeDocumentMoniker": "WardSystemProject\\Views\\BedManagement\\DeleteBed.cshtml",
@@ -227,7 +328,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 14,
               "Title": "BedManagementController.cs",
               "DocumentMoniker": "C:\\Users\\kwanele\\Documents\\PROJECTS\\HospitalManagement\\WardSystemProject\\Controllers\\BedManagementController.cs",
               "RelativeDocumentMoniker": "WardSystemProject\\Controllers\\BedManagementController.cs",
@@ -239,7 +340,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 18,
               "Title": "DetailsRoom.cshtml",
               "DocumentMoniker": "C:\\Users\\kwanele\\Documents\\PROJECTS\\HospitalManagement\\WardSystemProject\\Views\\RoomManagement\\DetailsRoom.cshtml",
               "RelativeDocumentMoniker": "WardSystemProject\\Views\\RoomManagement\\DetailsRoom.cshtml",
@@ -251,7 +352,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 17,
               "Title": "RoomManagementController.cs",
               "DocumentMoniker": "C:\\Users\\kwanele\\Documents\\PROJECTS\\HospitalManagement\\WardSystemProject\\Controllers\\RoomManagementController.cs",
               "RelativeDocumentMoniker": "WardSystemProject\\Controllers\\RoomManagementController.cs",
@@ -263,7 +364,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 20,
               "Title": "DetailsRoom.cshtml",
               "DocumentMoniker": "C:\\Users\\kwanele\\Documents\\PROJECTS\\HospitalManagement\\WardSystemProject\\Views\\Administration\\DetailsRoom.cshtml",
               "RelativeDocumentMoniker": "WardSystemProject\\Views\\Administration\\DetailsRoom.cshtml",
@@ -275,7 +376,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 25,
               "Title": "EditRoom.cshtml",
               "DocumentMoniker": "C:\\Users\\kwanele\\Documents\\PROJECTS\\HospitalManagement\\WardSystemProject\\Views\\Administration\\EditRoom.cshtml",
               "RelativeDocumentMoniker": "WardSystemProject\\Views\\Administration\\EditRoom.cshtml",
@@ -287,7 +388,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 16,
               "Title": "AdministractionController.cs",
               "DocumentMoniker": "C:\\Users\\kwanele\\Documents\\PROJECTS\\HospitalManagement\\WardSystemProject\\Controllers\\AdministractionController.cs",
               "RelativeDocumentMoniker": "WardSystemProject\\Controllers\\AdministractionController.cs",
@@ -299,7 +400,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 22,
               "Title": "DetailsWard.cshtml",
               "DocumentMoniker": "C:\\Users\\kwanele\\Documents\\PROJECTS\\HospitalManagement\\WardSystemProject\\Views\\Administration\\DetailsWard.cshtml",
               "RelativeDocumentMoniker": "WardSystemProject\\Views\\Administration\\DetailsWard.cshtml",
@@ -311,7 +412,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 19,
               "Title": "ManageRooms.cshtml",
               "DocumentMoniker": "C:\\Users\\kwanele\\Documents\\PROJECTS\\HospitalManagement\\WardSystemProject\\Views\\Administration\\ManageRooms.cshtml",
               "RelativeDocumentMoniker": "WardSystemProject\\Views\\Administration\\ManageRooms.cshtml",
@@ -323,7 +424,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 21,
               "Title": "ManageWards.cshtml",
               "DocumentMoniker": "C:\\Users\\kwanele\\Documents\\PROJECTS\\HospitalManagement\\WardSystemProject\\Views\\Administration\\ManageWards.cshtml",
               "RelativeDocumentMoniker": "WardSystemProject\\Views\\Administration\\ManageWards.cshtml",
@@ -335,7 +436,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 24,
               "Title": "Room.cs",
               "DocumentMoniker": "C:\\Users\\kwanele\\Documents\\PROJECTS\\HospitalManagement\\WardSystemProject\\Models\\Room.cs",
               "RelativeDocumentMoniker": "WardSystemProject\\Models\\Room.cs",
@@ -347,7 +448,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 23,
               "Title": "EditWard.cshtml",
               "DocumentMoniker": "C:\\Users\\kwanele\\Documents\\PROJECTS\\HospitalManagement\\WardSystemProject\\Views\\Administration\\EditWard.cshtml",
               "RelativeDocumentMoniker": "WardSystemProject\\Views\\Administration\\EditWard.cshtml",
@@ -359,7 +460,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 26,
               "Title": "20251211195523_IntialMigration.cs",
               "DocumentMoniker": "C:\\Users\\kwanele\\Documents\\PROJECTS\\HospitalManagement\\WardSystemProject\\Migrations\\20251211195523_IntialMigration.cs",
               "RelativeDocumentMoniker": "WardSystemProject\\Migrations\\20251211195523_IntialMigration.cs",
@@ -371,19 +472,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\kwanele\\Documents\\PROJECTS\\HospitalManagement\\WardSystemProject\\Program.cs",
-              "RelativeDocumentMoniker": "WardSystemProject\\Program.cs",
-              "ToolTip": "C:\\Users\\kwanele\\Documents\\PROJECTS\\HospitalManagement\\WardSystemProject\\Program.cs",
-              "RelativeToolTip": "WardSystemProject\\Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-11T19:52:28.722Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 27,
               "Title": "appsettings.json",
               "DocumentMoniker": "C:\\Users\\kwanele\\Documents\\PROJECTS\\HospitalManagement\\WardSystemProject\\appsettings.json",
               "RelativeDocumentMoniker": "WardSystemProject\\appsettings.json",

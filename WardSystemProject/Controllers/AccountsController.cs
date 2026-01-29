@@ -25,7 +25,14 @@ namespace WardSystemProject.Controllers
             _roleManager = roleManager;
             _context = context;
         }
+        // Landing page - default route
+        [AllowAnonymous]
+        public IActionResult Index()
+        {
+            return View();
+        }
 
+        [AllowAnonymous]
         [HttpGet]
         public IActionResult Login(string? returnUrl = null)
         {
@@ -33,6 +40,7 @@ namespace WardSystemProject.Controllers
             return View();
         }
 
+        [AllowAnonymous]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel model, string? returnUrl = null)
@@ -104,6 +112,7 @@ namespace WardSystemProject.Controllers
             return View(model);
         }
 
+        [AllowAnonymous]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
@@ -112,12 +121,13 @@ namespace WardSystemProject.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public IActionResult Register()
         {
             return View();
         }
-
+        [AllowAnonymous]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterViewModel model)
@@ -209,12 +219,12 @@ namespace WardSystemProject.Controllers
         }
 
         // Backward compatibility redirect for old Account routes
-        [HttpGet]
-        [Route("Account/Login")]
-        public IActionResult AccountLoginRedirect(string? returnUrl = null)
-        {
-            return RedirectToAction("Login", new { returnUrl });
-        }
+        //[HttpGet]
+        //[Route("Account/Login")]
+        //public IActionResult AccountLoginRedirect(string? returnUrl = null)
+        //{
+        //    return RedirectToAction("Login", new { returnUrl });
+        //}
 
         [HttpGet]
         [Route("Account/AccessDenied")]

@@ -687,6 +687,16 @@ C:\Users\kamva\OneDrive - Nelson Mandela University\2025 STUDY MATERIAL\WardMana
 C:\Users\kamva\OneDrive - Nelson Mandela University\2025 STUDY MATERIAL\WardManagementSystem\WardManagementSystem\WardSystemProject\bin\Debug\net8.0\runtimes\win\lib\net7.0\System.Drawing.Common.dll
 C:\Users\kamva\OneDrive - Nelson Mandela University\2025 STUDY MATERIAL\WardManagementSystem\WardManagementSystem\WardSystemProject\bin\Debug\net8.0\runtimes\win\lib\net7.0\System.Security.Cryptography.ProtectedData.dll
 C:\Users\kamva\OneDrive - Nelson Mandela University\2025 STUDY MATERIAL\WardManagementSystem\WardManagementSystem\WardSystemProject\bin\Debug\net8.0\runtimes\win\lib\net7.0\System.Windows.Extensions.dll
+C:\Users\kwanele\Documents\PROJECTS\HospitalManagement\WardSystemProject\obj\Debug\net8.0\WardSystemProject.csproj.AssemblyReference.cache
+C:\Users\kwanele\Documents\PROJECTS\HospitalManagement\WardSystemProject\obj\Debug\net8.0\rpswa.dswa.cache.json
+C:\Users\kwanele\Documents\PROJECTS\HospitalManagement\WardSystemProject\obj\Debug\net8.0\WardSystemProject.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\kwanele\Documents\PROJECTS\HospitalManagement\WardSystemProject\obj\Debug\net8.0\WardSystemProject.AssemblyInfoInputs.cache
+C:\Users\kwanele\Documents\PROJECTS\HospitalManagement\WardSystemProject\obj\Debug\net8.0\WardSystemProject.AssemblyInfo.cs
+C:\Users\kwanele\Documents\PROJECTS\HospitalManagement\WardSystemProject\obj\Debug\net8.0\WardSystemProject.csproj.CoreCompileInputs.cache
+C:\Users\kwanele\Documents\PROJECTS\HospitalManagement\WardSystemProject\obj\Debug\net8.0\WardSystemProject.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\kwanele\Documents\PROJECTS\HospitalManagement\WardSystemProject\obj\Debug\net8.0\WardSystemProject.RazorAssemblyInfo.cache
+C:\Users\kwanele\Documents\PROJECTS\HospitalManagement\WardSystemProject\obj\Debug\net8.0\WardSystemProject.RazorAssemblyInfo.cs
+C:\Users\kwanele\Documents\PROJECTS\HospitalManagement\WardSystemProject\obj\Debug\net8.0\WardSystemProject.sourcelink.json
 C:\Users\kwanele\Documents\PROJECTS\HospitalManagement\WardSystemProject\bin\Debug\net8.0\appsettings.Development.json
 C:\Users\kwanele\Documents\PROJECTS\HospitalManagement\WardSystemProject\bin\Debug\net8.0\appsettings.json
 C:\Users\kwanele\Documents\PROJECTS\HospitalManagement\WardSystemProject\bin\Debug\net8.0\WardSystemProject.staticwebassets.runtime.json
@@ -920,16 +930,6 @@ C:\Users\kwanele\Documents\PROJECTS\HospitalManagement\WardSystemProject\bin\Deb
 C:\Users\kwanele\Documents\PROJECTS\HospitalManagement\WardSystemProject\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Runtime.Caching.dll
 C:\Users\kwanele\Documents\PROJECTS\HospitalManagement\WardSystemProject\bin\Debug\net8.0\runtimes\win\lib\net7.0\System.Security.Cryptography.ProtectedData.dll
 C:\Users\kwanele\Documents\PROJECTS\HospitalManagement\WardSystemProject\bin\Debug\net8.0\runtimes\win\lib\net7.0\System.Windows.Extensions.dll
-C:\Users\kwanele\Documents\PROJECTS\HospitalManagement\WardSystemProject\obj\Debug\net8.0\WardSystemProject.csproj.AssemblyReference.cache
-C:\Users\kwanele\Documents\PROJECTS\HospitalManagement\WardSystemProject\obj\Debug\net8.0\rpswa.dswa.cache.json
-C:\Users\kwanele\Documents\PROJECTS\HospitalManagement\WardSystemProject\obj\Debug\net8.0\WardSystemProject.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\kwanele\Documents\PROJECTS\HospitalManagement\WardSystemProject\obj\Debug\net8.0\WardSystemProject.AssemblyInfoInputs.cache
-C:\Users\kwanele\Documents\PROJECTS\HospitalManagement\WardSystemProject\obj\Debug\net8.0\WardSystemProject.AssemblyInfo.cs
-C:\Users\kwanele\Documents\PROJECTS\HospitalManagement\WardSystemProject\obj\Debug\net8.0\WardSystemProject.csproj.CoreCompileInputs.cache
-C:\Users\kwanele\Documents\PROJECTS\HospitalManagement\WardSystemProject\obj\Debug\net8.0\WardSystemProject.MvcApplicationPartsAssemblyInfo.cache
-C:\Users\kwanele\Documents\PROJECTS\HospitalManagement\WardSystemProject\obj\Debug\net8.0\WardSystemProject.RazorAssemblyInfo.cache
-C:\Users\kwanele\Documents\PROJECTS\HospitalManagement\WardSystemProject\obj\Debug\net8.0\WardSystemProject.RazorAssemblyInfo.cs
-C:\Users\kwanele\Documents\PROJECTS\HospitalManagement\WardSystemProject\obj\Debug\net8.0\WardSystemProject.sourcelink.json
 C:\Users\kwanele\Documents\PROJECTS\HospitalManagement\WardSystemProject\obj\Debug\net8.0\rjimswa.dswa.cache.json
 C:\Users\kwanele\Documents\PROJECTS\HospitalManagement\WardSystemProject\obj\Debug\net8.0\rjsmrazor.dswa.cache.json
 C:\Users\kwanele\Documents\PROJECTS\HospitalManagement\WardSystemProject\obj\Debug\net8.0\rjsmcshtml.dswa.cache.json

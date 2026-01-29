@@ -1,0 +1,445 @@
+@{
+    ViewData["Title"] = "Welcome to WardCare+ Management System";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #0A4D68;
+            --accent-teal: #088395;
+            --light-blue: #05BFDB;
+            --warm-white: #F8FAFB;
+            --text-dark: #1A2B3C;
+            --text-gray: #5A6C7D;
+            --success-green: #2ECC71;
+            --border-subtle: rgba(10, 77, 104, 0.12);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--text-dark);
+            background: var(--warm-white);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(248, 250, 251, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-subtle);
+            animation: slideDown 0.6s ease-out;
+        }
+
+        @@keyframes slideDown {
+            from
+
+        {
+            transform: translateY(-100%);
+            opacity: 0;
+        }
+
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        }
+
+        .nav-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 1.2rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: var(--primary-blue);
+        }
+
+        .logo-icon {
+            width: 42px;
+            height: 42px;
+            background: linear-gradient(135deg, var(--accent-teal), var(--light-blue));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(8, 131, 149, 0.2);
+        }
+
+            .logo-icon svg {
+                width: 24px;
+                height: 24px;
+                fill: white;
+            }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+            align-items: center;
+        }
+
+            .nav-links a {
+                text-decoration: none;
+                color: var(--text-gray);
+                font-weight: 500;
+                font-size: 0.95rem;
+                transition: color 0.3s ease;
+                position: relative;
+            }
+
+                .nav-links a:hover {
+                    color: var(--accent-teal);
+                }
+
+                .nav-links a::after {
+                    content: '';
+                    position: absolute;
+                    bottom: -4px;
+                    left: 0;
+                    width: 0;
+                    height: 2px;
+                    background: var(--accent-teal);
+                    transition: width 0.3s ease;
+                }
+
+                .nav-links a:hover::after {
+                    width: 100%;
+                }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent-teal), var(--light-blue));
+            color: white;
+            padding: 0.7rem 1.8rem;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(8, 131, 149, 0.25);
+        }
+
+            .btn-primary:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 6px 20px rgba(8, 131, 149, 0.35);
+            }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--accent-teal);
+            padding: 0.7rem 1.8rem;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            border: 2px solid var(--accent-teal);
+            transition: all 0.3s ease;
+        }
+
+            .btn-secondary:hover {
+                background: var(--accent-teal);
+                color: white;
+                transform: translateY(-2px);
+            }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            overflow: hidden;
+            height: 700px; /* Adjust height as needed */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+        }
+
+
+        .hero-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(0, 51, 102, 0.7), rgba(0, 51, 102, 0.7)), url('/images/hero/hospital-bg.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            z-index: -1;
+        }
+
+
+        @@keyframes float {
+            0%, 100%
+
+        {
+            transform: translateY(0);
+        }
+
+        50% {
+            transform: translateY(-20px);
+        }
+
+        }
+
+        .hero-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-content {
+            animation: fadeInLeft 0.8s ease-out;
+        }
+
+        @@keyframes fadeInLeft {
+            from
+
+        {
+            opacity: 0;
+            transform: translateX(-40px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(8, 131, 149, 0.08);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--accent-teal);
+            margin-bottom: 1.5rem;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @@keyframes pulse {
+            0%, 100%
+
+        {
+            opacity: 1;
+        }
+
+        50% {
+            opacity: 0.8;
+        }
+
+        }
+
+        .hero-badge::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--success-green);
+            border-radius: 50%;
+            animation: blink 1.5s ease-in-out infinite;
+        }
+
+        @@keyframes blink {
+            0%, 100%
+
+        {
+            opacity: 1;
+        }
+
+        50% {
+            opacity: 0.3;
+        }
+
+        }
+
+        /* Responsive */
+        @@media (max-width: 968px) {
+            .nav-links
+
+        {
+            display: none;
+        }
+
+        .hero-container {
+            grid-template-columns: 1fr;
+            gap: 3rem;
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+        }
+
+        .about-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .stat-grid {
+            grid-template-columns: 1fr;
+        }
+
+            .hero-cta {
+                margin-top: 80px; 
+            }
+        }
+        </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <div class="logo-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M19 3H5c-1.1 0-1.99.9-1.99 2L3 19c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-1 11h-4v4h-4v-4H6v-4h4V6h4v4h4v4z"/>
+                    </svg>
+                </div>
+                <span class="logo-text">WardCare+</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="@Url.Action("Login", "Accounts")">Login</a></li>
+            </ul>
+            <a href="@Url.Action("Register", "Accounts")" class="btn-primary">Get Started</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-background"></div>
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <span>Healthcare Excellence</span>
+                </div>
+                <h1>
+                    Modern <span class="hero-highlight">Hospital Ward Management</span> for Better Patient Care
+                </h1>
+                <p>
+                    Streamline hospital operations with our comprehensive ward management system. 
+                    Enhance patient care, optimize staff workflows, and ensure seamless hospital administration.
+                </p>
+                <div class="hero-cta">
+                    <a href="@Url.Action("Login", "Accounts")" class="btn-primary">Access System</a>
+                    <a href="#about" class="btn-secondary">Learn More</a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="hero-card">
+                    <div class="stat-grid">
+                        <div class="stat-item">
+                            <span class="stat-number">24/7</span>
+                            <span class="stat-label">System Availability</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">100%</span>
+                            <span class="stat-label">Data Security</span>
+                        </div>
+                    </div>
+                    <ul class="feature-list">
+                        <li>Real-time patient monitoring</li>
+                        <li>Automated ward assignments</li>
+                        <li>Comprehensive reporting tools</li>
+                        <li>Staff scheduling & management</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="about-container">
+            <div class="section-header">
+                <span class="section-tag">About Our Hospital</span>
+                <h2>Committed to Excellence in Healthcare</h2>
+                <p>
+                    Our hospital combines cutting-edge technology with compassionate care to deliver 
+                    the highest standards of medical treatment and patient experience.
+                </p>
+            </div>
+            <div class="about-grid">
+                    <div class="about-card">
+                        <img src="~/images/about/care.jpg" alt="Trusted Healthcare" class="about-img" />
+                        
+                    <h3>Trusted Care</h3>
+                    <p>
+                        Decades of experience in providing exceptional healthcare services with a patient-first approach. 
+                        Our commitment to quality ensures every patient receives personalized attention.
+                    </p>
+                </div>
+                <div class="about-card">
+                    <img src="~/images/about/technology.jpg" alt="Trusted Healthcare" class="about-img" />
+                        
+                    </div>
+                    <h3>Advanced Technology</h3>
+                    <p>
+                        State-of-the-art medical equipment and digital systems that enable accurate diagnoses 
+                        and effective treatments, all seamlessly integrated into our ward management platform.
+                    </p>
+                </div>
+                <div class="about-card">
+                <img src="~/images/about/team.jpg" alt="Trusted Healthcare" class="about-img" />
+                        
+                    </div>
+                    <h3>Expert Team</h3>
+                    <p>
+                        Highly qualified medical professionals dedicated to patient wellbeing. Our team of doctors, 
+                        nurses, and support staff work collaboratively to ensure the best outcomes.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <p>&copy; 2026 Hospital Ward Management System. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
