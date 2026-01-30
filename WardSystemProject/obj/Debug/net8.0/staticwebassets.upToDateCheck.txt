@@ -1,9 +1,5 @@
 wwwroot\css\site.css
 wwwroot\favicon.ico
-wwwroot\images\about\care.jpg
-wwwroot\images\about\team.jpg
-wwwroot\images\about\technology.jpg
-wwwroot\images\hero\hospital-bg.jpg
 wwwroot\index.html
 wwwroot\js\site.js
 wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css
@@ -64,3 +60,7 @@ wwwroot\lib\jquery\dist\jquery.min.js
 wwwroot\lib\jquery\dist\jquery.min.map
 wwwroot\lib\jquery\LICENSE.txt
 wwwroot\starter-page.html
+wwwroot\images\about\technology.jpg
+wwwroot\images\about\care.jpg
+wwwroot\images\about\team.jpg
+wwwroot\images\hero\hospital-bg.jpg
