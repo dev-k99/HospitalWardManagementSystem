@@ -1,4 +1,4 @@
-# Ward Management System
+# WardCare+ Management System
 
 A comprehensive hospital ward management system built with ASP.NET Core MVC, Entity Framework Core, and Bootstrap 5.
 
