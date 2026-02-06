@@ -2093,7 +2093,7 @@ progress {
   border-color: #dfe0e1;
 }
 
-.table-dark {
+. {
   --bs-table-bg: #212529;
   --bs-table-striped-bg: #2c3034;
   --bs-table-striped-color: #fff;
