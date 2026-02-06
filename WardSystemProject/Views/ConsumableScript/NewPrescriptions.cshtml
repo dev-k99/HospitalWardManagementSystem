@@ -50,7 +50,7 @@
             </div>
         </div>
         <div class="col-md-3">
-            <div class="card bg-primary text-white">
+            <div class="card ">
                 <div class="card-body text-center">
                     <i class="bi bi-calendar-month fs-1"></i>
                     <h3 class="card-title">@Model.Count(p => p.PrescriptionDate >= DateTime.Today.AddDays(-30))</h3>
@@ -124,7 +124,7 @@
                     {
                         <div class="table-responsive">
                             <table class="table table-bordered table-hover">
-                                <thead class="table-dark">
+                                <thead class="">
                                     <tr>
                                         <th>Patient</th>
                                         <th>Medication</th>
