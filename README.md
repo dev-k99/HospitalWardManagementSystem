@@ -8,18 +8,17 @@ The Ward Management System is designed to manage hospital wards, patients, staff
 
 ## Screenshots
 ![Welcome](<Screenshots/Screenshot (431).png>)
-![Login Page](<Screenshots/Screenshot (395).png>)
-![Patient Folder](<Screenshots/Screenshot (398).png>)
-![Delete View](<Screenshots/Screenshot (397).png>)
-![Admission Form](<Screenshots/Screenshot (396).png>)
-![Patient Details](<Screenshots/Screenshot (399).png>)
-![Patient Care Dashboard](<Screenshots/Screenshot (400).png>)
-![Admin Dashboard](<Screenshots/Screenshot (401).png>)
-![Ward Management](<Screenshots/Screenshot (402).png>)
-![Bed Management](<Screenshots/Screenshot (403).png>)
-![Medication Management](<Screenshots/Screenshot (404).png>)
+![Admin Dashboard](<Screenshots/Screenshot (514).png>)
+![Patients](<Screenshots/Screenshot (516).png>)
+![Details](<Screenshots/Screenshot (510).png>)
+## Nurse Dashboard
+![Dashboard](<Screenshots/Screenshot (518).png>)
 
+## Doctor Dashboard
+![Dashboard](<Screenshots/Screenshot (515).png>)
 
+## Patient Folder
+![Folder](<Screenshots/Screenshot (517).png>)
 ## 🚀 Getting Started
 
 ### Prerequisites
