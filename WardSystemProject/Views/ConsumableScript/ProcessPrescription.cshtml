@@ -118,24 +118,25 @@
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label class="form-label fw-bold">
-                                        <i class="bi bi-check-circle"></i> Sent to Pharmacy
+                                        <i class="bi bi-check-circle"></i> Send to Pharmacy
                                     </label>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" asp-for="SentToPharmacy" id="sentToPharmacy" required>
-                                        <label class="form-check-label" for="sentToPharmacy">
+                                        <input class="form-check-input" type="checkbox" name="sendToPharmacyNow" id="sendToPharmacyNow" value="true">
+                                        <label class="form-check-label" for="sendToPharmacyNow">
                                             Confirm prescription has been forwarded to pharmacy
                                         </label>
                                     </div>
-                                    <span asp-validation-for="SentToPharmacy" class="text-danger"></span>
+                                    <small class="text-muted">Leave unchecked to save as Pending without forwarding.</small>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label class="form-label fw-bold">
+                                    <label asp-for="Notes" class="form-label fw-bold">
                                         <i class="bi bi-clipboard-text"></i> Processing Notes
                                     </label>
-                                    <textarea class="form-control" rows="3" 
+                                    <textarea asp-for="Notes" class="form-control" rows="3"
                                               placeholder="Enter any special instructions, delivery notes, or processing comments..."></textarea>
+                                    <span asp-validation-for="Notes" class="text-danger"></span>
                                 </div>
                             </div>
                         </div>
@@ -159,13 +160,6 @@
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
     
     <script>
-        // Form validation
-        document.querySelector('form').addEventListener('submit', function(e) {
-            const sentToPharmacy = document.getElementById('sentToPharmacy');
-            if (!sentToPharmacy.checked) {
-                e.preventDefault();
-                alert('Please confirm that the prescription has been sent to pharmacy before processing.');
-            }
-        });
+        // No forced validation — checkbox is optional (unchecked = Pending status)
     </script>
 }

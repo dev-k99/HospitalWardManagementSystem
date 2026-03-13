@@ -1,241 +1,533 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - WardCare+ System</title>
+    <title>@ViewData["Title"] - WardCare+</title>
+
+    <!-- Bootstrap 5 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    <!-- DataTables -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
+    <!-- Select2 -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css">
+    <!-- Custom styles -->
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/premium-design-system.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
 
     <style>
-        /* Custom sidebar styles to ensure full height and scrolling */
+        /* ── Design tokens ────────────────────────────────────────────────── */
+        :root {
+            --sidebar-bg:       #0f172a;
+            --sidebar-width:    260px;
+            --sidebar-hover:    rgba(255,255,255,.07);
+            --sidebar-active:   #1d4ed8;
+            --sidebar-label:    rgba(255,255,255,.38);
+            --sidebar-text:     rgba(255,255,255,.82);
+            --page-bg:          #f1f5f9;
+            --topbar-bg:        #ffffff;
+            --topbar-border:    #e2e8f0;
+            --card-radius:      12px;
+            --card-shadow:      0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.04);
+        }
+
+        /* ── Base ─────────────────────────────────────────────────────────── */
         body {
             min-height: 100vh;
-            overflow: hidden; /* Prevent double scrollbars */
+            overflow: hidden;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--page-bg);
         }
 
-        .sidebar {
-            width: 280px;
+        /* ── Sidebar ──────────────────────────────────────────────────────── */
+        #sidebar {
+            width: var(--sidebar-width);
+            min-width: var(--sidebar-width);
             height: 100vh;
+            background: var(--sidebar-bg);
             position: sticky;
             top: 0;
-            overflow-y: auto; /* Scrollable sidebar if menu is long */
+            overflow-y: auto;
+            overflow-x: hidden;
+            transition: width .25s ease, min-width .25s ease;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+        }
+        #sidebar::-webkit-scrollbar { width: 4px; }
+        #sidebar::-webkit-scrollbar-track { background: transparent; }
+        #sidebar::-webkit-scrollbar-thumb { background: rgba(255,255,255,.15); border-radius: 4px; }
+
+        #sidebar.collapsed {
+            width: 0;
+            min-width: 0;
+            overflow: hidden;
+            padding: 0 !important;
         }
 
-        .content-wrapper {
-            height: 100vh;
-            overflow-y: auto; /* Scrollable main content */
+        /* Logo */
+        .sidebar-logo {
+            display: flex;
+            align-items: center;
+            gap: .6rem;
+            padding: 1.25rem 1rem 1rem;
+            text-decoration: none;
+            color: #fff;
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: -.01em;
+            flex-shrink: 0;
+        }
+        .sidebar-logo .logo-icon {
+            width: 34px; height: 34px;
+            background: var(--sidebar-active);
+            border-radius: 8px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1rem;
+            flex-shrink: 0;
+        }
+
+        /* Nav */
+        .sidebar-nav {
+            flex: 1;
+            padding: 0 .75rem;
+            overflow-y: auto;
+        }
+        .sidebar-nav .nav-link {
+            color: var(--sidebar-text);
+            border-radius: 8px;
+            padding: .48rem .75rem;
+            font-size: .875rem;
+            display: flex;
+            align-items: center;
+            gap: .6rem;
+            transition: background .15s, color .15s;
+            margin-bottom: 2px;
+        }
+        .sidebar-nav .nav-link i { font-size: .95rem; flex-shrink: 0; }
+        .sidebar-nav .nav-link:hover { background: var(--sidebar-hover); color: #fff; }
+        .sidebar-nav .nav-link.active { background: var(--sidebar-active); color: #fff; font-weight: 600; }
+
+        .nav-section-label {
+            font-size: .67rem;
+            font-weight: 700;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            color: var(--sidebar-label);
+            padding: .9rem .75rem .3rem;
+            display: block;
+        }
+
+        /* Sidebar footer */
+        .sidebar-footer {
+            padding: .75rem 1rem 1rem;
+            border-top: 1px solid rgba(255,255,255,.08);
+            flex-shrink: 0;
+        }
+        .sidebar-user {
+            display: flex;
+            align-items: center;
+            gap: .6rem;
+            margin-bottom: .6rem;
+        }
+        .sidebar-avatar {
+            width: 34px; height: 34px;
+            background: var(--sidebar-active);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: .8rem;
+            font-weight: 700;
+            color: #fff;
+            flex-shrink: 0;
+        }
+        .sidebar-username { font-size: .82rem; font-weight: 600; color: #fff; line-height: 1.2; }
+        .sidebar-role { font-size: .72rem; color: var(--sidebar-label); }
+        .sidebar-logout {
             width: 100%;
+            background: rgba(255,255,255,.06);
+            border: 1px solid rgba(255,255,255,.1);
+            color: var(--sidebar-text);
+            border-radius: 8px;
+            padding: .38rem .75rem;
+            font-size: .82rem;
+            display: flex;
+            align-items: center;
+            gap: .5rem;
+            cursor: pointer;
+            transition: background .15s, color .15s;
         }
-        /* Update nav link colors for the blue sidebar */
-        .sidebar .nav-link {
-            color: rgba(255, 255, 255, .85);
+        .sidebar-logout:hover { background: rgba(239,68,68,.15); color: #fca5a5; border-color: rgba(239,68,68,.3); }
+
+        /* ── Content wrapper ──────────────────────────────────────────────── */
+        .content-wrapper {
+            flex: 1;
+            height: 100vh;
+            overflow-y: auto;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            background: var(--page-bg);
         }
 
-            .sidebar .nav-link:hover, .sidebar .nav-link.active {
-                color: #fff;
-                background-color: rgba(255, 255, 255, 0.1);
+        /* ── Top bar ──────────────────────────────────────────────────────── */
+        #topbar-content {
+            background: var(--topbar-bg);
+            border-bottom: 1px solid var(--topbar-border);
+            padding: .85rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-shrink: 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        #topbar-content .page-title {
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: #0f172a;
+            margin: 0;
+        }
+        .topbar-user {
+            display: flex;
+            align-items: center;
+            gap: .75rem;
+        }
+        .topbar-bell {
+            position: relative;
+            width: 36px; height: 36px;
+            background: #f1f5f9;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            color: #64748b;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background .15s;
+        }
+        .topbar-bell:hover { background: #e2e8f0; }
+        .topbar-bell .badge-dot {
+            position: absolute;
+            top: 7px; right: 7px;
+            width: 8px; height: 8px;
+            background: #ef4444;
+            border-radius: 50%;
+            border: 2px solid white;
+        }
+        .topbar-userinfo { text-align: right; }
+        .topbar-name { font-size: .85rem; font-weight: 600; color: #0f172a; line-height: 1.2; }
+        .topbar-rolebadge { font-size: .72rem; color: #64748b; }
+        .topbar-avatar {
+            width: 36px; height: 36px;
+            background: var(--sidebar-active);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: .8rem;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        /* ── Mobile top bar ───────────────────────────────────────────────── */
+        #topbar-mobile { display: none; }
+        @@media (max-width: 767.98px) {
+            #topbar-mobile { display: flex; }
+            #topbar-content .page-title { font-size: 1.1rem; }
+            #sidebar { position: fixed; left: 0; top: 0; }
+            #sidebar-overlay {
+                display: none; position: fixed; inset: 0;
+                background: rgba(0,0,0,.45); z-index: 999;
             }
+            #sidebar-overlay.show { display: block; }
+        }
+
+        /* ── Main content area ────────────────────────────────────────────── */
+        .main-content { flex: 1; padding: 1.5rem; }
+        @@media (max-width: 575.98px) { .main-content { padding: 1rem; } }
+
+        /* ── Toasts / alerts ──────────────────────────────────────────────── */
+        .toast-stack {
+            position: fixed; top: 1rem; right: 1rem;
+            z-index: 9999; min-width: 300px;
+        }
+        .toast-item {
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,.12);
+            margin-bottom: .5rem;
+        }
     </style>
 </head>
 <body>
+    <!-- Mobile hamburger bar -->
+    <div id="topbar-mobile" class="align-items-center px-3 py-2 w-100 sticky-top"
+         style="background:var(--sidebar-bg);z-index:1050;">
+        <button id="sidebar-toggle-btn" class="btn btn-sm me-2"
+                style="color:#fff;border-color:rgba(255,255,255,.2);">
+            <i class="bi bi-list fs-5"></i>
+        </button>
+        <div class="logo-icon me-2" style="width:28px;height:28px;background:#1d4ed8;border-radius:6px;display:flex;align-items:center;justify-content:center;">
+            <i class="bi bi-hospital text-white" style="font-size:.8rem;"></i>
+        </div>
+        <strong class="text-white me-auto" style="font-size:.95rem;">WardCare+</strong>
+        @if (User.Identity?.IsAuthenticated == true)
+        {
+            <span class="small" style="color:rgba(255,255,255,.55);">@User.Identity.Name</span>
+        }
+    </div>
+
+    <!-- Mobile sidebar overlay -->
+    <div id="sidebar-overlay"></div>
 
     <div class="d-flex">
-
-        <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-primary sidebar">
-            <a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none"
-               asp-area="" asp-controller="Home" asp-action="Index">
-                <i class="bi bi-hospital fs-4 me-2"></i>
-                <span class="fs-4 fw-bold">Ward System</span>
+        <!-- ── Sidebar ─────────────────────────────────────────────────── -->
+        <div id="sidebar">
+            <!-- Logo -->
+            <a class="sidebar-logo" asp-controller="Home" asp-action="Index">
+                <div class="logo-icon"><i class="bi bi-hospital"></i></div>
+                WardCare+
             </a>
-            <hr>
 
-            <ul class="nav nav-pills flex-column mb-auto">
-                @if (User.Identity.IsAuthenticated)
+            <!-- Nav items -->
+            <nav class="sidebar-nav flex-grow-1">
+                @if (User.Identity?.IsAuthenticated == true)
                 {
-                    <li class="nav-item">
-                        <a class="nav-link" asp-controller="Home" asp-action="Index">
-                            <i class="bi bi-speedometer2 me-2"></i> Dashboard
-                        </a>
-                    </li>
+                    <a class="nav-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Home" && ViewContext.RouteData.Values["action"]?.ToString() == "Index" ? "active" : "")"
+                       asp-controller="Home" asp-action="Index">
+                        <i class="bi bi-speedometer2"></i>Dashboard
+                    </a>
 
                     @if (User.IsInRole("Administrator"))
                     {
-                        <li class="nav-item mt-3 text-uppercase small text-white-50 fw-bold">Administration</li>
-                        <li class="nav-item"><a class="nav-link" asp-controller="Administration" asp-action="ManageWards">Ward Management</a></li>
-                        <li class="nav-item"><a class="nav-link" asp-controller="RoomManagement" asp-action="ManageRooms">Room Management</a></li>
-                        <li class="nav-item"><a class="nav-link" asp-controller="BedManagement" asp-action="Index">Bed Management</a></li>
-                        <li class="nav-item"><a class="nav-link" asp-controller="Administration" asp-action="ManageStaff">Staff Management</a></li>
-                        <li class="nav-item"><a class="nav-link" asp-controller="Administration" asp-action="ManageMedications">Medication Management</a></li>
-                        <li class="nav-item"><a class="nav-link" asp-controller="Administration" asp-action="ManageAllergies">Allergy Management</a></li>
-                        <li class="nav-item"><a class="nav-link" asp-controller="Administration" asp-action="ManageMedicalConditions">Medical Conditions</a></li>
-                        <li class="nav-item"><a class="nav-link" asp-controller="Home" asp-action="FAQs">FAQs</a></li>
+                        <span class="nav-section-label">Administration</span>
+                        <a class="nav-link" asp-controller="Administration" asp-action="ManageWards">
+                            <i class="bi bi-building"></i>Wards
+                        </a>
+                        <a class="nav-link" asp-controller="RoomManagement" asp-action="ManageRooms">
+                            <i class="bi bi-door-open"></i>Rooms
+                        </a>
+                        <a class="nav-link" asp-controller="BedManagement" asp-action="Index">
+                            <i class="bi bi-hospital"></i>Beds
+                        </a>
+                        <a class="nav-link" asp-controller="Administration" asp-action="ManageStaff">
+                            <i class="bi bi-people"></i>Staff
+                        </a>
+                        <a class="nav-link" asp-controller="Accounts" asp-action="Register">
+                            <i class="bi bi-person-plus"></i>Create Account
+                        </a>
+                        <a class="nav-link" asp-controller="Administration" asp-action="ManageMedications">
+                            <i class="bi bi-capsule"></i>Medications
+                        </a>
+                        <a class="nav-link" asp-controller="Administration" asp-action="ManageAllergies">
+                            <i class="bi bi-shield-exclamation"></i>Allergies
+                        </a>
+                        <a class="nav-link" asp-controller="Administration" asp-action="ManageMedicalConditions">
+                            <i class="bi bi-clipboard-pulse"></i>Medical Conditions
+                        </a>
                     }
 
                     @if (User.IsInRole("Ward Admin"))
                     {
-                        <li class="nav-item mt-3 text-uppercase small text-white-50 fw-bold">Ward Admin</li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="PatientManagement" asp-action="Index">Patient Management</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Home" asp-action="FAQs">FAQs</a>
-                        </li>
+                        <span class="nav-section-label">Ward Admin</span>
+                        <a class="nav-link" asp-controller="PatientManagement" asp-action="Index">
+                            <i class="bi bi-person-heart"></i>Patients
+                        </a>
                     }
 
                     @if (User.IsInRole("Nurse") || User.IsInRole("Nursing Sister"))
                     {
-                        <li class="nav-item mt-3 text-uppercase small text-white-50 fw-bold">Nursing</li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="PatientCare" asp-action="Index">Patient Care</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Home" asp-action="FAQs">FAQs</a>
-                        </li>
+                        <span class="nav-section-label">Nursing</span>
+                        <a class="nav-link" asp-controller="PatientCare" asp-action="ManageVitalSigns">
+                            <i class="bi bi-heart-pulse"></i>Vital Signs
+                        </a>
+                        <a class="nav-link" asp-controller="PatientCare" asp-action="ManageMedicationAdministrations">
+                            <i class="bi bi-capsule-pill"></i>Medications
+                        </a>
+                        <a class="nav-link" asp-controller="PatientCare" asp-action="ManageDoctorInstructions">
+                            <i class="bi bi-clipboard2-check"></i>Instructions
+                        </a>
                     }
 
                     @if (User.IsInRole("Doctor"))
                     {
-                        <li class="nav-item mt-3 text-uppercase small text-white-50 fw-bold">Doctor</li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="DoctorPatient" asp-action="Index">Doctor-Patient</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Home" asp-action="FAQs">FAQs</a>
-                        </li>
+                        <span class="nav-section-label">Doctor</span>
+                        <a class="nav-link" asp-controller="DoctorPatient" asp-action="Index">
+                            <i class="bi bi-stethoscope"></i>My Patients
+                        </a>
                     }
 
                     @if (User.IsInRole("Script Manager") || User.IsInRole("Consumables Manager"))
                     {
-                        <li class="nav-item mt-3 text-uppercase small text-white-50 fw-bold">Inventory</li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="ConsumableScript" asp-action="Index">Consumables & Scripts</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Home" asp-action="FAQs">FAQs</a>
-                        </li>
+                        <span class="nav-section-label">Inventory</span>
+                        <a class="nav-link" asp-controller="ConsumableScript" asp-action="Index">
+                            <i class="bi bi-box-seam"></i>Consumables &amp; Scripts
+                        </a>
                     }
-                }
-            </ul>
 
-            <hr>
-
-            @if (User.Identity.IsAuthenticated)
-            {
-                <div class="dropdown">
-                    <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="bi bi-person-circle fs-4 me-2"></i>
-                        <strong>@User.Identity.Name</strong>
+                    <span class="nav-section-label">Help</span>
+                    <a class="nav-link" asp-controller="Home" asp-action="FAQs">
+                        <i class="bi bi-question-circle"></i>FAQs
                     </a>
-                    <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
-                        <li>
-                            <span class="dropdown-item-text">
-                                <i class="bi bi-person-badge me-2"></i>
-                                @if (User.IsInRole("Administrator"))
-                                {
-                                    <span class="badge bg-primary">Administrator</span>
-                                }
-                                else if (User.IsInRole("Ward Admin"))
-                                {
+                }
+            </nav>
 
-                                    <span class="badge bg-success">Ward Admin</span>
-                                }
-                                else if (User.IsInRole("Doctor"))
-                                {
-
-                                    <span class="badge bg-info">Doctor</span>
-                                }
-                                else if (User.IsInRole("Nurse"))
-                                {
-
-                                    <span class="badge bg-warning">Nurse</span>
-                                }
-                                else if (User.IsInRole("Nursing Sister"))
-                                {
-
-                                    <span class="badge bg-warning">Nursing Sister</span>
-                                }
-                                else if (User.IsInRole("Script Manager"))
-                                {
-
-                                    <span class="badge bg-danger">Script Manager</span>
-                                }
-                                else if (User.IsInRole("Consumables Manager"))
-                                {
-
-                                    <span class="badge bg-secondary">Consumables Manager</span>
-                                }
-                            </span>
-                        </li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" asp-controller="Home" asp-action="Index">Dashboard</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li>
-                            <form asp-controller="Accounts" asp-action="Logout" method="post" class="d-inline">
-                                <button type="submit" class="dropdown-item text-danger">
-                                    <i class="bi bi-box-arrow-left me-2"></i> Logout
-                                </button>
-                            </form>
-                        </li>
-                    </ul>
+            <!-- User footer -->
+            @if (User.Identity?.IsAuthenticated == true)
+            {
+                <div class="sidebar-footer">
+                    <div class="sidebar-user">
+                        <div class="sidebar-avatar">
+                            @{
+                                var uname = User.Identity?.Name ?? "?";
+                                var initials = uname.Length > 0 ? uname[0].ToString().ToUpper() : "?";
+                            }
+                            @initials
+                        </div>
+                        <div>
+                            <div class="sidebar-username">@User.Identity!.Name</div>
+                            <div class="sidebar-role">
+                                @if (User.IsInRole("Administrator"))        { <text>Administrator</text> }
+                                else if (User.IsInRole("Ward Admin"))        { <text>Ward Admin</text> }
+                                else if (User.IsInRole("Doctor"))            { <text>Doctor</text> }
+                                else if (User.IsInRole("Nursing Sister"))    { <text>Nursing Sister</text> }
+                                else if (User.IsInRole("Nurse"))             { <text>Nurse</text> }
+                                else if (User.IsInRole("Script Manager"))    { <text>Script Manager</text> }
+                                else if (User.IsInRole("Consumables Manager")){ <text>Consumables Mgr</text> }
+                            </div>
+                        </div>
+                    </div>
+                    <form asp-controller="Accounts" asp-action="Logout" method="post">
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="sidebar-logout">
+                            <i class="bi bi-box-arrow-left"></i> Logout
+                        </button>
+                    </form>
                 </div>
             }
             else
             {
-                <div class="mt-auto">
-                    <a class="btn btn-light w-100 text-primary" asp-controller="Accounts" asp-action="Login">
-                        <i class="bi bi-box-arrow-in-right me-1"></i> Login
+                <div class="sidebar-footer">
+                    <a class="sidebar-logout text-decoration-none" asp-controller="Accounts" asp-action="Login">
+                        <i class="bi bi-box-arrow-in-right"></i> Login
                     </a>
                 </div>
             }
         </div>
+        <!-- ── End Sidebar ─────────────────────────────────────────────── -->
 
-        <div class="content-wrapper d-flex flex-column bg-light">
+        <!-- ── Content ─────────────────────────────────────────────────── -->
+        <div class="content-wrapper">
 
-            <div class="container-fluid p-4">
+            <!-- Top bar -->
+            @if (User.Identity?.IsAuthenticated == true)
+            {
+                <div id="topbar-content">
+                    <h1 class="page-title">@(ViewData["Title"]?.ToString() ?? "Dashboard")</h1>
+                    <div class="topbar-user">
+                        <div class="topbar-bell" style="position:relative;">
+                            <i class="bi bi-bell"></i>
+                            @await Component.InvokeAsync("NewPrescriptionsBadge")
+                        </div>
+                        <div class="topbar-userinfo d-none d-sm-block">
+                            <div class="topbar-name">@User.Identity!.Name</div>
+                            <div class="topbar-rolebadge">
+                                @if (User.IsInRole("Administrator"))        { <text>Administrator</text> }
+                                else if (User.IsInRole("Ward Admin"))        { <text>Ward Admin</text> }
+                                else if (User.IsInRole("Doctor"))            { <text>Doctor</text> }
+                                else if (User.IsInRole("Nursing Sister"))    { <text>Nursing Sister</text> }
+                                else if (User.IsInRole("Nurse"))             { <text>Nurse</text> }
+                                else if (User.IsInRole("Script Manager"))    { <text>Script Manager</text> }
+                                else if (User.IsInRole("Consumables Manager")){ <text>Consumables Manager</text> }
+                            </div>
+                        </div>
+                        <div class="topbar-avatar">@(User.Identity?.Name?.Length > 0 ? User.Identity.Name[0].ToString().ToUpper() : "?")</div>
+                    </div>
+                </div>
+            }
 
+            <!-- Toast notifications -->
+            <div class="toast-stack">
                 @if (TempData["SuccessMessage"] != null)
                 {
-                    <div class="alert alert-success alert-dismissible fade show mb-4" role="alert">
-                        <i class="bi bi-check-circle me-2"></i>
-                        @TempData["SuccessMessage"]
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    <div class="toast-item alert alert-success alert-dismissible fade show mb-0" role="alert">
+                        <i class="bi bi-check-circle-fill me-2"></i>@TempData["SuccessMessage"]
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                     </div>
                 }
-
                 @if (TempData["ErrorMessage"] != null)
                 {
-                    <div class="alert alert-danger alert-dismissible fade show mb-4" role="alert">
-                        <i class="bi bi-exclamation-triangle me-2"></i>
-                        @TempData["ErrorMessage"]
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    <div class="toast-item alert alert-danger alert-dismissible fade show mb-0" role="alert">
+                        <i class="bi bi-exclamation-triangle-fill me-2"></i>@TempData["ErrorMessage"]
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                     </div>
                 }
-
-                <main role="main">
-                    @RenderBody()
-                </main>
             </div>
 
-            <footer class="mt-auto border-top footer text-muted bg-white">
-                <div class="container-fluid text-center py-3">
-                    &copy; @DateTime.Now.Year - Ward System Project
+            <!-- Page body -->
+            <main class="main-content" role="main">
+                @RenderBody()
+            </main>
+
+            <footer class="border-top py-2 px-4" style="background:#fff;flex-shrink:0;">
+                <div class="text-center text-muted small">
+                    &copy; @DateTime.Now.Year WardCare+ Management System &mdash; ASP.NET Core 8
                 </div>
             </footer>
         </div>
+        <!-- ── End Content ─────────────────────────────────────────────── -->
     </div>
 
+    <!-- ── Scripts ─────────────────────────────────────────────────────── -->
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
 
     <script>
-        $(document).ready(function() {
-            setTimeout(function() { $('.alert-success').fadeOut('slow'); }, 5000);
-            setTimeout(function() { $('.alert-danger').fadeOut('slow'); }, 8000);
+        // Auto-dismiss toasts
+        $(function () {
+            setTimeout(() => $('.alert-success').fadeOut('slow'), 5000);
+            setTimeout(() => $('.alert-danger').fadeOut('slow'), 8000);
+        });
+
+        // Sidebar collapse (mobile)
+        const sidebar   = document.getElementById('sidebar');
+        const overlay   = document.getElementById('sidebar-overlay');
+        const toggleBtn = document.getElementById('sidebar-toggle-btn');
+
+        function openSidebar()  { sidebar.classList.remove('collapsed'); overlay.classList.add('show'); }
+        function closeSidebar() { sidebar.classList.add('collapsed');    overlay.classList.remove('show'); }
+
+        if (toggleBtn) toggleBtn.addEventListener('click', openSidebar);
+        if (overlay)   overlay.addEventListener('click', closeSidebar);
+
+        function handleResize() {
+            if (window.innerWidth >= 768) {
+                sidebar.classList.remove('collapsed');
+                overlay.classList.remove('show');
+            }
+        }
+        window.addEventListener('resize', handleResize);
+        handleResize();
+
+        // DataTables
+        $(function () {
+            $('table.ward-table').DataTable({
+                responsive: true,
+                pageLength: 25,
+                language: {
+                    search: 'Search:',
+                    emptyTable: 'No records found.',
+                    lengthMenu: 'Show _MENU_ entries'
+                }
+            });
+        });
+
+        // Select2
+        $(function () {
+            $('select.ward-select').select2({ theme: 'bootstrap-5', width: '100%' });
         });
     </script>
 

@@ -43,77 +43,22 @@
                         </div>
                         
                         <div class="mb-3">
-                            <label asp-for="StockManagerId" class="form-label fw-bold">
-                                <i class="bi bi-person-badge"></i> Stock Manager
-                            </label>
-                            @if (ViewBag.StockManagerId != null)
-                            {
-                                @Html.DropDownListFor(model => model.StockManagerId, 
-                                    (SelectList)ViewBag.StockManagerId, 
-                                    "Select a stock manager", 
-                                    new { @class = "form-select", required = "required" })
-                            }
-                            else
-                            {
-                                <select asp-for="StockManagerId" class="form-select" required>
-                                    <option value="">Select a stock manager</option>
-                                </select>
-                            }
-                            <span asp-validation-for="StockManagerId" class="text-danger"></span>
-                            <div class="form-text">
-                                Choose the staff member managing this order
-                            </div>
-                        </div>
-                        
-                        <div class="mb-3">
                             <label asp-for="Quantity" class="form-label fw-bold">
                                 <i class="bi bi-hash"></i> Quantity
                             </label>
-                            <input asp-for="Quantity" type="number" min="1" max="1000" class="form-control" 
+                            <input asp-for="Quantity" type="number" min="1" max="1000" class="form-control"
                                    placeholder="Enter quantity (1-1000)" required />
                             <span asp-validation-for="Quantity" class="text-danger"></span>
-                            <div class="form-text">
-                                Enter the quantity to order (between 1 and 1000)
-                            </div>
+                            <div class="form-text">Enter the quantity to order (between 1 and 1000)</div>
                         </div>
-                        
+
                         <div class="mb-3">
-                            <label asp-for="OrderDate" class="form-label fw-bold">
-                                <i class="bi bi-calendar-event"></i> Order Date
+                            <label asp-for="Notes" class="form-label fw-bold">
+                                <i class="bi bi-chat-left-text"></i> Notes
                             </label>
-                            <input asp-for="OrderDate" type="datetime-local" class="form-control" required />
-                            <span asp-validation-for="OrderDate" class="text-danger"></span>
-                            <div class="form-text">
-                                Date and time when this order was placed
-                            </div>
-                        </div>
-                        
-                        <div class="mb-3">
-                            <label asp-for="ReceivedDate" class="form-label fw-bold">
-                                <i class="bi bi-calendar-check"></i> Received Date
-                            </label>
-                            <input asp-for="ReceivedDate" type="datetime-local" class="form-control" />
-                            <span asp-validation-for="ReceivedDate" class="text-danger"></span>
-                            <div class="form-text">
-                                Date and time when items were received (optional)
-                            </div>
-                        </div>
-                        
-                        <div class="mb-3">
-                            <label asp-for="Status" class="form-label fw-bold">
-                                <i class="bi bi-flag"></i> Status
-                            </label>
-                            <select asp-for="Status" class="form-select" required>
-                                <option value="">Select status</option>
-                                <option value="Pending">Pending</option>
-                                <option value="In Transit">In Transit</option>
-                                <option value="Delivered">Delivered</option>
-                                <option value="Cancelled">Cancelled</option>
-                            </select>
-                            <span asp-validation-for="Status" class="text-danger"></span>
-                            <div class="form-text">
-                                Set the current status of this order
-                            </div>
+                            <textarea asp-for="Notes" class="form-control" rows="3"
+                                      placeholder="Optional notes or special instructions..."></textarea>
+                            <span asp-validation-for="Notes" class="text-danger"></span>
                         </div>
                         
                         <div class="mt-4">

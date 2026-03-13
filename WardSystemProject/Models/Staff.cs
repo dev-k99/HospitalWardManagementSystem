@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WardSystemProject.Models
 {
@@ -23,6 +24,22 @@ namespace WardSystemProject.Models
         [EmailAddress(ErrorMessage = "Invalid email format.")]
         [StringLength(100, ErrorMessage = "Email must not exceed 100 characters.")]
         public string Email { get; set; } // Contact email for the staff
+
+        /// <summary>
+        /// Links this Staff record to the ASP.NET Core Identity user.
+        /// Nullable — records created before this column was added fall back to email lookup.
+        /// </summary>
+        [StringLength(450)]
+        public string? IdentityUserId { get; set; }
+
+        /// <summary>
+        /// Ward assignment for Nurses/Nursing Sisters — used to scope patient access.
+        /// Null means the staff member has no ward restriction (admin, doctors, etc.).
+        /// </summary>
+        public int? WardId { get; set; }
+
+        [ForeignKey(nameof(WardId))]
+        public Ward? Ward { get; set; }
 
         // Computed property for full name
         public string FullName => $"{FirstName} {LastName}".Trim();

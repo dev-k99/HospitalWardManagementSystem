@@ -17,10 +17,12 @@ public class HomeController : Controller
         _logger = logger;
         _context = context;
     }
+    [Authorize]
     public IActionResult FAQs()
     {
         return View();
     }
+
     [Authorize]
     public async Task<IActionResult> Index()
     {
@@ -28,13 +30,22 @@ public class HomeController : Controller
 
         if (User.IsInRole("Administrator"))
         {
-            dashboardViewModel.TotalWards = await _context.Wards.Where(w => w.IsActive).CountAsync();
-            dashboardViewModel.TotalRooms = await _context.Rooms.Where(r => r.IsActive).CountAsync();
-            dashboardViewModel.TotalBeds = await _context.Beds.Where(b => b.IsActive).CountAsync();
-            dashboardViewModel.TotalStaff = await _context.Staff.Where(s => s.IsActive).CountAsync();
-            dashboardViewModel.TotalMedications = await _context.Medications.Where(m => m.IsActive).CountAsync();
-            dashboardViewModel.TotalAllergies = await _context.Allergies.Where(a => a.IsActive).CountAsync();
+            dashboardViewModel.TotalWards             = await _context.Wards.Where(w => w.IsActive).CountAsync();
+            dashboardViewModel.TotalRooms             = await _context.Rooms.Where(r => r.IsActive).CountAsync();
+            dashboardViewModel.TotalBeds              = await _context.Beds.Where(b => b.IsActive).CountAsync();
+            dashboardViewModel.OccupiedBeds           = await _context.Beds.Where(b => b.IsActive && b.PatientId != null).CountAsync();
+            dashboardViewModel.TotalStaff             = await _context.Staff.Where(s => s.IsActive).CountAsync();
+            dashboardViewModel.TotalMedications       = await _context.Medications.Where(m => m.IsActive).CountAsync();
+            dashboardViewModel.TotalAllergies         = await _context.Allergies.Where(a => a.IsActive).CountAsync();
             dashboardViewModel.TotalMedicalConditions = await _context.MedicalConditions.Where(m => m.IsActive).CountAsync();
+            dashboardViewModel.ActivePatients         = await _context.Patients.Where(p => p.IsActive && p.PatientStatus == "Admitted").CountAsync();
+            dashboardViewModel.PendingPrescriptionOrders = await _context.PrescriptionOrders.Where(p => p.IsActive && p.Status == "Pending").CountAsync();
+            dashboardViewModel.LowStockConsumables    = await _context.Consumables.Where(c => c.IsActive && c.QuantityOnHand <= c.ReorderLevel).CountAsync();
+            dashboardViewModel.LowStockItems          = await _context.Consumables
+                .Where(c => c.IsActive && c.QuantityOnHand <= c.ReorderLevel)
+                .OrderBy(c => c.QuantityOnHand)
+                .Take(5)
+                .ToListAsync();
         }
         else if (User.IsInRole("Ward Admin"))
         {
@@ -52,9 +63,13 @@ public class HomeController : Controller
         }
         else if (User.IsInRole("Doctor"))
         {
-            dashboardViewModel.TotalPatients = await _context.Patients.Where(p => p.IsActive).CountAsync();
-            dashboardViewModel.TotalVisits = await _context.DoctorVisits.Where(d => d.IsActive).CountAsync();
+            var today = DateTime.Today;
+            dashboardViewModel.TotalPatients     = await _context.Patients.Where(p => p.IsActive).CountAsync();
+            dashboardViewModel.TotalVisits        = await _context.DoctorVisits.Where(d => d.IsActive).CountAsync();
             dashboardViewModel.TotalPrescriptions = await _context.Prescriptions.Where(p => p.IsActive).CountAsync();
+            dashboardViewModel.TodayVisits        = await _context.DoctorVisits
+                .Where(d => d.IsActive && d.VisitDate.Date == today)
+                .CountAsync();
             dashboardViewModel.RecentVisits = await _context.DoctorVisits
                 .Include(d => d.Patient)
                 .Where(d => d.IsActive)
@@ -64,10 +79,13 @@ public class HomeController : Controller
         }
         else if (User.IsInRole("Nurse") || User.IsInRole("Nursing Sister"))
         {
-            dashboardViewModel.TotalPatients = await _context.Patients.Where(p => p.IsActive).CountAsync();
-            dashboardViewModel.TotalVitalSigns = await _context.VitalSigns.Where(v => v.IsActive).CountAsync();
+            dashboardViewModel.TotalPatients                  = await _context.Patients.Where(p => p.IsActive && p.PatientStatus == "Admitted").CountAsync();
+            dashboardViewModel.TotalVitalSigns                = await _context.VitalSigns.Where(v => v.IsActive).CountAsync();
             dashboardViewModel.TotalMedicationAdministrations = await _context.MedicationAdministrations.Where(m => m.IsActive).CountAsync();
-            dashboardViewModel.TotalDoctorInstructions = await _context.DoctorInstructions.Where(d => d.IsActive).CountAsync();
+            dashboardViewModel.TotalDoctorInstructions        = await _context.DoctorInstructions.Where(d => d.IsActive).CountAsync();
+            dashboardViewModel.PendingInstructions            = await _context.DoctorInstructions
+                .Where(d => d.IsActive && d.Status == "Pending")
+                .CountAsync();
             dashboardViewModel.RecentVitalSigns = await _context.VitalSigns
                 .Include(v => v.Patient)
                 .Where(v => v.IsActive)
@@ -100,7 +118,7 @@ public class HomeController : Controller
                 .Where(c => c.IsActive && c.Status == "Pending")
                 .CountAsync();
             dashboardViewModel.LowStockConsumables = await _context.Consumables
-                .Where(c => c.IsActive && c.QuantityOnHand <= 10)
+                .Where(c => c.IsActive && c.QuantityOnHand <= c.ReorderLevel)
                 .CountAsync();
             dashboardViewModel.RecentConsumableOrders = await _context.ConsumableOrders
                 .Include(c => c.Consumable)
@@ -113,6 +131,7 @@ public class HomeController : Controller
         return View(dashboardViewModel);
     }
 
+    [AllowAnonymous]
     public IActionResult Privacy()
     {
         return View();

@@ -1,10 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Reflection.Emit;
 using WardSystemProject.Models;
+using WardSystemProject.Core.Audit;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Internal;
 
 namespace WardSystemProject.Data
 {
@@ -15,33 +13,38 @@ namespace WardSystemProject.Data
         {
         }
 
-        // Administration
-        public DbSet<Ward> Wards { get; set; }
-        public DbSet<Room> Rooms { get; set; }
-        public DbSet<Bed> Beds { get; set; }
-        public DbSet<Staff> Staff { get; set; }
-        public DbSet<Medication> Medications { get; set; }
-        public DbSet<Consumable> Consumables { get; set; }
-        public DbSet<Allergy> Allergies { get; set; }
+        // ── Audit ──────────────────────────────────────────────────────────
+        public DbSet<AuditLog> AuditLogs { get; set; }
+
+        // ── Administration ─────────────────────────────────────────────────
+        public DbSet<Ward>             Wards             { get; set; }
+        public DbSet<Room>             Rooms             { get; set; }
+        public DbSet<Bed>              Beds              { get; set; }
+        public DbSet<Staff>            Staff             { get; set; }
+        public DbSet<Medication>       Medications       { get; set; }
+        public DbSet<Consumable>       Consumables       { get; set; }
+        public DbSet<Allergy>          Allergies         { get; set; }
         public DbSet<MedicalCondition> MedicalConditions { get; set; }
-        public DbSet<DoctorVisit> DoctorVisits { get; set; }
-        // Patient Management
-        public DbSet<Patient> Patients { get; set; }
+        public DbSet<DoctorVisit>      DoctorVisits      { get; set; }
+
+        // ── Patient Management ─────────────────────────────────────────────
+        public DbSet<Patient>         Patients         { get; set; }
         public DbSet<PatientMovement> PatientMovements { get; set; }
 
-        // Patient Care
-        public DbSet<VitalSign> VitalSigns { get; set; }
+        // ── Patient Care ───────────────────────────────────────────────────
+        public DbSet<VitalSign>               VitalSigns               { get; set; }
         public DbSet<MedicationAdministration> MedicationAdministrations { get; set; }
-        public DbSet<DoctorInstruction> DoctorInstructions { get; set; }
+        public DbSet<DoctorInstruction>        DoctorInstructions        { get; set; }
 
-        // Doctor-Patient
+        // ── Doctor-Patient ─────────────────────────────────────────────────
         public DbSet<Prescription> Prescriptions { get; set; }
 
-        // Consumables & Script Management (Optional)
+        // ── Consumables & Script Management ───────────────────────────────
         public DbSet<PrescriptionOrder> PrescriptionOrders { get; set; }
-        public DbSet<ConsumableOrder> ConsumableOrders { get; set; }
-        public DbSet<StockTake> StockTakes { get; set; }
-        public DbSet<PatientFolder> PatientFolders { get; set; }
+        public DbSet<ConsumableOrder>   ConsumableOrders   { get; set; }
+        public DbSet<StockTake>         StockTakes         { get; set; }
+        public DbSet<StockTakeDetail>   StockTakeDetails   { get; set; }
+        public DbSet<PatientFolder>     PatientFolders     { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -77,6 +80,14 @@ namespace WardSystemProject.Data
                 .WithMany()
                 .HasForeignKey(po => po.PrescriptionId)
                 .OnDelete(DeleteBehavior.NoAction);
+
+            // Staff.WardId — nullable FK; use SetNull so deleting a ward
+            // un-assigns nurses rather than blocking the delete.
+            modelBuilder.Entity<Staff>()
+                .HasOne(s => s.Ward)
+                .WithMany()
+                .HasForeignKey(s => s.WardId)
+                .OnDelete(DeleteBehavior.SetNull);
 
             // Query Filters
             modelBuilder.Entity<Ward>().HasQueryFilter(w => w.IsActive);

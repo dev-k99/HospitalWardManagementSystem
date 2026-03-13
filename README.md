@@ -1,134 +1,289 @@
-# WardCare+ Management System
+# WardCare+ — Ward Management System
 
-A comprehensive hospital ward management system built with ASP.NET Core MVC, Entity Framework Core, and Bootstrap 5.
+### ONT3010 · ASP.NET Core 8 MVC · SQL Server · Portfolio Project
 
-## 🏥 System Overview
+A production-quality hospital ward management system built for South African healthcare IT practice.
+Implements the full ONT3010 specification covering patient admissions, nursing care, doctor visits,
+medication administration, and inventory management — secured with role-based access control and
+a full audit trail for POPIA compliance.
 
-The Ward Management System is designed to manage hospital wards, patients, staff, medications, and medical records efficiently. It provides role-based access control for different types of healthcare professionals.
+---
 
-## Screenshots
-![Welcome](<Screenshots/Screenshot (431).png>)
-![Admin Dashboard](<Screenshots/Screenshot (514).png>)
-![Patients](<Screenshots/Screenshot (516).png>)
-![Details](<Screenshots/Screenshot (510).png>)
-## Nurse Dashboard
-![Dashboard](<Screenshots/Screenshot (518).png>)
+## Architecture
 
-## Doctor Dashboard
-![Dashboard](<Screenshots/Screenshot (515).png>)
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                        WardCare+ MVC App                        │
+│                                                                  │
+│  Controllers (thin)          Features (business logic)           │
+│  ┌──────────────────┐        ┌───────────────────────────────┐  │
+│  │PatientManagement │───────►│ PatientService                │  │
+│  │PatientCare       │───────►│ VitalSignService              │  │
+│  │DoctorPatient     │        │ PrescriptionService           │  │
+│  │Administration    │        │ PatientFolderPdfService       │  │
+│  │ConsumableScript  │        └───────────────────────────────┘  │
+│  └──────────────────┘                    │                       │
+│                                          ▼                       │
+│  ┌──────────────────────────────────────────────────────────┐   │
+│  │               WardSystemDBContext (EF Core 8)            │   │
+│  │   + AuditInterceptor (SaveChangesInterceptor)            │   │
+│  └──────────────────────────────────────────────────────────┘   │
+│                                                                  │
+│  ┌──────────────────────────────────────────────────────────┐   │
+│  │                  ASP.NET Core Identity                    │   │
+│  │   7 roles · Policy-based authorization · Cookie auth     │   │
+│  └──────────────────────────────────────────────────────────┘   │
+└─────────────────────────────────────────────────────────────────┘
+                              │
+                              ▼
+                    SQL Server (EF Code-First)
+```
 
-## Patient Folder
-![Folder](<Screenshots/Screenshot (517).png>)
-## 🚀 Getting Started
+### Feature Folder Structure
+
+```
+WardSystemProject/
+├── Controllers/              # Thin controllers — validate, call service, return view
+├── Core/
+│   ├── Audit/                # AuditLog entity + EF SaveChangesInterceptor
+│   └── Interfaces/           # IPatientService, IVitalSignService
+├── Data/                     # WardSystemDBContext
+├── Features/
+│   ├── PatientManagement/    # PatientService, PatientFolderPdfService
+│   └── PatientCare/          # VitalSignService
+├── Models/                   # Domain entities (EF Code-First)
+├── Validators/               # FluentValidation validators
+├── ViewModels/               # One ViewModel per form — no domain entity on forms
+├── Views/                    # Razor views organized by controller
+└── wwwroot/                  # Bootstrap 5, site.css, static assets
+WardSystemProject.Tests/
+├── Helpers/                  # TestDbContextFactory (EF InMemory)
+├── PatientServiceTests.cs    # Admission + discharge business rules
+└── MedicationScheduleTests.cs # Schedule permission enforcement
+```
+
+---
+
+## Technology Stack
+
+| Layer | Technology |
+|-------|-----------|
+| Framework | ASP.NET Core 8 MVC |
+| ORM | Entity Framework Core 8 (Code-First, SQL Server) |
+| Auth | ASP.NET Core Identity + Cookie auth |
+| Validation | FluentValidation 11 (async cross-entity validators) |
+| PDF | QuestPDF 2024 (Community licence, MIT) |
+| UI | Bootstrap 5.3 + Bootstrap Icons + DataTables + Select2 + Chart.js |
+| Testing | xUnit 2.6 + Moq 4.20 + EF InMemory |
+| Database | SQL Server (SQLEXPRESS dev / SQL Server prod) |
+
+---
+
+## Subsystems and Roles
+
+### A — Administration (Administrator)
+- Ward, Room, and Bed CRUD
+- Staff management
+- Medication catalogue (Name, Dosage, **Schedule 1–8**)
+- Allergy and medical condition lookups
+- User account creation (restricted to Administrator)
+
+### B — Patient Management (Ward Admin)
+- Admit patient to a specific bed (validates bed availability in a transaction)
+- Edit patient demographics
+- Discharge patient with mandatory discharge summary
+- Patient movements (Ward Transfer, Theatre, X-Ray, Return)
+- Download patient folder PDF / discharge summary PDF
+
+### C — Nursing Care (Nurse + Nursing Sister)
+- Record vital signs (temperature, pulse, BP, O₂ saturation, respiratory rate)
+- Administer medications — **schedule enforcement** (see Business Rules)
+- View and acknowledge doctor instructions
+
+### D — Doctor Patient (Doctor)
+- View my patients
+- Record doctor visits with clinical notes
+- Issue prescriptions → notifies Script Manager
+- Add doctor instructions for nursing staff
+
+### E — Inventory (Script Manager + Consumables Manager)
+- Process prescription orders
+- Record consumable stock and orders
+- Weekly stock-takes
+- Low-stock alerts on dashboard
+
+---
+
+## Business Rules
+
+### Medication Schedule Restrictions (ONT3010 Spec)
+
+> "A nurse is only allowed to dispense medication up to schedule 4.
+>  Only a Nursing Sister may dispense any schedule 5 (or higher) medication."
+
+This rule is enforced in `VitalSignService.AdministerAsync()` in the service layer —
+independent of the HTTP pipeline. The unit tests in `MedicationScheduleTests` prove it:
+
+```
+AdministerAsync_Nurse_CanAdminister_Schedule4               ✓ PASS
+AdministerAsync_Nurse_CannotAdminister_Schedule5_Throws     ✓ PASS
+AdministerAsync_NursingSister_CanAdminister_Schedule5       ✓ PASS
+AdministerAsync_Nurse_Schedule5_ExceptionContainsName       ✓ PASS
+```
+
+### Bed Assignment (Transactional)
+
+Admitting a patient executes a DB transaction that:
+1. Saves the patient record
+2. Validates the target bed is unoccupied
+3. Marks the bed as occupied and links it to the patient
+4. Creates the initial `PatientMovement` record
+5. Creates the `PatientFolder` record
+
+If any step fails the entire admission is rolled back.
+
+### Authorization Policies
+
+```csharp
+"CanManageWard"          → Administrator
+"CanAdmitPatients"       → Ward Admin
+"CanPrescribe"           → Doctor
+"CanAdministerMeds"      → Nurse, Nursing Sister
+"CanDispenseHighSchedule"→ Nursing Sister
+"CanProcessScripts"      → Script Manager
+"CanManageStock"         → Consumables Manager
+```
+
+---
+
+## POPIA Compliance (South African POPIA Act)
+
+The system applies several POPIA-aligned practices for personal health information:
+
+- **Audit trail** — every INSERT / UPDATE / DELETE to any entity is captured in `AuditLogs`
+  with the username, timestamp, table name, entity PK, and a JSON snapshot of old/new values.
+  This satisfies the POPIA accountability principle (Section 8).
+- **Access control** — patient data is only accessible to authenticated users with an
+  appropriate role. Role separation ensures a Consumables Manager cannot see patient records.
+- **Minimum necessary** — each role's views expose only the data required for that function.
+- **Soft delete** — patient records are never hard-deleted (`IsActive = false`).
+  Data is retained for the legally required retention period.
+- **No test data in production** — seed credentials are read from `appsettings.Development.json`
+  (git-ignored in production deployments) not hardcoded.
+
+---
+
+## Setup Instructions
 
 ### Prerequisites
-- .NET 8.0 SDK
-- SQL Server (LocalDB or full SQL Server)
-- Visual Studio 2022 or VS Code
+- .NET 8 SDK
+- SQL Server or SQL Server Express
+- Visual Studio 2022 / VS Code / Rider
 
-### Installation
+### 1 — Clone and restore packages
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/dev-k99/HospitalWardManagementSystem
-   cd WardSystemProject
-   ```
+```bash
+git clone <repo-url>
+cd HospitalManagement
+dotnet restore
+```
 
-2. **Update Connection String**
-   - Open `appsettings.json`
-   - Update the `WardConn` connection string to point to your SQL Server instance
+### 2 — Configure the database connection
 
-3. **Run Database Migrations**
-   ```bash
-   dotnet ef database update
-   ```
+Edit `WardSystemProject/appsettings.json`:
 
-### Connection String Configuration
+```json
+"ConnectionStrings": {
+  "WardConn": "Server=.\\SQLEXPRESS;Database=WardSystemDB;Integrated Security=True;TrustServerCertificate=True;"
+}
+```
 
-The application uses a comprehensive SQL Server connection string with the following parameters:
+### 3 — Configure seed credentials (development only)
 
-#### **Server Configuration**
-- **`Server`**: SQL Server instance name (e.g., `localhost\SQLEXPRESS` or `your-server\INSTANCE`)
-- **`Database`**: Target database name (default: `WardManagementDb`)
+Edit `WardSystemProject/appsettings.Development.json`:
 
-#### **Authentication & Security**
-- **`Trusted_Connection=True`**: Uses Windows Authentication (current user's credentials)
-- **`TrustServerCertificate=True`**: Bypasses SSL certificate validation (development only)
+```json
+{
+  "SeedAdmin": {
+    "Username": "admin",
+    "Email": "admin@wardsystem.com",
+    "Password": "Admin123!"
+  }
+}
+```
 
-#### **Performance & Reliability**
-- **`MultipleActiveResultSets=true`**: Allows multiple active result sets per connection
+> In production, supply `SeedAdmin__Password` as an environment variable or Azure Key Vault secret.
+> The application will skip admin seeding if the password is absent.
 
-#### **Example Connection Strings**
+### 4 — Run migrations
 
+```bash
+cd WardSystemProject
+dotnet ef migrations add InitialSchema
+dotnet ef database update
+```
 
-**⚠️ Security Note**: The current connection string uses `TrustServerCertificate=True` for development convenience. In production environments, use proper SSL certificates and consider SQL Authentication for better security.
+### 5 — Run the application
 
-4. **Run the Application**
-   ```bash
-   dotnet run
-   ```
+```bash
+dotnet run
+```
 
-## 👤 User Authentication & Registration
+Navigate to `https://localhost:5001`. Log in with the seed admin credentials.
 
-### Default Administrator Account
-The system comes with a pre-configured administrator account:
-- **Username**: `admin`
-- **Password**: `Admin123!`
-- **Role**: Administrator
-- **Email**: `admin@wardsystem.com`
+### 6 — Run unit tests
 
-### Available Roles for Registration
-- **Doctor**: Access to patient management, visits, prescriptions, and instructions
-- **Nurse**: Access to patient care, vital signs, and medication administration
-- **Nursing Sister**: All nurse permissions plus supervisory duties
-- **Ward Admin**: Access to patient admission, discharge, and ward management
+```bash
+cd WardSystemProject.Tests
+dotnet test
+```
 
-## 🏗️ System Architecture
+---
 
-### Controllers
-- **AdministrationController**: Manages wards, medications, allergies, and medical conditions
-- **BedManagementController**: Manages bed assignments and availability
-- **DoctorPatientController**: Manages doctor visits and prescriptions
-- **PatientCareController**: Manages vital signs and medication administration
-- **PatientManagementController**: Manages patient admission, discharge, and movement
-- **RoomManagementController**: Manages room assignments
-- **StaffManagementController**: Manages staff information
+## Default Roles — Quick Reference
 
+| Role | Primary Responsibility |
+|------|----------------------|
+| Administrator | System configuration, ward/bed/staff management, user accounts |
+| Ward Admin | Patient admissions and discharges |
+| Doctor | Patient consultations, prescriptions, instructions |
+| Nurse | Vital signs, medication administration (Schedule ≤ 4) |
+| Nursing Sister | Vital signs, medication administration (all schedules) |
+| Script Manager | Process prescription orders from pharmacy |
+| Consumables Manager | Stock management, consumable orders, stock-takes |
 
-## 🔮 Future Enhancements
+---
 
-- **Dashboard**: Role-specific dashboards with key metrics
-- **Reporting**: Comprehensive reporting and analytics
-- **Notifications**: Real-time notifications for critical events
-- **Mobile App**: Native mobile application
-- **API**: RESTful API for third-party integrations
-- **Audit Logging**: Comprehensive audit trail
-- **Advanced Search**: Full-text search capabilities
+## Key Design Decisions
 
-## 📋 Current Project Status
+**Service layer over repository pattern**
+The codebase uses a feature-folder service layer (`PatientService`, `VitalSignService`) rather
+than the generic repository + unit-of-work pattern. For a project of this size, services are
+more readable and avoid the abstraction overhead of generic repositories while still being
+fully injectable and testable via interfaces.
 
-### ✅ Completed Features
-- **Core System**: Complete ward, patient, staff, and medication management
-- **Authentication**: Full user registration and login system
-- **Role-Based Access**: Proper authorization for all user types
-- **Patient Management**: Complete patient lifecycle (admission → care → discharge)
-- **Medical Records**: Vital signs, medication administration, doctor visits
-- **Inventory Management**: Consumables and prescription processing
-- **Modern UI**: Bootstrap 5 responsive design with Bootstrap Icons
+**FluentValidation over DataAnnotations**
+DataAnnotations are UI-only and cannot perform async cross-entity checks (e.g. "is this bed
+available?"). FluentValidation validators integrate cleanly with ModelState and can query the
+database, making them the right tool for admission and medication validation.
 
-### 🔧 Recent Fixes
-- **Authentication Issues**: Resolved 404 errors in DoctorPatient routes
-- **View Consistency**: Fixed naming mismatches between controllers and views
-- **Bootstrap Compatibility**: Updated all views to Bootstrap 5 standards
-- **Code Cleanup**: Removed debug code and duplicate files
-- **Navigation**: Fixed broken links and action references
+**QuestPDF over SSRS / iTextSharp**
+QuestPDF uses a composable C# fluent API, requires no external designer, and its Community
+licence is free for open-source and student projects. The resulting PDFs are fully
+programmatic and version-controllable — no binary `.rdl` files.
 
-### 🚀 Ready for Use
-The system is now fully functional with:
-- Working user registration and authentication
-- Proper role-based access control
-- Clean, modern user interface
-- Comprehensive patient management
-- Secure data handling
-- Responsive design for all devices
+**EF SaveChangesInterceptor for audit trail**
+Placing audit logic in an EF interceptor means every save — regardless of which controller
+or service triggered it — is automatically audited without any call-site changes. This is
+preferable to manual audit calls scattered across controllers.
 
+---
+
+## Screenshots
+
+> _(Add screenshots to `wwwroot/images/screenshots/` and reference them here)_
+
+---
+
+Built with ASP.NET Core 8 · Entity Framework Core 8 · Bootstrap 5
+ONT3010 — 3rd Year Project · 2025

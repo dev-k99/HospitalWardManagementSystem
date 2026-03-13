@@ -37,7 +37,7 @@ namespace WardSystemProject.Controllers
         {
             var filteredWards = await _context.Wards
                 .Include(w => w.Rooms)
-                .Where(w => w.Name.Contains(query) || w.Description.Contains(query))
+                .Where(w => w.Name.Contains(query) || (w.Description != null && w.Description.Contains(query)))
                 .ToListAsync();
 
             return View("Index", filteredWards);

@@ -1,0 +1,100 @@
+@model IEnumerable<WardSystemProject.Models.StockTakeDetail>
+
+@{
+    ViewData["Title"] = "Stock Take Details";
+    var stockTake = ViewBag.StockTake as WardSystemProject.Models.StockTake;
+}
+
+<div class="container-fluid">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <p class="text-muted mb-0">
+                @stockTake?.Ward?.Name &mdash; @stockTake?.StockTakeDate.ToString("dd/MM/yyyy HH:mm")
+                &mdash; Performed by <strong>@stockTake?.StockManager?.FullName</strong>
+            </p>
+        </div>
+        <a asp-action="StockTakeHistory" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left me-1"></i>Back to History
+        </a>
+    </div>
+
+    @if (!string.IsNullOrEmpty(stockTake?.Notes))
+    {
+        <div class="alert alert-light border mb-4">
+            <i class="bi bi-chat-left-text me-2"></i><strong>Notes:</strong> @stockTake.Notes
+        </div>
+    }
+
+    <div class="card shadow">
+        <div class="card-header">
+            <h6 class="mb-0 fw-bold text-primary">
+                <i class="bi bi-list-check me-2"></i>Item-Level Count (@Model.Count() consumables)
+            </h6>
+        </div>
+        <div class="card-body p-0">
+            @if (Model.Any())
+            {
+                <div class="table-responsive">
+                    <table class="table table-sm table-striped mb-0">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Consumable</th>
+                                <th class="text-center">System Qty</th>
+                                <th class="text-center">Counted Qty</th>
+                                <th class="text-center">Variance</th>
+                                <th class="text-center">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var d in Model)
+                            {
+                                var variance = d.Variance;
+                                <tr>
+                                    <td><strong>@d.Consumable?.Name</strong></td>
+                                    <td class="text-center">@d.SystemQuantity</td>
+                                    <td class="text-center">@d.CountedQuantity</td>
+                                    <td class="text-center fw-bold @(variance < 0 ? "text-danger" : variance > 0 ? "text-warning" : "text-success")">
+                                        @(variance > 0 ? "+" : "")@variance
+                                    </td>
+                                    <td class="text-center">
+                                        @if (variance == 0)
+                                        {
+                                            <span class="badge bg-success">Match</span>
+                                        }
+                                        else if (variance < 0)
+                                        {
+                                            <span class="badge bg-danger">Shortage</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-warning text-dark">Surplus</span>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                        <tfoot class="table-light fw-bold">
+                            <tr>
+                                <td>Total</td>
+                                <td class="text-center">@Model.Sum(d => d.SystemQuantity)</td>
+                                <td class="text-center">@Model.Sum(d => d.CountedQuantity)</td>
+                                <td class="text-center @(Model.Sum(d => d.Variance) < 0 ? "text-danger" : Model.Sum(d => d.Variance) > 0 ? "text-warning" : "text-success")">
+                                    @{ var totalVariance = Model.Sum(d => d.Variance); }
+                                    @(totalVariance > 0 ? "+" : "")@totalVariance
+                                </td>
+                                <td></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            }
+            else
+            {
+                <div class="text-center py-5 text-muted">
+                    <i class="bi bi-inbox fs-2 mb-2 d-block"></i>
+                    No item details recorded for this stock take.
+                </div>
+            }
+        </div>
+    </div>
+</div>

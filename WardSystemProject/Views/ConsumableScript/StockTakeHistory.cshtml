@@ -152,19 +152,10 @@
                                         }
                                     </td>
                                     <td>
-                                        <div class="btn-group" role="group">
-                                            <button type="button" class="btn btn-sm btn-outline-info" 
-                                                    onclick="viewStockTakeDetails(@stockTake.Id)" title="View Details">
-                                                <i class="bi bi-eye"></i>
-                                            </button>
-                                            @if (stockTake.IsActive)
-                                            {
-                                                <a asp-action="EditStockTake" asp-route-id="@stockTake.Id" 
-                                                   class="btn btn-sm btn-outline-warning" title="Edit">
-                                                    <i class="bi bi-pencil"></i>
-                                                </a>
-                                            }
-                                        </div>
+                                        <a asp-action="StockTakeDetails" asp-route-id="@stockTake.Id"
+                                           class="btn btn-sm btn-outline-info" title="View item-level details">
+                                            <i class="bi bi-eye"></i> Details
+                                        </a>
                                     </td>
                                 </tr>
                             }
@@ -238,103 +229,3 @@
     </div>
 </div>
 
-<!-- Stock Take Details Modal -->
-<div class="modal fade" id="stockTakeDetailsModal" tabindex="-1" aria-labelledby="stockTakeDetailsModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="stockTakeDetailsModalLabel">Stock Take Details</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body" id="stockTakeDetailsContent">
-                <!-- Content will be loaded here -->
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-@section Scripts {
-    <script>
-        // Table sorting functionality
-        function sortTable(columnIndex) {
-            const table = document.getElementById('stockTakeTable');
-            const tbody = table.querySelector('tbody');
-            const rows = Array.from(tbody.querySelectorAll('tr'));
-            
-            rows.sort((a, b) => {
-                const aValue = a.cells[columnIndex].textContent.trim();
-                const bValue = b.cells[columnIndex].textContent.trim();
-                
-                // Try to parse as date first
-                const aDate = new Date(aValue);
-                const bDate = new Date(bValue);
-                
-                if (!isNaN(aDate) && !isNaN(bDate)) {
-                    return aDate - bDate;
-                }
-                
-                // Otherwise sort as string
-                return aValue.localeCompare(bValue);
-            });
-            
-            // Re-append sorted rows
-            rows.forEach(row => tbody.appendChild(row));
-        }
-
-        // View stock take details
-        function viewStockTakeDetails(stockTakeId) {
-            // This would typically make an AJAX call to get detailed information
-            // For now, we'll show a placeholder
-            document.getElementById('stockTakeDetailsContent').innerHTML = `
-                <div class="text-center py-4">
-                    <i class="bi bi-info-circle fa-3x text-muted mb-3"></i>
-                    <h6 class="text-muted">Stock Take Details</h6>
-                    <p class="text-muted">Detailed information for stock take ID: ${stockTakeId}</p>
-                    <p class="text-muted">This could include item-by-item breakdown, discrepancies found, etc.</p>
-                </div>
-            `;
-            
-            const modal = new bootstrap.Modal(document.getElementById('stockTakeDetailsModal'));
-            modal.show();
-        }
-
-        // Export to CSV functionality
-        function exportToCSV() {
-            const table = document.getElementById('stockTakeTable');
-            const rows = Array.from(table.querySelectorAll('tr'));
-            
-            let csv = [];
-            
-            rows.forEach(row => {
-                const rowData = [];
-                const cells = row.querySelectorAll('td, th');
-                
-                cells.forEach(cell => {
-                    // Remove HTML tags and get clean text
-                    const text = cell.textContent.replace(/\s+/g, ' ').trim();
-                    rowData.push(`"${text}"`);
-                });
-                
-                csv.push(rowData.join(','));
-            });
-            
-            const csvContent = csv.join('\n');
-            const blob = new Blob([csvContent], { type: 'text/csv' });
-            const url = window.URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'stock_take_history.csv';
-            a.click();
-            window.URL.revokeObjectURL(url);
-        }
-
-        // Auto-refresh data every 5 minutes
-        setInterval(function() {
-            // This could be enhanced to make an AJAX call to refresh data
-            console.log('Stock take history updated');
-        }, 300000);
-    </script>
-}

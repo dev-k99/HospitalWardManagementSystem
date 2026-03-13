@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -7,14 +8,16 @@ using WardSystemProject.Models;
 
 namespace WardSystemProject.Controllers
 {
-    [Authorize(Roles = "Script Manager,Consumables Manager")]
+    [Authorize(Roles = "Script Manager,Consumables Manager,Administrator")]
     public class ConsumableScriptController : Controller
     {
         private readonly WardSystemDBContext _context;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public ConsumableScriptController(WardSystemDBContext context)
+        public ConsumableScriptController(WardSystemDBContext context, UserManager<IdentityUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: ConsumableScript/Index - Dashboard
@@ -122,22 +125,33 @@ namespace WardSystemProject.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
      
-        public async Task<IActionResult> ProcessPrescription([Bind("PrescriptionId,SentToPharmacy,Notes")] PrescriptionOrder prescriptionOrder)
+        public async Task<IActionResult> ProcessPrescription([Bind("PrescriptionId,Notes")] PrescriptionOrder prescriptionOrder, bool sendToPharmacyNow = false)
         {
-            var scriptManagerId = GetCurrentStaffId();
+            var scriptManagerId = await GetCurrentStaffIdAsync();
             if (scriptManagerId == null) return NotFound();
 
             if (ModelState.IsValid)
             {
                 prescriptionOrder.ScriptManagerId = scriptManagerId.Value;
-                prescriptionOrder.OrderDate = DateTime.Now;
-                prescriptionOrder.Status = "Pending";
+                prescriptionOrder.OrderDate = DateTime.UtcNow;
                 prescriptionOrder.IsActive = true;
+
+                if (sendToPharmacyNow)
+                {
+                    prescriptionOrder.SentToPharmacy = DateTime.UtcNow;
+                    prescriptionOrder.Status = "Sent to Pharmacy";
+                }
+                else
+                {
+                    prescriptionOrder.Status = "Pending";
+                }
 
                 _context.Add(prescriptionOrder);
                 await _context.SaveChangesAsync();
 
-                TempData["SuccessMessage"] = "Prescription processed and sent to pharmacy successfully.";
+                TempData["SuccessMessage"] = sendToPharmacyNow
+                    ? "Prescription processed and sent to pharmacy successfully."
+                    : "Prescription order created with Pending status.";
                 return RedirectToAction(nameof(ManagePrescriptionOrders));
             }
 
@@ -181,7 +195,7 @@ namespace WardSystemProject.Controllers
 
             if (order == null) return NotFound();
 
-            order.ReceivedInWard = DateTime.Now;
+            order.ReceivedInWard = DateTime.UtcNow;
             order.Status = "Delivered";
 
             _context.Update(order);
@@ -237,7 +251,7 @@ namespace WardSystemProject.Controllers
             {
                 existingConsumable.QuantityOnHand = consumable.QuantityOnHand;
                 existingConsumable.ReorderLevel = consumable.ReorderLevel;
-                existingConsumable.LastUpdated = DateTime.Now;
+                existingConsumable.LastUpdated = DateTime.UtcNow;
 
                 _context.Update(existingConsumable);
                 await _context.SaveChangesAsync();
@@ -273,13 +287,13 @@ namespace WardSystemProject.Controllers
         
         public async Task<IActionResult> CreateConsumableOrder([Bind("ConsumableId,Quantity,Notes")] ConsumableOrder consumableOrder)
         {
-            var stockManagerId = GetCurrentStaffId();
+            var stockManagerId = await GetCurrentStaffIdAsync();
             if (stockManagerId == null) return NotFound();
 
             if (ModelState.IsValid)
             {
                 consumableOrder.StockManagerId = stockManagerId.Value;
-                consumableOrder.OrderDate = DateTime.Now;
+                consumableOrder.OrderDate = DateTime.UtcNow;
                 consumableOrder.Status = "Pending";
                 consumableOrder.IsActive = true;
 
@@ -329,10 +343,10 @@ namespace WardSystemProject.Controllers
 
             // Update consumable stock
             order.Consumable.QuantityOnHand += order.Quantity;
-            order.Consumable.LastUpdated = DateTime.Now;
+            order.Consumable.LastUpdated = DateTime.UtcNow;
 
             // Update order status
-            order.ReceivedDate = DateTime.Now;
+            order.ReceivedDate = DateTime.UtcNow;
             order.Status = "Received";
 
             _context.Update(order);
@@ -344,10 +358,10 @@ namespace WardSystemProject.Controllers
         }
 
         // STOCK TAKE SECTION
- 
+
         public async Task<IActionResult> WeeklyStockTake()
         {
-            var stockManagerId = GetCurrentStaffId();
+            var stockManagerId = await GetCurrentStaffIdAsync();
             if (stockManagerId == null) return NotFound();
 
             var consumables = await _context.Consumables
@@ -358,39 +372,59 @@ namespace WardSystemProject.Controllers
                 .ToListAsync();
 
             ViewBag.Consumables = consumables;
+            ViewBag.WardId = new SelectList(
+                await _context.Wards.Where(w => w.IsActive).OrderBy(w => w.Name).ToListAsync(),
+                "Id", "Name");
             return View(new StockTake { StockManagerId = stockManagerId.Value });
         }
 
         // POST: ConsumableScript/WeeklyStockTake
         [HttpPost]
         [ValidateAntiForgeryToken]
-        
-        public async Task<IActionResult> WeeklyStockTake([Bind("StockTakeDate,Notes")] StockTake stockTake)
+
+        public async Task<IActionResult> WeeklyStockTake([Bind("StockTakeDate,WardId,Notes")] StockTake stockTake, [FromForm] Dictionary<int, int> countedQty)
         {
-            var stockManagerId = GetCurrentStaffId();
+            var stockManagerId = await GetCurrentStaffIdAsync();
             if (stockManagerId == null) return NotFound();
 
             if (ModelState.IsValid)
             {
                 stockTake.StockManagerId = stockManagerId.Value;
-                stockTake.StockTakeDate = DateTime.Now;
                 stockTake.IsActive = true;
 
                 _context.Add(stockTake);
                 await _context.SaveChangesAsync();
 
+                // Create one StockTakeDetail per consumable
+                var consumables = await _context.Consumables.Where(c => c.IsActive).ToListAsync();
+                foreach (var consumable in consumables)
+                {
+                    var counted = countedQty.TryGetValue(consumable.Id, out var qty) ? qty : consumable.QuantityOnHand;
+                    _context.Add(new StockTakeDetail
+                    {
+                        StockTakeId = stockTake.Id,
+                        ConsumableId = consumable.Id,
+                        SystemQuantity = consumable.QuantityOnHand,
+                        CountedQuantity = counted
+                    });
+                }
+                await _context.SaveChangesAsync();
+
                 TempData["SuccessMessage"] = "Weekly stock take completed successfully.";
-                return RedirectToAction(nameof(CheckStock));
+                return RedirectToAction(nameof(StockTakeHistory));
             }
 
-            var consumables = await _context.Consumables
+            var allConsumables = await _context.Consumables
                 .Include(c => c.Ward)
                 .Where(c => c.IsActive)
                 .OrderBy(c => c.Ward.Name)
                 .ThenBy(c => c.Name)
                 .ToListAsync();
 
-            ViewBag.Consumables = consumables;
+            ViewBag.Consumables = allConsumables;
+            ViewBag.WardId = new SelectList(
+                await _context.Wards.Where(w => w.IsActive).OrderBy(w => w.Name).ToListAsync(),
+                "Id", "Name", stockTake.WardId);
             return View(stockTake);
         }
 
@@ -406,6 +440,28 @@ namespace WardSystemProject.Controllers
                 .ToListAsync();
 
             return View(stockTakes);
+        }
+
+        // GET: ConsumableScript/StockTakeDetails/5
+        public async Task<IActionResult> StockTakeDetails(int? id)
+        {
+            if (id == null) return NotFound();
+
+            var stockTake = await _context.StockTakes
+                .Include(st => st.Ward)
+                .Include(st => st.StockManager)
+                .FirstOrDefaultAsync(st => st.Id == id);
+
+            if (stockTake == null) return NotFound();
+
+            var details = await _context.StockTakeDetails
+                .Include(d => d.Consumable)
+                .Where(d => d.StockTakeId == id)
+                .OrderBy(d => d.Consumable.Name)
+                .ToListAsync();
+
+            ViewBag.StockTake = stockTake;
+            return View(details);
         }
 
         // GET: ConsumableScript/PrescribtionOrderDetails
@@ -426,14 +482,21 @@ namespace WardSystemProject.Controllers
             return View(prescriptionOrder);
         }
 
-        // Helper method to get current staff ID
-        private int? GetCurrentStaffId()
+        // Resolves the current user's Staff.Id.
+        // Primary: Staff.IdentityUserId == IdentityUser.Id (single indexed lookup).
+        // Fallback: email match for Staff records created before IdentityUserId was added.
+        private async Task<int?> GetCurrentStaffIdAsync()
         {
-            var currentUser = User.Identity?.Name;
-            if (string.IsNullOrEmpty(currentUser)) return null;
+            var userName = User.Identity?.Name;
+            if (string.IsNullOrEmpty(userName)) return null;
 
-            var staff = _context.Staff
-                .FirstOrDefault(s => s.Email == currentUser && s.IsActive);
+            var identityUser = await _userManager.FindByNameAsync(userName);
+            if (identityUser == null) return null;
+
+            var staff = await _context.Staff
+                            .FirstOrDefaultAsync(s => s.IdentityUserId == identityUser.Id && s.IsActive)
+                        ?? await _context.Staff
+                            .FirstOrDefaultAsync(s => s.Email == identityUser.Email && s.IsActive);
 
             return staff?.Id;
         }

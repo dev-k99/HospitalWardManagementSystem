@@ -53,47 +53,19 @@ namespace WardSystemProject.Controllers
 
                 if (user != null)
                 {
-                    var result = await _signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, lockoutOnFailure: false);
+                    var result = await _signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, lockoutOnFailure: true);
                     if (result.Succeeded)
                     {
-                        var roles = await _userManager.GetRolesAsync(user);
-                        
-                        // Role-based redirection
                         if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
-                        {
                             return Redirect(returnUrl);
-                        }
-                        
-                        // Redirect based on user role
-                        if (roles.Contains("Administrator"))
-                        {
-                            return RedirectToAction("Index", "Home");
-                        }
-                        else if (roles.Contains("Ward Admin"))
-                        {
-                            return RedirectToAction("Index", "Home");
-                        }
-                        else if (roles.Contains("Doctor"))
-                        {
-                            return RedirectToAction("Index", "Home");
-                        }
-                        else if (roles.Contains("Nurse") || roles.Contains("Nursing Sister"))
-                        {
-                            return RedirectToAction("Index", "Home");
-                        }
-                        else if (roles.Contains("Script Manager"))
-                        {
-                            return RedirectToAction("Index", "Home");
-                        }
-                        else if (roles.Contains("Consumables Manager"))
-                        {
-                            return RedirectToAction("Index", "Home");
-                        }
-                        else
-                        {
-                            // Default redirect for users without specific roles
-                            return RedirectToAction("Index", "Home");
-                        }
+
+                        return RedirectToAction("Index", "Home");
+                    }
+                    else if (result.IsLockedOut)
+                    {
+                        ModelState.AddModelError(string.Empty,
+                            "This account has been locked after too many failed attempts. Please try again in 15 minutes.");
+                        return View(model);
                     }
                     else
                     {
@@ -112,7 +84,6 @@ namespace WardSystemProject.Controllers
             return View(model);
         }
 
-        [AllowAnonymous]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
@@ -121,95 +92,71 @@ namespace WardSystemProject.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        [AllowAnonymous]
+        /// <summary>
+        /// User account creation is restricted to Administrators only.
+        /// Self-registration is disabled — a healthcare system must control
+        /// who can access patient data and with what role.
+        /// </summary>
+        [Authorize(Roles = "Administrator")]
         [HttpGet]
         public IActionResult Register()
         {
             return View();
         }
-        [AllowAnonymous]
+
+        [Authorize(Roles = "Administrator")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
+                return View(model);
+
+            if (await _userManager.FindByNameAsync(model.Username) != null)
             {
-                // Check if username already exists
-                if (await _userManager.FindByNameAsync(model.Username) != null)
-                {
-                    ModelState.AddModelError("Username", "Username already exists. Please choose a different one.");
-                    return View(model);
-                }
-
-                // Check if email already exists
-                if (await _userManager.FindByEmailAsync(model.Email) != null)
-                {
-                    ModelState.AddModelError("Email", "Email already exists. Please use a different email address.");
-                    return View(model);
-                }
-
-                // Create the user
-                var user = new IdentityUser
-                {
-                    UserName = model.Username,
-                    Email = model.Email,
-                    EmailConfirmed = true // Auto-confirm email for now
-                };
-
-                var result = await _userManager.CreateAsync(user, model.Password);
-
-                if (result.Succeeded)
-                {
-                    // Add user to role
-                    if (!string.IsNullOrEmpty(model.Role))
-                    {
-                        await _userManager.AddToRoleAsync(user, model.Role);
-                    }
-
-                    // Create corresponding Staff record
-                    var staff = new Staff
-                    {
-                        FirstName = model.FirstName,
-                        LastName = model.LastName,
-                        Role = model.Role,
-                        Email = model.Email,
-                        IsActive = true
-                    };
-
-                    _context.Staff.Add(staff);
-                    await _context.SaveChangesAsync();
-
-                    // Sign in the user
-                    await _signInManager.SignInAsync(user, isPersistent: false);
-
-                    TempData["SuccessMessage"] = "Account created successfully! Welcome to the Ward Management System.";
-                    
-                    // Redirect based on role
-                    if (model.Role == "Doctor")
-                    {
-                        return RedirectToAction("Index", "DoctorPatient");
-                    }
-                    else if (model.Role == "Ward Admin")
-                    {
-                        return RedirectToAction("Index", "Administration");
-                    }
-                    else
-                    {
-                        return RedirectToAction("Index", "Home");
-                    }
-                }
-                else
-                {
-                    foreach (var error in result.Errors)
-                    {
-                        ModelState.AddModelError(string.Empty, error.Description);
-                    }
-                    return View(model);
-                }
+                ModelState.AddModelError("Username", "Username already exists.");
+                return View(model);
             }
 
-            // If we got this far, something failed, redisplay form
-            return View(model);
+            if (await _userManager.FindByEmailAsync(model.Email) != null)
+            {
+                ModelState.AddModelError("Email", "Email already exists.");
+                return View(model);
+            }
+
+            var user = new IdentityUser
+            {
+                UserName       = model.Username,
+                Email          = model.Email,
+                EmailConfirmed = true
+            };
+
+            var result = await _userManager.CreateAsync(user, model.Password);
+            if (!result.Succeeded)
+            {
+                foreach (var error in result.Errors)
+                    ModelState.AddModelError(string.Empty, error.Description);
+                return View(model);
+            }
+
+            if (!string.IsNullOrEmpty(model.Role))
+                await _userManager.AddToRoleAsync(user, model.Role);
+
+            // Create matching Staff record — link via IdentityUserId for fast lookup
+            _context.Staff.Add(new Staff
+            {
+                FirstName      = model.FirstName,
+                LastName       = model.LastName,
+                Role           = model.Role,
+                Email          = model.Email,
+                IdentityUserId = user.Id,
+                IsActive       = true
+            });
+            await _context.SaveChangesAsync();
+
+            // Administrator created the account — do NOT auto-sign-in as the new user.
+            TempData["SuccessMessage"] = $"Account for {model.FirstName} {model.LastName} ({model.Role}) created successfully.";
+            return RedirectToAction("Index", "StaffManagement");
         }
 
         [HttpGet]

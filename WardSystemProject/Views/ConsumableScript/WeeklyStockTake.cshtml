@@ -34,12 +34,19 @@
                         <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
 
                         <div class="row mb-3">
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <label asp-for="StockTakeDate" class="form-label fw-bold">Stock Take Date *</label>
                                 <input asp-for="StockTakeDate" type="datetime-local" class="form-control" value="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")" />
                                 <span asp-validation-for="StockTakeDate" class="text-danger"></span>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-4">
+                                <label asp-for="WardId" class="form-label fw-bold">Ward *</label>
+                                <select asp-for="WardId" asp-items="ViewBag.WardId" class="form-select">
+                                    <option value="">-- Select Ward --</option>
+                                </select>
+                                <span asp-validation-for="WardId" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-4">
                                 <label class="form-label fw-bold">Stock Manager</label>
                                 <input type="text" class="form-control" value="@User.Identity?.Name" readonly />
                                 <small class="text-muted">Current user performing the stock take</small>
@@ -52,6 +59,47 @@
                                       placeholder="Enter any observations, discrepancies, or special notes about this stock take..."></textarea>
                             <span asp-validation-for="Notes" class="text-danger"></span>
                         </div>
+
+                        @if (ViewBag.Consumables != null && ((IEnumerable<dynamic>)ViewBag.Consumables).Any())
+                        {
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">
+                                    <i class="bi bi-boxes me-1"></i>Consumable Count Sheet
+                                </label>
+                                <p class="text-muted small mb-2">Enter the physically counted quantity for each item. Pre-filled with current system quantity.</p>
+                                <div class="table-responsive">
+                                    <table class="table table-sm table-bordered" id="stockCountTable">
+                                        <thead class="table-dark">
+                                            <tr>
+                                                <th>Ward</th>
+                                                <th>Consumable</th>
+                                                <th>System Qty</th>
+                                                <th style="width:140px;">Counted Qty *</th>
+                                                <th>Unit</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var c in ViewBag.Consumables)
+                                            {
+                                                <tr>
+                                                    <td><span class="badge bg-primary">@c.Ward?.Name</span></td>
+                                                    <td><strong>@c.Name</strong></td>
+                                                    <td class="text-center fw-bold @(c.QuantityOnHand <= c.ReorderLevel ? "text-danger" : "text-success")">@c.QuantityOnHand</td>
+                                                    <td>
+                                                        <input type="number" name="countedQty[@c.Id]"
+                                                               value="@c.QuantityOnHand"
+                                                               min="0" max="100000"
+                                                               class="form-control form-control-sm counted-input"
+                                                               required />
+                                                    </td>
+                                                    <td class="text-muted small">@c.Unit</td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        }
 
                         <div class="d-flex justify-content-between">
                             <a asp-action="Index" class="btn btn-secondary">
@@ -119,199 +167,8 @@
         </div>
     </div>
 
-    <!-- Consumables Inventory Table -->
-    <div class="row mt-4">
-        <div class="col-12">
-            <div class="card shadow">
-                <div class="card-header bg-secondary text-white">
-                    <h5 class="mb-0">
-                        <i class="bi bi-boxes me-2"></i>Current Consumables Inventory
-                    </h5>
-                </div>
-                <div class="card-body">
-                    @if (ViewBag.Consumables != null && ((IEnumerable<dynamic>)ViewBag.Consumables).Any())
-                    {
-                        <div class="table-responsive">
-                            <table class="table table-striped table-hover" id="consumablesTable">
-                                <thead class="">
-                                    <tr>
-                                        <th>
-                                            <a href="#" class="text-white text-decoration-none" onclick="sortTable(0)">
-                                                Ward <i class="bi bi-arrow-down-up"></i>
-                                            </a>
-                                        </th>
-                                        <th>
-                                            <a href="#" class="text-white text-decoration-none" onclick="sortTable(1)">
-                                                Consumable <i class="bi bi-arrow-down-up"></i>
-                                            </a>
-                                        </th>
-                                        <th>
-                                            <a href="#" class="text-white text-decoration-none" onclick="sortTable(2)">
-                                                Current Stock <i class="bi bi-arrow-down-up"></i>
-                                            </a>
-                                        </th>
-                                        <th>
-                                            <a href="#" class="text-white text-decoration-none" onclick="sortTable(3)">
-                                                Unit <i class="bi bi-arrow-down-up"></i>
-                                            </a>
-                                        </th>
-                                        <th>
-                                            <a href="#" class="text-white text-decoration-none" onclick="sortTable(4)">
-                                                Reorder Level <i class="bi bi-arrow-down-up"></i>
-                                            </a>
-                                        </th>
-                                        <th>Status</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach (var consumable in ViewBag.Consumables)
-                                    {
-                                        <tr>
-                                            <td>
-                                                <span class="badge bg-primary">@consumable.Ward?.Name</span>
-                                            </td>
-                                            <td>
-                                                <strong>@consumable.Name</strong>
-                                                @if (!string.IsNullOrEmpty(consumable.Description))
-                                                {
-                                                    <br><small class="text-muted">@consumable.Description</small>
-                                                }
-                                            </td>
-                                            <td>
-                                                <span class="fw-bold @(consumable.CurrentStock <= consumable.ReorderLevel ? "text-danger" : "text-success")">
-                                                    @consumable.CurrentStock
-                                                </span>
-                                            </td>
-                                            <td>@consumable.Unit</td>
-                                            <td>@consumable.ReorderLevel</td>
-                                            <td>
-                                                @if (consumable.CurrentStock <= 0)
-                                                {
-                                                    <span class="badge bg-danger">Out of Stock</span>
-                                                }
-                                                else if (consumable.CurrentStock <= consumable.ReorderLevel)
-                                                {
-                                                    <span class="badge bg-warning">Low Stock</span>
-                                                }
-                                                else
-                                                {
-                                                    <span class="badge bg-success">In Stock</span>
-                                                }
-                                            </td>
-                                        </tr>
-                                    }
-                                </tbody>
-                            </table>
-                        </div>
-
-                        <!-- Search and Filter -->
-                        <div class="row mt-3">
-                            <div class="col-md-6">
-                                <div class="input-group">
-                                    <span class="input-group-text">
-                                        <i class="bi bi-search"></i>
-                                    </span>
-                                    <input type="text" class="form-control" id="searchInput" placeholder="Search consumables...">
-                                </div>
-                            </div>
-                            <div class="col-md-6 text-end">
-                                <button class="btn btn-outline-secondary" onclick="exportToCSV()">
-                                    <i class="bi bi-download me-2"></i>Export to CSV
-                                </button>
-                            </div>
-                        </div>
-                    }
-                    else
-                    {
-                        <div class="text-center py-5">
-                            <i class="bi bi-boxes fa-3x text-muted mb-3"></i>
-                            <h5 class="text-muted">No consumables found</h5>
-                            <p class="text-muted">Please check your consumables configuration</p>
-                        </div>
-                    }
-                </div>
-            </div>
-        </div>
-    </div>
 </div>
 
 @section Scripts {
-    <script>
-        // Table sorting functionality
-        function sortTable(columnIndex) {
-            const table = document.getElementById('consumablesTable');
-            const tbody = table.querySelector('tbody');
-            const rows = Array.from(tbody.querySelectorAll('tr'));
-            
-            rows.sort((a, b) => {
-                const aValue = a.cells[columnIndex].textContent.trim();
-                const bValue = b.cells[columnIndex].textContent.trim();
-                
-                // Try to parse as number first
-                const aNum = parseFloat(aValue);
-                const bNum = parseFloat(bValue);
-                
-                if (!isNaN(aNum) && !isNaN(bNum)) {
-                    return aNum - bNum;
-                }
-                
-                // Otherwise sort as string
-                return aValue.localeCompare(bValue);
-            });
-            
-            // Re-append sorted rows
-            rows.forEach(row => tbody.appendChild(row));
-        }
-
-        // Search functionality
-        document.getElementById('searchInput').addEventListener('input', function() {
-            const searchTerm = this.value.toLowerCase();
-            const rows = document.querySelectorAll('#consumablesTable tbody tr');
-            
-            rows.forEach(row => {
-                const text = row.textContent.toLowerCase();
-                if (text.includes(searchTerm)) {
-                    row.style.display = '';
-                } else {
-                    row.style.display = 'none';
-                }
-            });
-        });
-
-        // Export to CSV functionality
-        function exportToCSV() {
-            const table = document.getElementById('consumablesTable');
-            const rows = Array.from(table.querySelectorAll('tr'));
-            
-            let csv = [];
-            
-            rows.forEach(row => {
-                const rowData = [];
-                const cells = row.querySelectorAll('td, th');
-                
-                cells.forEach(cell => {
-                    // Remove HTML tags and get clean text
-                    const text = cell.textContent.replace(/\s+/g, ' ').trim();
-                    rowData.push(`"${text}"`);
-                });
-                
-                csv.push(rowData.join(','));
-            });
-            
-            const csvContent = csv.join('\n');
-            const blob = new Blob([csvContent], { type: 'text/csv' });
-            const url = window.URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'weekly_stock_take.csv';
-            a.click();
-            window.URL.revokeObjectURL(url);
-        }
-
-        // Auto-refresh stock levels every 30 seconds
-        setInterval(function() {
-            // This could be enhanced to make an AJAX call to refresh stock data
-            console.log('Stock levels updated');
-        }, 30000);
-    </script>
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

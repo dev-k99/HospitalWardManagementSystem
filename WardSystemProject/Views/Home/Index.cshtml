@@ -1,227 +1,757 @@
-﻿@model WardSystemProject.Models.DashboardViewModel
+@model WardSystemProject.Models.DashboardViewModel
 @{
     ViewData["Title"] = "Dashboard";
 }
 
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-12">
-            <div class="d-flex justify-content-between align-items-center mb-4">
-                <h2 class="mb-0">
-                    <i class="bi bi-speedometer2"></i> Dashboard
-                </h2>
-                <div class="text-muted">
-                    <i class="bi bi-person-circle"></i> Welcome, <strong>@User.Identity.Name</strong>
-                </div>
-            </div>
-        </div>
-    </div>
+<style>
+    /* ── KPI card design (matches Figma) ──────────────────────────────────── */
+    .kpi-card {
+        background: #fff;
+        border-radius: 12px;
+        border: 1px solid #e2e8f0;
+        border-left-width: 4px;
+        box-shadow: 0 1px 3px rgba(0,0,0,.06);
+        transition: box-shadow .2s;
+        height: 100%;
+    }
+    .kpi-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,.1); }
+    .kpi-card .card-body { padding: 1.1rem 1.2rem; }
 
+    .kpi-label { font-size: .78rem; color: #64748b; font-weight: 500; margin-bottom: .25rem; }
+    .kpi-number { font-size: 1.85rem; font-weight: 700; color: #0f172a; line-height: 1.1; }
+    .kpi-sub    { font-size: .8rem; color: #94a3b8; margin-top: .15rem; }
+
+    .kpi-icon {
+        width: 42px; height: 42px;
+        background: #f1f5f9;
+        border-radius: 50%;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 1.1rem;
+        flex-shrink: 0;
+    }
+
+    /* Left border colours */
+    .kpi-blue   { border-left-color: #2563eb; }
+    .kpi-green  { border-left-color: #16a34a; }
+    .kpi-amber  { border-left-color: #d97706; }
+    .kpi-red    { border-left-color: #dc2626; }
+    .kpi-purple { border-left-color: #7c3aed; }
+    .kpi-teal   { border-left-color: #0d9488; }
+
+    /* Icon tint */
+    .kpi-icon.blue   { color: #2563eb; }
+    .kpi-icon.green  { color: #16a34a; }
+    .kpi-icon.amber  { color: #d97706; }
+    .kpi-icon.red    { color: #dc2626; }
+    .kpi-icon.purple { color: #7c3aed; }
+    .kpi-icon.teal   { color: #0d9488; }
+
+    /* Section card */
+    .section-card {
+        background: #fff;
+        border-radius: 12px;
+        border: 1px solid #e2e8f0;
+        box-shadow: 0 1px 3px rgba(0,0,0,.06);
+        overflow: hidden;
+    }
+    .section-card .section-header {
+        padding: .9rem 1.1rem;
+        border-bottom: 1px solid #f1f5f9;
+        font-size: .875rem;
+        font-weight: 600;
+        color: #0f172a;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: #fff;
+    }
+    .section-card .section-header i { color: #64748b; margin-right: .4rem; }
+
+    /* Quick action card */
+    .action-card {
+        background: #fff;
+        border-radius: 12px;
+        border: 1px solid #e2e8f0;
+        box-shadow: 0 1px 3px rgba(0,0,0,.06);
+        padding: 1.4rem 1rem;
+        text-align: center;
+        text-decoration: none;
+        display: block;
+        transition: box-shadow .2s, transform .15s;
+    }
+    .action-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,.1); transform: translateY(-2px); }
+    .action-card .action-icon {
+        width: 48px; height: 48px;
+        background: #f8fafc;
+        border-radius: 12px;
+        display: inline-flex; align-items: center; justify-content: center;
+        font-size: 1.3rem;
+        margin-bottom: .6rem;
+        color: #94a3b8;
+    }
+    .action-card .action-label { font-size: .82rem; font-weight: 600; color: #334155; }
+
+    /* Status badges */
+    .badge-critical { background: #fef2f2; color: #dc2626; border: 1px solid #fecaca; border-radius: 20px; padding: .25rem .65rem; font-size: .72rem; font-weight: 700; }
+    .badge-low      { background: #fffbeb; color: #d97706; border: 1px solid #fed7aa; border-radius: 20px; padding: .25rem .65rem; font-size: .72rem; font-weight: 700; }
+
+    /* Occupancy donut container */
+    .occupancy-card { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 1.5rem; }
+    .occupancy-pct  { font-size: 2.2rem; font-weight: 800; color: #0f172a; line-height: 1; margin-top: .75rem; }
+    .occupancy-lbl  { font-size: .8rem; color: #64748b; margin-top: .2rem; }
+</style>
+
+<div class="container-fluid px-0">
+
+    @* ── ADMINISTRATOR ──────────────────────────────────────────────────── *@
     @if (User.IsInRole("Administrator"))
     {
-        <!-- Administrator Dashboard -->
-        <div class="row">
-            <div class="col-12">
-                <div class="alert alert-info">
-                    <h5><i class="bi bi-shield-check"></i> Administrator Overview</h5>
-                    <p class="mb-0">Manage the entire hospital system including wards, staff, medications, and patient records.</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-3 mb-4">
-                <div class="card  stat-card">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between">
-                            <div>
-                                <h4 class="mb-0">@Model.TotalWards</h4>
-                                <p class="mb-0">Total Wards</p>
-                            </div>
-                            <div class="align-self-center">
-                                <i class="bi bi-building" style="font-size: 2rem;"></i>
-                            </div>
+        @* Row 1 — Infrastructure *@
+        <div class="row g-3 mb-3">
+            <div class="col-6 col-md-3">
+                <div class="kpi-card kpi-blue">
+                    <div class="card-body d-flex justify-content-between align-items-start">
+                        <div>
+                            <div class="kpi-label">Total Wards</div>
+                            <div class="kpi-number">@Model.TotalWards</div>
                         </div>
+                        <div class="kpi-icon blue"><i class="bi bi-building"></i></div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-3 mb-4">
-                <div class="card bg-success text-white stat-card">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between">
-                            <div>
-                                <h4 class="mb-0">@Model.TotalRooms</h4>
-                                <p class="mb-0">Total Rooms</p>
-                            </div>
-                            <div class="align-self-center">
-                                <i class="bi bi-door-open" style="font-size: 2rem;"></i>
-                            </div>
+            <div class="col-6 col-md-3">
+                <div class="kpi-card kpi-blue">
+                    <div class="card-body d-flex justify-content-between align-items-start">
+                        <div>
+                            <div class="kpi-label">Total Rooms</div>
+                            <div class="kpi-number">@Model.TotalRooms</div>
                         </div>
+                        <div class="kpi-icon blue"><i class="bi bi-door-open"></i></div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-3 mb-4">
-                <div class="card bg-info text-white stat-card">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between">
-                            <div>
-                                <h4 class="mb-0">@Model.TotalBeds</h4>
-                                <p class="mb-0">Total Beds</p>
-                            </div>
-                            <div class="align-self-center">
-                                <i class="bi bi-bed" style="font-size: 2rem;"></i>
-                            </div>
+            <div class="col-6 col-md-3">
+                <div class="kpi-card kpi-green">
+                    <div class="card-body d-flex justify-content-between align-items-start">
+                        <div>
+                            <div class="kpi-label">Beds Occupied</div>
+                            <div class="kpi-number">@Model.OccupiedBeds <span style="font-size:1rem;color:#94a3b8;font-weight:500;">/ @Model.TotalBeds</span></div>
+                            <div class="kpi-sub">@Model.OccupancyRate% occupancy</div>
                         </div>
+                        <div class="kpi-icon green"><i class="bi bi-hospital"></i></div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-3 mb-4">
-                <div class="card bg-warning text-dark stat-card">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between">
-                            <div>
-                                <h4 class="mb-0">@Model.TotalStaff</h4>
-                                <p class="mb-0">Total Staff</p>
-                            </div>
-                            <div class="align-self-center">
-                                <i class="bi bi-people" style="font-size: 2rem;"></i>
-                            </div>
+            <div class="col-6 col-md-3">
+                <div class="kpi-card kpi-blue">
+                    <div class="card-body d-flex justify-content-between align-items-start">
+                        <div>
+                            <div class="kpi-label">Active Staff</div>
+                            <div class="kpi-number">@Model.TotalStaff</div>
                         </div>
+                        <div class="kpi-icon blue"><i class="bi bi-people"></i></div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-md-4 mb-4">
-                <div class="card dashboard-card">
-                    <div class="card-header ">
-                        <h5 class="mb-0"><i class="bi bi-capsule"></i> Medication Management</h5>
-                    </div>
-                    <div class="card-body">
-                        <p><strong>Total Medications:</strong> @Model.TotalMedications</p>
-                        <a asp-controller="Administration" asp-action="ManageMedications" class="btn btn-primary">
-                            <i class="bi bi-gear"></i> Manage Medications
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 mb-4">
-                <div class="card dashboard-card">
-                    <div class="card-header bg-warning text-dark">
-                        <h5 class="mb-0"><i class="bi bi-exclamation-triangle"></i> Allergy Management</h5>
-                    </div>
-                    <div class="card-body">
-                        <p><strong>Total Allergies:</strong> @Model.TotalAllergies</p>
-                        <a asp-controller="Administration" asp-action="ManageAllergies" class="btn btn-warning">
-                            <i class="bi bi-gear"></i> Manage Allergies
-                        </a>
+        @* Row 2 — Clinical + Inventory *@
+        <div class="row g-3 mb-4">
+            <div class="col-6 col-md-3">
+                <div class="kpi-card kpi-green">
+                    <div class="card-body d-flex justify-content-between align-items-start">
+                        <div>
+                            <div class="kpi-label">Admitted Patients</div>
+                            <div class="kpi-number">@Model.ActivePatients</div>
+                        </div>
+                        <div class="kpi-icon green"><i class="bi bi-activity"></i></div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4 mb-4">
-                <div class="card dashboard-card">
-                    <div class="card-header bg-info text-white">
-                        <h5 class="mb-0"><i class="bi bi-heart-pulse"></i> Medical Conditions</h5>
-                    </div>
-                    <div class="card-body">
-                        <p><strong>Total Conditions:</strong> @Model.TotalMedicalConditions</p>
-                        <a asp-controller="Administration" asp-action="ManageMedicalConditions" class="btn btn-info">
-                            <i class="bi bi-gear"></i> Manage Conditions
-                        </a>
+            <div class="col-6 col-md-3">
+                <div class="kpi-card kpi-green">
+                    <div class="card-body d-flex justify-content-between align-items-start">
+                        <div>
+                            <div class="kpi-label">Medications</div>
+                            <div class="kpi-number">@Model.TotalMedications</div>
+                            <div class="kpi-sub">In catalogue</div>
+                        </div>
+                        <div class="kpi-icon green"><i class="bi bi-capsule"></i></div>
                     </div>
                 </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="kpi-card @(Model.PendingPrescriptionOrders > 0 ? "kpi-amber" : "kpi-blue")">
+                    <div class="card-body d-flex justify-content-between align-items-start">
+                        <div>
+                            <div class="kpi-label">Pending Scripts</div>
+                            <div class="kpi-number" style="@(Model.PendingPrescriptionOrders > 0 ? "color:#d97706" : "")">@Model.PendingPrescriptionOrders</div>
+                        </div>
+                        <div class="kpi-icon @(Model.PendingPrescriptionOrders > 0 ? "amber" : "blue")"><i class="bi bi-clipboard-pulse"></i></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="kpi-card @(Model.LowStockConsumables > 0 ? "kpi-red" : "kpi-green")">
+                    <div class="card-body d-flex justify-content-between align-items-start">
+                        <div>
+                            <div class="kpi-label">Low Stock Items</div>
+                            <div class="kpi-number" style="@(Model.LowStockConsumables > 0 ? "color:#dc2626" : "color:#16a34a")">@Model.LowStockConsumables</div>
+                        </div>
+                        <div class="kpi-icon @(Model.LowStockConsumables > 0 ? "red" : "green")"><i class="bi bi-box-seam"></i></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @* Row 3 — Occupancy chart + Low stock table *@
+        <div class="row g-3 mb-4">
+            <div class="col-md-4">
+                <div class="section-card h-100">
+                    <div class="section-header"><span><i class="bi bi-pie-chart-fill"></i>Bed Occupancy Rate</span></div>
+                    <div class="occupancy-card">
+                        <canvas id="occupancyChart" width="160" height="160"></canvas>
+                        <div class="occupancy-pct">@Model.OccupancyRate%</div>
+                        <div class="occupancy-lbl">Occupied Capacity</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="section-card h-100">
+                    <div class="section-header">
+                        <span style="color:#dc2626;"><i class="bi bi-exclamation-triangle-fill" style="color:#dc2626;"></i>Low Stock Alert</span>
+                        <a asp-controller="ConsumableScript" asp-action="CheckStock"
+                           class="btn btn-sm btn-outline-secondary" style="font-size:.75rem;">
+                            View All Inventory
+                        </a>
+                    </div>
+                    @if (Model.LowStockItems.Count > 0)
+                    {
+                        <div class="table-responsive">
+                            <table class="table table-hover mb-0" style="font-size:.85rem;">
+                                <thead>
+                                    <tr style="background:#fef2f2;">
+                                        <th style="color:#dc2626;font-weight:600;border-bottom:1px solid #fecaca;padding:.7rem 1rem;">Item Name</th>
+                                        <th style="color:#dc2626;font-weight:600;border-bottom:1px solid #fecaca;padding:.7rem 1rem;text-align:center;">Current Stock</th>
+                                        <th style="color:#dc2626;font-weight:600;border-bottom:1px solid #fecaca;padding:.7rem 1rem;text-align:center;">Minimum Required</th>
+                                        <th style="color:#dc2626;font-weight:600;border-bottom:1px solid #fecaca;padding:.7rem 1rem;text-align:center;">Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.LowStockItems)
+                                    {
+                                        var isCritical = item.QuantityOnHand <= (item.ReorderLevel / 2);
+                                        <tr>
+                                            <td style="padding:.7rem 1rem;border-bottom:1px solid #f8fafc;">@item.Name</td>
+                                            <td style="padding:.7rem 1rem;border-bottom:1px solid #f8fafc;text-align:center;color:#dc2626;font-weight:700;">@item.QuantityOnHand</td>
+                                            <td style="padding:.7rem 1rem;border-bottom:1px solid #f8fafc;text-align:center;color:#64748b;">@item.ReorderLevel</td>
+                                            <td style="padding:.7rem 1rem;border-bottom:1px solid #f8fafc;text-align:center;">
+                                                @if (isCritical)
+                                                {
+                                                    <span class="badge-critical">Critical</span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="badge-low">Low</span>
+                                                }
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="d-flex flex-column align-items-center justify-content-center py-5 text-success">
+                            <i class="bi bi-check-circle-fill" style="font-size:2.5rem;"></i>
+                            <p class="mt-2 mb-0 fw-semibold">All stock levels are adequate</p>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+        @* Row 4 — Quick Actions *@
+        <div class="mb-2" style="font-size:.9rem;font-weight:700;color:#334155;">Quick Actions</div>
+        <div class="row g-3">
+            <div class="col-6 col-md-3">
+                <a asp-controller="Administration" asp-action="ManageWards" class="action-card">
+                    <div class="action-icon"><i class="bi bi-building"></i></div>
+                    <div class="action-label">Manage Wards</div>
+                </a>
+            </div>
+            <div class="col-6 col-md-3">
+                <a asp-controller="Administration" asp-action="ManageStaff" class="action-card">
+                    <div class="action-icon"><i class="bi bi-people"></i></div>
+                    <div class="action-label">Manage Staff</div>
+                </a>
+            </div>
+            <div class="col-6 col-md-3">
+                <a asp-controller="Administration" asp-action="ManageMedications" class="action-card">
+                    <div class="action-icon"><i class="bi bi-capsule"></i></div>
+                    <div class="action-label">Medications</div>
+                </a>
+            </div>
+            <div class="col-6 col-md-3">
+                <a asp-controller="Accounts" asp-action="Register" class="action-card">
+                    <div class="action-icon"><i class="bi bi-person-plus"></i></div>
+                    <div class="action-label">Create Account</div>
+                </a>
             </div>
         </div>
     }
+
+    @* ── WARD ADMIN ─────────────────────────────────────────────────────── *@
     else if (User.IsInRole("Ward Admin"))
     {
-        <!-- Ward Admin Dashboard -->
-        <div class="row">
-            <div class="col-12">
-                <div class="alert alert-success">
-                    <h5><i class="bi bi-person-badge"></i> Ward Administrator Overview</h5>
-                    <p class="mb-0">Manage patient admissions, discharges, and ward operations.</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-4 mb-4">
-                <div class="card  stat-card">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between">
-                            <div>
-                                <h4 class="mb-0">@Model.TotalPatients</h4>
-                                <p class="mb-0">Total Patients</p>
-                            </div>
-                            <div class="align-self-center">
-                                <i class="bi bi-people" style="font-size: 2rem;"></i>
-                            </div>
+        <div class="row g-3 mb-4">
+            <div class="col-6 col-md-4">
+                <div class="kpi-card kpi-blue">
+                    <div class="card-body d-flex justify-content-between align-items-start">
+                        <div>
+                            <div class="kpi-label">Total Patients</div>
+                            <div class="kpi-number">@Model.TotalPatients</div>
                         </div>
+                        <div class="kpi-icon blue"><i class="bi bi-people"></i></div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4 mb-4">
-                <div class="card bg-success text-white stat-card">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between">
-                            <div>
-                                <h4 class="mb-0">@Model.ActivePatients</h4>
-                                <p class="mb-0">Active Patients</p>
-                            </div>
-                            <div class="align-self-center">
-                                <i class="bi bi-person-check" style="font-size: 2rem;"></i>
-                            </div>
+            <div class="col-6 col-md-4">
+                <div class="kpi-card kpi-green">
+                    <div class="card-body d-flex justify-content-between align-items-start">
+                        <div>
+                            <div class="kpi-label">Currently in Ward</div>
+                            <div class="kpi-number">@Model.ActivePatients</div>
                         </div>
+                        <div class="kpi-icon green"><i class="bi bi-person-check"></i></div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4 mb-4">
-                <div class="card bg-info text-white stat-card">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between">
-                            <div>
-                                <h4 class="mb-0">@Model.TotalPatientMovements</h4>
-                                <p class="mb-0">Patient Movements</p>
-                            </div>
-                            <div class="align-self-center">
-                                <i class="bi bi-arrow-left-right" style="font-size: 2rem;"></i>
-                            </div>
+            <div class="col-6 col-md-4">
+                <div class="kpi-card kpi-teal">
+                    <div class="card-body d-flex justify-content-between align-items-start">
+                        <div>
+                            <div class="kpi-label">Total Movements</div>
+                            <div class="kpi-number">@Model.TotalPatientMovements</div>
                         </div>
+                        <div class="kpi-icon teal"><i class="bi bi-arrow-left-right"></i></div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-md-6 mb-4">
-                <div class="card dashboard-card">
-                    <div class="card-header ">
-                        <h5 class="mb-0"><i class="bi bi-person-plus"></i> Patient Management</h5>
-                    </div>
-                    <div class="card-body">
-                        <a asp-controller="PatientManagement" asp-action="Index" class="btn btn-primary me-2">
-                            <i class="bi bi-list"></i> View Patients
+        <div class="row g-3">
+            <div class="col-md-8">
+                <div class="section-card">
+                    <div class="section-header"><span><i class="bi bi-arrow-left-right"></i>Recent Patient Movements</span></div>
+                    @if (Model.RecentMovements.Count > 0)
+                    {
+                        <div class="table-responsive">
+                            <table class="table table-hover mb-0" style="font-size:.85rem;">
+                                <thead class="table-light">
+                                    <tr><th>Patient</th><th>Type</th><th>From</th><th>To</th><th>Date</th></tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var m in Model.RecentMovements)
+                                    {
+                                        <tr>
+                                            <td>@m.Patient?.FirstName @m.Patient?.LastName</td>
+                                            <td><span class="badge bg-info text-dark">@m.MovementType</span></td>
+                                            <td>@m.FromWard?.Name</td>
+                                            <td>@m.ToWard?.Name</td>
+                                            <td>@m.MovementDate.ToString("dd MMM HH:mm")</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="text-center text-muted py-4"><i class="bi bi-inbox" style="font-size:2rem;"></i><p class="mt-2 mb-0">No movements recorded.</p></div>
+                    }
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="section-card h-100">
+                    <div class="section-header"><span><i class="bi bi-lightning"></i>Quick Actions</span></div>
+                    <div class="p-3 d-flex flex-column gap-2">
+                        <a asp-controller="PatientManagement" asp-action="Admit" class="btn btn-success rounded-3">
+                            <i class="bi bi-plus-circle me-1"></i>Admit Patient
                         </a>
-                        <a asp-controller="PatientManagement" asp-action="Admit" class="btn btn-success">
-                            <i class="bi bi-plus-circle"></i> Admit Patient
+                        <a asp-controller="PatientManagement" asp-action="Index" class="btn btn-outline-primary rounded-3">
+                            <i class="bi bi-list me-1"></i>View All Patients
                         </a>
                     </div>
                 </div>
             </div>
         </div>
     }
-    else
+
+    @* ── DOCTOR ─────────────────────────────────────────────────────────── *@
+    else if (User.IsInRole("Doctor"))
     {
-        <!-- Default Dashboard for other roles -->
-        <div class="row">
-            <div class="col-12">
-                <div class="alert alert-secondary">
-                    <h5><i class="bi bi-person"></i> Welcome to WardCare+ Management System</h5>
-                    <p class="mb-0">Please use the navigation menu to access your assigned modules.</p>
+        <div class="row g-3 mb-4">
+            <div class="col-6 col-md-3">
+                <div class="kpi-card kpi-blue">
+                    <div class="card-body d-flex justify-content-between align-items-start">
+                        <div><div class="kpi-label">Total Patients</div><div class="kpi-number">@Model.TotalPatients</div></div>
+                        <div class="kpi-icon blue"><i class="bi bi-people"></i></div>
+                    </div>
                 </div>
             </div>
+            <div class="col-6 col-md-3">
+                <div class="kpi-card kpi-green">
+                    <div class="card-body d-flex justify-content-between align-items-start">
+                        <div><div class="kpi-label">Today's Visits</div><div class="kpi-number">@Model.TodayVisits</div></div>
+                        <div class="kpi-icon green"><i class="bi bi-calendar-check"></i></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="kpi-card kpi-teal">
+                    <div class="card-body d-flex justify-content-between align-items-start">
+                        <div><div class="kpi-label">Total Visits</div><div class="kpi-number">@Model.TotalVisits</div></div>
+                        <div class="kpi-icon teal"><i class="bi bi-clipboard2-pulse"></i></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="kpi-card kpi-amber">
+                    <div class="card-body d-flex justify-content-between align-items-start">
+                        <div><div class="kpi-label">Prescriptions</div><div class="kpi-number">@Model.TotalPrescriptions</div></div>
+                        <div class="kpi-icon amber"><i class="bi bi-file-earmark-medical"></i></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-3">
+            <div class="col-md-8">
+                <div class="section-card">
+                    <div class="section-header"><span><i class="bi bi-clock-history"></i>Recent Patient Visits</span></div>
+                    @if (Model.RecentVisits.Count > 0)
+                    {
+                        <div class="table-responsive">
+                            <table class="table table-hover mb-0" style="font-size:.85rem;">
+                                <thead class="table-light"><tr><th>Patient</th><th>Date</th><th>Notes</th></tr></thead>
+                                <tbody>
+                                    @foreach (var v in Model.RecentVisits)
+                                    {
+                                        <tr>
+                                            <td>@v.Patient?.FirstName @v.Patient?.LastName</td>
+                                            <td>@v.VisitDate.ToString("dd MMM yyyy HH:mm")</td>
+                                            <td class="text-truncate" style="max-width:200px;">@v.Notes</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="text-center text-muted py-4"><i class="bi bi-calendar-x" style="font-size:2rem;"></i><p class="mt-2 mb-0">No visits recorded yet.</p></div>
+                    }
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="section-card h-100">
+                    <div class="section-header"><span><i class="bi bi-lightning"></i>Quick Actions</span></div>
+                    <div class="p-3 d-flex flex-column gap-2">
+                        <a asp-controller="DoctorPatient" asp-action="Index" class="btn btn-primary rounded-3"><i class="bi bi-stethoscope me-1"></i>My Patients</a>
+                        <a asp-controller="DoctorPatient" asp-action="ManageDoctorVisits" class="btn btn-outline-primary rounded-3"><i class="bi bi-clipboard2-pulse me-1"></i>All Visits</a>
+                        <a asp-controller="DoctorPatient" asp-action="ManagePrescription" class="btn btn-outline-warning rounded-3"><i class="bi bi-file-earmark-medical me-1"></i>Prescriptions</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+    @* ── NURSE / NURSING SISTER ──────────────────────────────────────────── *@
+    else if (User.IsInRole("Nurse") || User.IsInRole("Nursing Sister"))
+    {
+        var roleLabel = User.IsInRole("Nursing Sister") ? "Nursing Sister" : "Nurse";
+        <div class="row g-3 mb-4">
+            <div class="col-6 col-md-3">
+                <div class="kpi-card kpi-blue">
+                    <div class="card-body d-flex justify-content-between align-items-start">
+                        <div><div class="kpi-label">Admitted Patients</div><div class="kpi-number">@Model.TotalPatients</div></div>
+                        <div class="kpi-icon blue"><i class="bi bi-person-heart"></i></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="kpi-card @(Model.PendingInstructions > 0 ? "kpi-red" : "kpi-green")">
+                    <div class="card-body d-flex justify-content-between align-items-start">
+                        <div>
+                            <div class="kpi-label">Pending Instructions</div>
+                            <div class="kpi-number" style="@(Model.PendingInstructions > 0 ? "color:#dc2626" : "")">@Model.PendingInstructions</div>
+                        </div>
+                        <div class="kpi-icon @(Model.PendingInstructions > 0 ? "red" : "green")"><i class="bi bi-clipboard2-check"></i></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="kpi-card kpi-teal">
+                    <div class="card-body d-flex justify-content-between align-items-start">
+                        <div><div class="kpi-label">Vital Signs Recorded</div><div class="kpi-number">@Model.TotalVitalSigns</div></div>
+                        <div class="kpi-icon teal"><i class="bi bi-heart-pulse"></i></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="kpi-card kpi-amber">
+                    <div class="card-body d-flex justify-content-between align-items-start">
+                        <div><div class="kpi-label">Medications Given</div><div class="kpi-number">@Model.TotalMedicationAdministrations</div></div>
+                        <div class="kpi-icon amber"><i class="bi bi-capsule-pill"></i></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-3">
+            <div class="col-md-8">
+                <div class="section-card">
+                    <div class="section-header"><span><i class="bi bi-heart-pulse"></i>Recent Vital Signs</span></div>
+                    @if (Model.RecentVitalSigns.Count > 0)
+                    {
+                        <div class="table-responsive">
+                            <table class="table table-hover mb-0" style="font-size:.85rem;">
+                                <thead class="table-light"><tr><th>Patient</th><th>Temp°C</th><th>Pulse</th><th>BP</th><th>O₂%</th><th>Recorded</th></tr></thead>
+                                <tbody>
+                                    @foreach (var vs in Model.RecentVitalSigns)
+                                    {
+                                        <tr>
+                                            <td>@vs.Patient?.FirstName @vs.Patient?.LastName</td>
+                                            <td>@vs.Temperature</td>
+                                            <td>@vs.Pulse</td>
+                                            <td>@vs.BloodPressure</td>
+                                            <td>@vs.OxygenSaturation</td>
+                                            <td>@vs.RecordDate.ToString("dd MMM HH:mm")</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="text-center text-muted py-4"><i class="bi bi-heart" style="font-size:2rem;"></i><p class="mt-2 mb-0">No vital signs recorded yet.</p></div>
+                    }
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="section-card h-100">
+                    <div class="section-header"><span><i class="bi bi-lightning"></i>Quick Actions</span></div>
+                    <div class="p-3 d-flex flex-column gap-2">
+                        <a asp-controller="PatientCare" asp-action="ManageVitalSigns" class="btn btn-primary rounded-3"><i class="bi bi-heart-pulse me-1"></i>Vital Signs</a>
+                        <a asp-controller="PatientCare" asp-action="ManageMedicationAdministrations" class="btn btn-outline-warning rounded-3"><i class="bi bi-capsule-pill me-1"></i>Medications</a>
+                        <a asp-controller="PatientCare" asp-action="ManageDoctorInstructions" class="btn btn-outline-danger rounded-3">
+                            <i class="bi bi-clipboard2-check me-1"></i>Instructions
+                            @if (Model.PendingInstructions > 0) { <span class="badge bg-danger ms-1">@Model.PendingInstructions</span> }
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+    @* ── SCRIPT MANAGER ──────────────────────────────────────────────────── *@
+    else if (User.IsInRole("Script Manager"))
+    {
+        <div class="row g-3 mb-4">
+            <div class="col-6 col-md-4">
+                <div class="kpi-card kpi-blue">
+                    <div class="card-body d-flex justify-content-between align-items-start">
+                        <div><div class="kpi-label">Total Script Orders</div><div class="kpi-number">@Model.TotalPrescriptionOrders</div></div>
+                        <div class="kpi-icon blue"><i class="bi bi-file-earmark-medical"></i></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4">
+                <div class="kpi-card @(Model.PendingPrescriptionOrders > 0 ? "kpi-amber" : "kpi-blue")">
+                    <div class="card-body d-flex justify-content-between align-items-start">
+                        <div>
+                            <div class="kpi-label">Pending</div>
+                            <div class="kpi-number" style="@(Model.PendingPrescriptionOrders > 0 ? "color:#d97706" : "")">@Model.PendingPrescriptionOrders</div>
+                        </div>
+                        <div class="kpi-icon @(Model.PendingPrescriptionOrders > 0 ? "amber" : "blue")"><i class="bi bi-hourglass-split"></i></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4">
+                <div class="kpi-card kpi-green">
+                    <div class="card-body d-flex justify-content-between align-items-start">
+                        <div><div class="kpi-label">Processed</div><div class="kpi-number">@Model.ProcessedPrescriptionOrders</div></div>
+                        <div class="kpi-icon green"><i class="bi bi-check2-circle"></i></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-3">
+            <div class="col-md-8">
+                <div class="section-card">
+                    <div class="section-header"><span><i class="bi bi-clock-history"></i>Recent Script Orders</span></div>
+                    @if (Model.RecentPrescriptionOrders.Count > 0)
+                    {
+                        <div class="table-responsive">
+                            <table class="table table-hover mb-0" style="font-size:.85rem;">
+                                <thead class="table-light"><tr><th>Patient</th><th>Status</th><th>Order Date</th></tr></thead>
+                                <tbody>
+                                    @foreach (var o in Model.RecentPrescriptionOrders)
+                                    {
+                                        <tr>
+                                            <td>@o.Prescription?.Patient?.FirstName @o.Prescription?.Patient?.LastName</td>
+                                            <td>
+                                                <span class="badge @(o.Status == "Pending" ? "bg-warning text-dark" : o.Status == "Processed" ? "bg-success" : "bg-info")">@o.Status</span>
+                                            </td>
+                                            <td>@o.OrderDate.ToString("dd MMM yyyy")</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="text-center text-muted py-4"><i class="bi bi-inbox" style="font-size:2rem;"></i><p class="mt-2 mb-0">No script orders yet.</p></div>
+                    }
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="section-card h-100">
+                    <div class="section-header"><span><i class="bi bi-lightning"></i>Quick Actions</span></div>
+                    <div class="p-3 d-flex flex-column gap-2">
+                        <a asp-controller="ConsumableScript" asp-action="NewPrescriptions" class="btn btn-primary rounded-3"><i class="bi bi-file-earmark-plus me-1"></i>New Prescriptions</a>
+                        <a asp-controller="ConsumableScript" asp-action="ManagePrescriptionOrders" class="btn btn-outline-secondary rounded-3"><i class="bi bi-list-check me-1"></i>All Orders</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+    @* ── CONSUMABLES MANAGER ─────────────────────────────────────────────── *@
+    else if (User.IsInRole("Consumables Manager"))
+    {
+        <div class="row g-3 mb-4">
+            <div class="col-6 col-md-3">
+                <div class="kpi-card kpi-blue">
+                    <div class="card-body d-flex justify-content-between align-items-start">
+                        <div><div class="kpi-label">Total Items</div><div class="kpi-number">@Model.TotalConsumables</div></div>
+                        <div class="kpi-icon blue"><i class="bi bi-box-seam"></i></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="kpi-card kpi-teal">
+                    <div class="card-body d-flex justify-content-between align-items-start">
+                        <div><div class="kpi-label">Total Orders</div><div class="kpi-number">@Model.TotalConsumableOrders</div></div>
+                        <div class="kpi-icon teal"><i class="bi bi-cart"></i></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="kpi-card @(Model.PendingConsumableOrders > 0 ? "kpi-amber" : "kpi-blue")">
+                    <div class="card-body d-flex justify-content-between align-items-start">
+                        <div>
+                            <div class="kpi-label">Pending Orders</div>
+                            <div class="kpi-number" style="@(Model.PendingConsumableOrders > 0 ? "color:#d97706" : "")">@Model.PendingConsumableOrders</div>
+                        </div>
+                        <div class="kpi-icon @(Model.PendingConsumableOrders > 0 ? "amber" : "blue")"><i class="bi bi-hourglass-split"></i></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="kpi-card @(Model.LowStockConsumables > 0 ? "kpi-red" : "kpi-green")">
+                    <div class="card-body d-flex justify-content-between align-items-start">
+                        <div>
+                            <div class="kpi-label">Low Stock Items</div>
+                            <div class="kpi-number" style="@(Model.LowStockConsumables > 0 ? "color:#dc2626" : "color:#16a34a")">@Model.LowStockConsumables</div>
+                        </div>
+                        <div class="kpi-icon @(Model.LowStockConsumables > 0 ? "red" : "green")"><i class="bi bi-exclamation-triangle"></i></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-3">
+            <div class="col-md-8">
+                <div class="section-card">
+                    <div class="section-header"><span><i class="bi bi-clock-history"></i>Recent Consumable Orders</span></div>
+                    @if (Model.RecentConsumableOrders.Count > 0)
+                    {
+                        <div class="table-responsive">
+                            <table class="table table-hover mb-0" style="font-size:.85rem;">
+                                <thead class="table-light"><tr><th>Item</th><th class="text-center">Qty</th><th>Status</th><th>Ordered</th></tr></thead>
+                                <tbody>
+                                    @foreach (var o in Model.RecentConsumableOrders)
+                                    {
+                                        <tr>
+                                            <td>@o.Consumable?.Name</td>
+                                            <td class="text-center">@o.Quantity</td>
+                                            <td><span class="badge @(o.Status == "Pending" ? "bg-warning text-dark" : o.Status == "Received" ? "bg-success" : "bg-info")">@o.Status</span></td>
+                                            <td>@o.OrderDate.ToString("dd MMM yyyy")</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="text-center text-muted py-4"><i class="bi bi-inbox" style="font-size:2rem;"></i><p class="mt-2 mb-0">No orders yet.</p></div>
+                    }
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="section-card h-100">
+                    <div class="section-header"><span><i class="bi bi-lightning"></i>Quick Actions</span></div>
+                    <div class="p-3 d-flex flex-column gap-2">
+                        <a asp-controller="ConsumableScript" asp-action="CheckStock" class="btn btn-secondary rounded-3"><i class="bi bi-search me-1"></i>Check Stock</a>
+                        <a asp-controller="ConsumableScript" asp-action="CreateConsumableOrder" class="btn btn-outline-secondary rounded-3"><i class="bi bi-cart-plus me-1"></i>New Order</a>
+                        <a asp-controller="ConsumableScript" asp-action="WeeklyStockTake" class="btn btn-outline-dark rounded-3"><i class="bi bi-clipboard-check me-1"></i>Stock Take</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+    @* ── FALLBACK ────────────────────────────────────────────────────────── *@
+    else
+    {
+        <div class="section-card p-4 text-center text-muted">
+            <i class="bi bi-person-circle" style="font-size:2.5rem;"></i>
+            <p class="mt-2 mb-0 fw-semibold">Welcome to WardCare+ — use the navigation menu to access your modules.</p>
         </div>
     }
 </div>
+
+@section Scripts {
+    @if (User.IsInRole("Administrator"))
+    {
+        <script>
+            (function () {
+                const occupied = @Model.OccupiedBeds;
+                const total    = @Model.TotalBeds;
+                const free     = Math.max(0, total - occupied);
+                const ctx = document.getElementById('occupancyChart');
+                if (!ctx || total === 0) return;
+                new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Occupied', 'Available'],
+                        datasets: [{ data: [occupied, free], backgroundColor: ['#2563eb','#e2e8f0'], borderWidth: 0 }]
+                    },
+                    options: {
+                        cutout: '72%',
+                        plugins: { legend: { display: false }, tooltip: { callbacks: {
+                            label: (c) => ` ${c.label}: ${c.raw}`
+                        }}}
+                    }
+                });
+            })();
+        </script>
+    }
+}

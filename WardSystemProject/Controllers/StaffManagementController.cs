@@ -85,30 +85,11 @@ namespace WardSystemProject.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            
-            var staff = await _context.Staff.FindAsync(id);
-            if(staff!=null)
-            {
-                var staffName = $"{staff.FirstName} {staff.LastName}";
-                _context.Staff.Remove(staff);
-                await _context.SaveChangesAsync();
-                TempData["SuccessMessage"] = $"Staff member '{staffName}' has been permanently deleted.";
-            }
-           
-            return RedirectToAction(nameof(Index));
-        }
-
-        //SoftDeleteStaff
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> SoftDeleteStaff(int id)
-        {
-
             var staff = await _context.Staff.FindAsync(id);
             if (staff != null)
             {
                 var staffName = $"{staff.FirstName} {staff.LastName}";
-                staff.IsActive = false;//SoftDeletes
+                staff.IsActive = false;
                 _context.Staff.Update(staff);
                 await _context.SaveChangesAsync();
                 TempData["SuccessMessage"] = $"Staff member '{staffName}' has been deactivated successfully.";

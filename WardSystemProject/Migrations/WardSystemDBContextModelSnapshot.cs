@@ -220,6 +220,44 @@ namespace WardSystemProject.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("WardSystemProject.Core.Audit.AuditLog", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Action")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("ChangedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ChangedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("EntityId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NewValues")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("OldValues")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TableName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AuditLogs");
+                });
+
             modelBuilder.Entity("WardSystemProject.Models.Allergy", b =>
                 {
                     b.Property<int>("Id")
@@ -342,6 +380,10 @@ namespace WardSystemProject.Migrations
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
+
+                    b.Property<string>("Notes")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
                     b.Property<DateTime>("OrderDate")
                         .HasColumnType("datetime2");
@@ -761,11 +803,24 @@ namespace WardSystemProject.Migrations
                     b.Property<DateTime>("MovementDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("MovementReason")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("MovementType")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
                     b.Property<int?>("PatientFolderFolderId")
                         .HasColumnType("int");
 
                     b.Property<int>("PatientId")
                         .HasColumnType("int");
+
+                    b.Property<string>("RecordedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<int>("ToWardId")
                         .HasColumnType("int");
@@ -848,6 +903,10 @@ namespace WardSystemProject.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
+                    b.Property<string>("Notes")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
                     b.Property<DateTime>("OrderDate")
                         .HasColumnType("datetime2");
 
@@ -921,6 +980,10 @@ namespace WardSystemProject.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<string>("IdentityUserId")
+                        .HasMaxLength(450)
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
@@ -934,7 +997,12 @@ namespace WardSystemProject.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<int?>("WardId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("WardId");
 
                     b.ToTable("Staff");
                 });
@@ -970,6 +1038,35 @@ namespace WardSystemProject.Migrations
                     b.HasIndex("WardId");
 
                     b.ToTable("StockTakes");
+                });
+
+            modelBuilder.Entity("WardSystemProject.Models.StockTakeDetail", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ConsumableId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CountedQuantity")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StockTakeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SystemQuantity")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ConsumableId");
+
+                    b.HasIndex("StockTakeId");
+
+                    b.ToTable("StockTakeDetails");
                 });
 
             modelBuilder.Entity("WardSystemProject.Models.VitalSign", b =>
@@ -1401,6 +1498,16 @@ namespace WardSystemProject.Migrations
                     b.Navigation("Ward");
                 });
 
+            modelBuilder.Entity("WardSystemProject.Models.Staff", b =>
+                {
+                    b.HasOne("WardSystemProject.Models.Ward", "Ward")
+                        .WithMany()
+                        .HasForeignKey("WardId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.Navigation("Ward");
+                });
+
             modelBuilder.Entity("WardSystemProject.Models.StockTake", b =>
                 {
                     b.HasOne("WardSystemProject.Models.Staff", "StockManager")
@@ -1418,6 +1525,25 @@ namespace WardSystemProject.Migrations
                     b.Navigation("StockManager");
 
                     b.Navigation("Ward");
+                });
+
+            modelBuilder.Entity("WardSystemProject.Models.StockTakeDetail", b =>
+                {
+                    b.HasOne("WardSystemProject.Models.Consumable", "Consumable")
+                        .WithMany()
+                        .HasForeignKey("ConsumableId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WardSystemProject.Models.StockTake", "StockTake")
+                        .WithMany()
+                        .HasForeignKey("StockTakeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Consumable");
+
+                    b.Navigation("StockTake");
                 });
 
             modelBuilder.Entity("WardSystemProject.Models.VitalSign", b =>

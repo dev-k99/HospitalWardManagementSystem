@@ -22,11 +22,7 @@
             --border-subtle: rgba(10, 77, 104, 0.12);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -36,12 +32,10 @@
             line-height: 1.6;
         }
 
-        /* Navigation */
+        /* ── Navigation ── */
         .navbar {
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
+            top: 0; left: 0; right: 0;
             z-index: 1000;
             background: rgba(248, 250, 251, 0.95);
             backdrop-filter: blur(20px);
@@ -50,18 +44,8 @@
         }
 
         @@keyframes slideDown {
-            from
-
-        {
-            transform: translateY(-100%);
-            opacity: 0;
-        }
-
-        to {
-            transform: translateY(0);
-            opacity: 1;
-        }
-
+            from { transform: translateY(-100%); opacity: 0; }
+            to   { transform: translateY(0);     opacity: 1; }
         }
 
         .nav-container {
@@ -82,27 +66,16 @@
         }
 
         .logo-icon {
-            width: 42px;
-            height: 42px;
+            width: 42px; height: 42px;
             background: linear-gradient(135deg, var(--accent-teal), var(--light-blue));
             border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            display: flex; align-items: center; justify-content: center;
             box-shadow: 0 4px 12px rgba(8, 131, 149, 0.2);
         }
 
-            .logo-icon svg {
-                width: 24px;
-                height: 24px;
-                fill: white;
-            }
+        .logo-icon svg { width: 24px; height: 24px; fill: white; }
 
-        .logo-text {
-            font-size: 1.5rem;
-            font-weight: 700;
-            letter-spacing: -0.02em;
-        }
+        .logo-text { font-size: 1.5rem; font-weight: 700; letter-spacing: -0.02em; }
 
         .nav-links {
             display: flex;
@@ -111,229 +84,314 @@
             align-items: center;
         }
 
-            .nav-links a {
-                text-decoration: none;
-                color: var(--text-gray);
-                font-weight: 500;
-                font-size: 0.95rem;
-                transition: color 0.3s ease;
-                position: relative;
-            }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-gray);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+            position: relative;
+        }
 
-                .nav-links a:hover {
-                    color: var(--accent-teal);
-                }
+        .nav-links a:hover { color: var(--accent-teal); }
 
-                .nav-links a::after {
-                    content: '';
-                    position: absolute;
-                    bottom: -4px;
-                    left: 0;
-                    width: 0;
-                    height: 2px;
-                    background: var(--accent-teal);
-                    transition: width 0.3s ease;
-                }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px; left: 0;
+            width: 0; height: 2px;
+            background: var(--accent-teal);
+            transition: width 0.3s ease;
+        }
 
-                .nav-links a:hover::after {
-                    width: 100%;
-                }
+        .nav-links a:hover::after { width: 100%; }
 
-        .btn-primary {
+        .btn-nav {
             background: linear-gradient(135deg, var(--accent-teal), var(--light-blue));
             color: white;
-            padding: 0.7rem 1.8rem;
+            padding: 0.6rem 1.5rem;
             border-radius: 10px;
             text-decoration: none;
             font-weight: 600;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             transition: all 0.3s ease;
             box-shadow: 0 4px 12px rgba(8, 131, 149, 0.25);
         }
 
-            .btn-primary:hover {
-                transform: translateY(-2px);
-                box-shadow: 0 6px 20px rgba(8, 131, 149, 0.35);
-            }
+        .btn-nav:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(8, 131, 149, 0.35); }
 
-        .btn-secondary {
-            background: transparent;
-            color: var(--accent-teal);
-            padding: 0.7rem 1.8rem;
-            border-radius: 10px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.95rem;
-            border: 2px solid var(--accent-teal);
-            transition: all 0.3s ease;
-        }
-
-            .btn-secondary:hover {
-                background: var(--accent-teal);
-                color: white;
-                transform: translateY(-2px);
-            }
-
-        /* Hero Section */
+        /* ── Hero ── */
         .hero {
             position: relative;
-            overflow: hidden;
-            height: 700px; /* Adjust height as needed */
+            min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
             text-align: center;
+            color: white;
         }
-
 
         .hero-background {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(rgba(0, 51, 102, 0.7), rgba(0, 51, 102, 0.7)), url('/images/hero/hospital-bg.jpg');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            z-index: -1;
-        }
-
-
-        @@keyframes float {
-            0%, 100%
-
-        {
-            transform: translateY(0);
-        }
-
-        50% {
-            transform: translateY(-20px);
-        }
-
-        }
-
-        .hero-container {
-            max-width: 1280px;
-            margin: 0 auto;
-            padding: 0 2rem;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-            position: relative;
-            z-index: 1;
+            inset: 0;
+            background: linear-gradient(rgba(10, 77, 104, 0.72), rgba(10, 77, 104, 0.72)),
+                        url('/images/hero/hospital-bg.jpg') center/cover no-repeat;
+            z-index: 0;
         }
 
         .hero-content {
-            animation: fadeInLeft 0.8s ease-out;
+            position: relative;
+            z-index: 1;
+            max-width: 780px;
+            padding: 0 2rem;
+            animation: fadeInUp 0.8s ease-out;
         }
 
-        @@keyframes fadeInLeft {
-            from
-
-        {
-            opacity: 0;
-            transform: translateX(-40px);
-        }
-
-        to {
-            opacity: 1;
-            transform: translateX(0);
-        }
-
+        @@keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to   { opacity: 1; transform: translateY(0); }
         }
 
         .hero-badge {
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
-            background: rgba(8, 131, 149, 0.08);
-            padding: 0.5rem 1rem;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            padding: 0.45rem 1.1rem;
             border-radius: 50px;
             font-size: 0.85rem;
             font-weight: 600;
-            color: var(--accent-teal);
-            margin-bottom: 1.5rem;
-            animation: pulse 2s ease-in-out infinite;
+            color: white;
+            margin-bottom: 1.8rem;
         }
 
-        @@keyframes pulse {
-            0%, 100%
-
-        {
-            opacity: 1;
-        }
-
-        50% {
-            opacity: 0.8;
-        }
-
-        }
-
-        .hero-badge::before {
-            content: '';
-            width: 8px;
-            height: 8px;
+        .badge-dot {
+            width: 8px; height: 8px;
             background: var(--success-green);
             border-radius: 50%;
             animation: blink 1.5s ease-in-out infinite;
         }
 
         @@keyframes blink {
-            0%, 100%
-
-        {
-            opacity: 1;
+            0%, 100% { opacity: 1; }
+            50%       { opacity: 0.3; }
         }
 
-        50% {
-            opacity: 0.3;
+        .hero-content h1 {
+            font-family: 'DM Serif Display', serif;
+            font-size: clamp(2.4rem, 5vw, 3.6rem);
+            font-weight: 400;
+            line-height: 1.15;
+            margin-bottom: 1.4rem;
         }
 
+        .hero-highlight {
+            background: linear-gradient(135deg, var(--light-blue), #7ECFFF);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
-        /* Responsive */
-        @@media (max-width: 968px) {
-            .nav-links
-
-        {
-            display: none;
+        .hero-content p {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.85);
+            max-width: 580px;
+            margin: 0 auto 2.5rem;
         }
 
-        .hero-container {
-            grid-template-columns: 1fr;
-            gap: 3rem;
+        .hero-cta {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
         }
 
-        .hero h1 {
-            font-size: 2.8rem;
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent-teal), var(--light-blue));
+            color: white;
+            padding: 0.85rem 2.2rem;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 18px rgba(8, 131, 149, 0.4);
         }
+
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(8, 131, 149, 0.5); }
+
+        .btn-outline {
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(8px);
+            color: white;
+            padding: 0.85rem 2.2rem;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .btn-outline:hover { background: rgba(255, 255, 255, 0.22); transform: translateY(-3px); }
+
+        /* ── Section shared ── */
+        .section-header {
+            text-align: center;
+            max-width: 620px;
+            margin: 0 auto 3.5rem;
+        }
+
+        .section-tag {
+            display: inline-block;
+            background: rgba(8, 131, 149, 0.1);
+            color: var(--accent-teal);
+            padding: 0.35rem 1rem;
+            border-radius: 50px;
+            font-size: 0.82rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            margin-bottom: 1rem;
+        }
+
+        .section-header h2 {
+            font-family: 'DM Serif Display', serif;
+            font-size: clamp(1.8rem, 3vw, 2.4rem);
+            font-weight: 400;
+            color: var(--primary-blue);
+            margin-bottom: 0.9rem;
+        }
+
+        .section-header p {
+            color: var(--text-gray);
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+
+        /* ── About ── */
+        .about {
+            padding: 6rem 2rem;
+            background: white;
+        }
+
+        .about-inner { max-width: 1200px; margin: 0 auto; }
 
         .about-grid {
-            grid-template-columns: 1fr;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
         }
 
-        .stat-grid {
-            grid-template-columns: 1fr;
+        .about-card {
+            background: var(--warm-white);
+            border-radius: 16px;
+            padding: 2.2rem 2rem;
+            border: 1px solid var(--border-subtle);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
-            .hero-cta {
-                margin-top: 80px; 
-            }
+        .about-card:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(10, 77, 104, 0.1); }
+
+        .about-icon {
+            width: 56px; height: 56px;
+            background: linear-gradient(135deg, var(--accent-teal), var(--light-blue));
+            border-radius: 14px;
+            display: flex; align-items: center; justify-content: center;
+            margin-bottom: 1.4rem;
+            box-shadow: 0 6px 16px rgba(8, 131, 149, 0.22);
         }
-        </style>
+
+        .about-icon svg { width: 28px; height: 28px; fill: white; }
+
+        .about-card h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 0.7rem;
+        }
+
+        .about-card p { color: var(--text-gray); font-size: 0.95rem; line-height: 1.7; }
+
+        /* ── Features ── */
+        .features {
+            padding: 6rem 2rem;
+            background: var(--warm-white);
+        }
+
+        .features-inner { max-width: 1200px; margin: 0 auto; }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.6rem;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem 1.8rem;
+            border: 1px solid var(--border-subtle);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .feature-card:hover { transform: translateY(-5px); box-shadow: 0 12px 32px rgba(10, 77, 104, 0.09); }
+
+        .feature-icon {
+            width: 48px; height: 48px;
+            border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            margin-bottom: 1.2rem;
+        }
+
+        .feature-icon svg { width: 24px; height: 24px; fill: white; }
+
+        .feature-icon.teal  { background: linear-gradient(135deg, #088395, #05BFDB); }
+        .feature-icon.blue  { background: linear-gradient(135deg, #0A4D68, #1A7FA0); }
+        .feature-icon.green { background: linear-gradient(135deg, #1aaa6e, #2ECC71); }
+
+        .feature-card h3 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-card p { color: var(--text-gray); font-size: 0.9rem; line-height: 1.65; }
+
+        /* ── Footer ── */
+        .footer {
+            background: var(--primary-blue);
+            color: rgba(255, 255, 255, 0.7);
+            text-align: center;
+            padding: 2rem 2rem;
+            font-size: 0.9rem;
+        }
+
+        .footer a { color: var(--light-blue); text-decoration: none; margin: 0 0.5rem; }
+        .footer a:hover { color: white; }
+
+        /* ── Responsive ── */
+        @@media (max-width: 968px) {
+            .nav-links { display: none; }
+            .about-grid, .features-grid { grid-template-columns: 1fr; }
+        }
+
+        @@media (min-width: 640px) and (max-width: 968px) {
+            .about-grid, .features-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
 </head>
 <body>
+
     <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-container">
             <a href="#" class="logo">
                 <div class="logo-icon">
-                    <svg viewBox="0 0 24 24">
-                        <path d="M19 3H5c-1.1 0-1.99.9-1.99 2L3 19c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-1 11h-4v4h-4v-4H6v-4h4V6h4v4h4v4z"/>
-                    </svg>
+                    <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-1.99.9-1.99 2L3 19c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-1 11h-4v4h-4v-4H6v-4h4V6h4v4h4v4z"/></svg>
                 </div>
                 <span class="logo-text">WardCare+</span>
             </a>
@@ -343,103 +401,163 @@
                 <li><a href="#features">Features</a></li>
                 <li><a href="@Url.Action("Login", "Accounts")">Login</a></li>
             </ul>
-            <a href="@Url.Action("Register", "Accounts")" class="btn-primary">Get Started</a>
+            <a href="@Url.Action("Login", "Accounts")" class="btn-nav">Access System</a>
         </div>
     </nav>
 
-    <!-- Hero Section -->
+    <!-- Hero -->
     <section class="hero" id="home">
         <div class="hero-background"></div>
-        <div class="hero-container">
-            <div class="hero-content">
-                <div class="hero-badge">
-                    <span>Healthcare Excellence</span>
-                </div>
-                <h1>
-                    Modern <span class="hero-highlight">Hospital Ward Management</span> for Better Patient Care
-                </h1>
-                <p>
-                    Streamline hospital operations with our comprehensive ward management system. 
-                    Enhance patient care, optimize staff workflows, and ensure seamless hospital administration.
-                </p>
-                <div class="hero-cta">
-                    <a href="@Url.Action("Login", "Accounts")" class="btn-primary">Access System</a>
-                    <a href="#about" class="btn-secondary">Learn More</a>
-                </div>
+        <div class="hero-content">
+            <div class="hero-badge">
+                <span class="badge-dot"></span>
+                Healthcare Excellence
             </div>
-            <div class="hero-visual">
-                <div class="hero-card">
-                    <div class="stat-grid">
-                        <div class="stat-item">
-                            <span class="stat-number">24/7</span>
-                            <span class="stat-label">System Availability</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-number">100%</span>
-                            <span class="stat-label">Data Security</span>
-                        </div>
-                    </div>
-                    <ul class="feature-list">
-                        <li>Real-time patient monitoring</li>
-                        <li>Automated ward assignments</li>
-                        <li>Comprehensive reporting tools</li>
-                        <li>Staff scheduling & management</li>
-                    </ul>
-                </div>
+            <h1>
+                Modern <span class="hero-highlight">Hospital Ward Management</span><br>for Better Patient Care
+            </h1>
+            <p>
+                Streamline hospital operations with our comprehensive ward management system.
+                Enhance patient care, optimise staff workflows, and ensure seamless hospital administration.
+            </p>
+            <div class="hero-cta">
+                <a href="@Url.Action("Login", "Accounts")" class="btn-primary">Access System</a>
+                <a href="#about" class="btn-outline">Learn More</a>
             </div>
         </div>
     </section>
 
-    <!-- About Section -->
+    <!-- About -->
     <section class="about" id="about">
-        <div class="about-container">
+        <div class="about-inner">
             <div class="section-header">
-                <span class="section-tag">About Our Hospital</span>
+                <span class="section-tag">About Our System</span>
                 <h2>Committed to Excellence in Healthcare</h2>
                 <p>
-                    Our hospital combines cutting-edge technology with compassionate care to deliver 
-                    the highest standards of medical treatment and patient experience.
+                    WardCare+ combines modern technology with compassionate care to deliver
+                    the highest standards of ward management and patient experience.
                 </p>
             </div>
             <div class="about-grid">
-                    <div class="about-card">
-                        <img src="~/images/about/care.jpg" alt="Trusted Healthcare" class="about-img" />
-                        
+
+                <div class="about-card">
+                    <div class="about-icon">
+                        <!-- Heart / care icon -->
+                        <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                    </div>
                     <h3>Trusted Care</h3>
                     <p>
-                        Decades of experience in providing exceptional healthcare services with a patient-first approach. 
-                        Our commitment to quality ensures every patient receives personalized attention.
+                        Decades of experience delivering exceptional healthcare services with a patient-first approach.
+                        Every patient receives personalised attention and quality care.
                     </p>
                 </div>
+
                 <div class="about-card">
-                    <img src="~/images/about/technology.jpg" alt="Trusted Healthcare" class="about-img" />
-                        
+                    <div class="about-icon">
+                        <!-- Monitor / technology icon -->
+                        <svg viewBox="0 0 24 24"><path d="M20 3H4c-1.1 0-2 .9-2 2v11c0 1.1.9 2 2 2h3l-1 1v1h12v-1l-1-1h3c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 13H4V5h16v11zM9.5 13l2.5-3.5L14 13l1.5-2 2.5 3H6l3.5-4.5L12 13z"/></svg>
                     </div>
                     <h3>Advanced Technology</h3>
                     <p>
-                        State-of-the-art medical equipment and digital systems that enable accurate diagnoses 
-                        and effective treatments, all seamlessly integrated into our ward management platform.
+                        State-of-the-art digital systems that enable accurate diagnoses and effective treatments,
+                        seamlessly integrated into the ward management platform.
                     </p>
                 </div>
+
                 <div class="about-card">
-                <img src="~/images/about/team.jpg" alt="Trusted Healthcare" class="about-img" />
-                        
+                    <div class="about-icon">
+                        <!-- Group / team icon -->
+                        <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
                     </div>
                     <h3>Expert Team</h3>
                     <p>
-                        Highly qualified medical professionals dedicated to patient wellbeing. Our team of doctors, 
-                        nurses, and support staff work collaboratively to ensure the best outcomes.
+                        Highly qualified medical professionals dedicated to patient wellbeing. Doctors, nurses,
+                        and support staff collaborate seamlessly within a single platform.
                     </p>
                 </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="features" id="features">
+        <div class="features-inner">
+            <div class="section-header">
+                <span class="section-tag">System Features</span>
+                <h2>Everything You Need to Run a Modern Ward</h2>
+                <p>
+                    Role-based access, real-time monitoring, and automated workflows — all in one secure system.
+                </p>
+            </div>
+            <div class="features-grid">
+
+                <div class="feature-card">
+                    <div class="feature-icon teal">
+                        <!-- Bed / patient icon -->
+                        <svg viewBox="0 0 24 24"><path d="M7 13c1.66 0 3-1.34 3-3S8.66 7 7 7s-3 1.34-3 3 1.34 3 3 3zm12-6h-8v7H3V5H1v15h2v-3h18v3h2v-9c0-2.21-1.79-4-4-4z"/></svg>
+                    </div>
+                    <h3>Patient Admission & Discharge</h3>
+                    <p>Admit patients, assign beds, and process discharges with full audit trails and automated bed status updates.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon blue">
+                        <!-- Vital signs / pulse icon -->
+                        <svg viewBox="0 0 24 24"><path d="M3.5 18.5l6-6 4 4L22 6.92 20.59 5.5l-7.09 8-4-4L2 16.99z"/></svg>
+                    </div>
+                    <h3>Vital Signs Monitoring</h3>
+                    <p>Record temperature, pulse, blood pressure, oxygen saturation, and respiratory rate per patient with timestamped history.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon green">
+                        <!-- Medication / pill icon -->
+                        <svg viewBox="0 0 24 24"><path d="M6.5 10h-2v5h2v-5zm4 0h-2v5h2v-5zm8.5 7H4v2h15v-2zm-4.5-7h-2v5h2v-5zM11.5 1L2 6v2h19V6l-9.5-5z"/></svg>
+                    </div>
+                    <h3>Medication Administration</h3>
+                    <p>Nurses record medication administrations with schedule enforcement — Nursing Sisters can dispense higher-schedule drugs.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon blue">
+                        <!-- Doctor / stethoscope icon -->
+                        <svg viewBox="0 0 24 24"><path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"/></svg>
+                    </div>
+                    <h3>Doctor Instructions & Prescriptions</h3>
+                    <p>Doctors issue instructions and prescriptions digitally. Nurses view orders in real time; Script Managers receive instant notifications.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon teal">
+                        <!-- Inventory / boxes icon -->
+                        <svg viewBox="0 0 24 24"><path d="M20 6h-2.18c.07-.44.18-.88.18-1.35C18 2.51 16.49 1 14.65 1c-1.06 0-1.96.51-2.59 1.28L12 2.96l-.06-.69C11.31 1.51 10.42 1 9.35 1 7.51 1 6 2.51 6 4.35c0 .47.11.91.18 1.35H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2z"/></svg>
+                    </div>
+                    <h3>Consumables & Stock Management</h3>
+                    <p>Track consumable stock levels, create orders, and conduct weekly stock takes with per-item quantity verification and variance reporting.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon green">
+                        <!-- Shield / security icon -->
+                        <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg>
+                    </div>
+                    <h3>Role-Based Security</h3>
+                    <p>Seven distinct roles — Administrator, Ward Admin, Doctor, Nurse, Nursing Sister, Script Manager, Consumables Manager — each with scoped access.</p>
+                </div>
+
             </div>
         </div>
     </section>
 
     <!-- Footer -->
     <footer class="footer">
-        <div class="footer-container">
-            <p>&copy; 2026 Hospital Ward Management System. All rights reserved.</p>
-        </div>
+        <p>
+            &copy; 2026 WardCare+ Hospital Management System. All rights reserved.
+            &nbsp;&nbsp;|&nbsp;&nbsp;
+            <a href="@Url.Action("Login", "Accounts")">Login</a>
+        </p>
     </footer>
+
 </body>
 </html>

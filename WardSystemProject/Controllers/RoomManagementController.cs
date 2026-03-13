@@ -7,7 +7,7 @@ using WardSystemProject.Models;
 
 namespace WardSystemProject.Controllers
 {
-    [Authorize] // Restricts access to authenticated users
+    [Authorize(Roles = "Administrator")]
     public class RoomManagementController : Controller
     {
         private readonly WardSystemDBContext _context;

@@ -35,6 +35,9 @@ namespace WardSystemProject.Models
         [StringLength(50, ErrorMessage = "Status must not exceed 50 characters.")]
         public string Status { get; set; } // Order status (e.g., Pending, Delivered)
 
+        [StringLength(500)]
+        public string? Notes { get; set; }
+
         public bool IsActive { get; set; } = true;
     }
 

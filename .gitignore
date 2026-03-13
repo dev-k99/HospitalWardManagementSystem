@@ -1,1 +1,27 @@
+## Visual Studio ##
 .vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+## Build output ##
+[Bb]in/
+[Oo]bj/
+
+## NuGet ##
+*.nupkg
+.nuget/
+packages/
+
+## ASP.NET Core ##
+# Keep appsettings.json (placeholder only — no real secrets)
+# Exclude environment-specific overrides which may contain secrets
+appsettings.Development.json
+appsettings.Staging.json
+appsettings.Production.json
+
+## Publish output ##
+publish/
+**/obj/Release/
+**/obj/Debug/
