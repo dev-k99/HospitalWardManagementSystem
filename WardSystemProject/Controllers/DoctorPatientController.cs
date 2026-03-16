@@ -343,6 +343,41 @@ namespace WardSystemProject.Controllers
             }
         
 
+        // GET: DoctorPatient/ManageDoctorVisits - List all visits for current doctor
+        public async Task<IActionResult> ManageDoctorVisits()
+        {
+            var doctorId = GetCurrentDoctorId();
+            if (doctorId == null)
+                return View("Error", new ErrorViewModel { RequestId = "Doctor ID not found" });
+
+            var visits = await _context.DoctorVisits
+                .Include(v => v.Patient)
+                .Include(v => v.Doctor)
+                .Where(v => v.DoctorId == doctorId && v.IsActive)
+                .OrderByDescending(v => v.VisitDate)
+                .ToListAsync();
+
+            return View(visits);
+        }
+
+        // GET: DoctorPatient/ManagePrescription - List all prescriptions for current doctor
+        public async Task<IActionResult> ManagePrescription()
+        {
+            var doctorId = GetCurrentDoctorId();
+            if (doctorId == null)
+                return View("Error", new ErrorViewModel { RequestId = "Doctor ID not found" });
+
+            var prescriptions = await _context.Prescriptions
+                .Include(p => p.Patient)
+                .Include(p => p.Doctor)
+                .Include(p => p.Medication)
+                .Where(p => p.DoctorId == doctorId && p.IsActive)
+                .OrderByDescending(p => p.PrescriptionDate)
+                .ToListAsync();
+
+            return View(prescriptions);
+        }
+
         // GET: DoctorPatient/DischargePatient/5 - Discharge patient
         public async Task<IActionResult> DischargePatient(int? id)
         {
