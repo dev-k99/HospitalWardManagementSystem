@@ -218,7 +218,8 @@ The connection string lives in Azure App Service Configuration and overrides `ap
 
 ## Screenshots
 
-_(Add screenshots here)_
+![Home Page](Screenshots/image.png)
+![Dashboard](Screenshots/dashboard.png)
 
 ---
 
