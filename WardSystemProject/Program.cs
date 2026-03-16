@@ -1,4 +1,4 @@
-using FluentValidation;
+git add -Ausing FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -80,9 +80,17 @@ var app = builder.Build();
 // Scoped block closes before app.Run() — scope is not held open for app lifetime.
 using (var scope = app.Services.CreateScope())
 {
-    var db = scope.ServiceProvider.GetRequiredService<WardSystemDBContext>();
-    db.Database.Migrate();
-    await SeedDatabaseAsync(scope.ServiceProvider, app.Configuration);
+    var startupLogger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
+    try
+    {
+        var db = scope.ServiceProvider.GetRequiredService<WardSystemDBContext>();
+        db.Database.Migrate();
+        await SeedDatabaseAsync(scope.ServiceProvider, app.Configuration);
+    }
+    catch (Exception ex)
+    {
+        startupLogger.LogError(ex, "Startup migration/seed failed — app will still start.");
+    }
 }
 
 // ── Middleware pipeline ───────────────────────────────────────────────────────
