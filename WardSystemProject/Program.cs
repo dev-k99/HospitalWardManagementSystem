@@ -223,15 +223,15 @@ static async Task SeedDatabaseAsync(IServiceProvider services, IConfiguration co
     var demoPassword = "Demo@WardCare1!";
     var demoAccounts = new[]
     {
-        (Username: "doctor",       Email: "doctor@wardcare.co.za",       Role: "Doctor",               First: "Demo",   Last: "Doctor"),
-        (Username: "nurse",        Email: "nurse@wardcare.co.za",         Role: "Nurse",                First: "Demo",   Last: "Nurse"),
-        (Username: "sister",       Email: "sister@wardcare.co.za",        Role: "Nursing Sister",       First: "Demo",   Last: "Sister"),
-        (Username: "scripts",      Email: "scripts@wardcare.co.za",       Role: "Script Manager",       First: "Demo",   Last: "ScriptMgr"),
-        (Username: "consumables",  Email: "consumables@wardcare.co.za",   Role: "Consumables Manager",  First: "Demo",   Last: "ConsumablesMgr"),
-        (Username: "wardadmin",    Email: "wardadmin@wardcare.co.za",     Role: "Ward Admin",           First: "Demo",   Last: "WardAdmin"),
+        (Username: "doctor",       Email: "doctor@wardcare.co.za",       Role: "Doctor"),
+        (Username: "nurse",        Email: "nurse@wardcare.co.za",         Role: "Nurse"),
+        (Username: "sister",       Email: "sister@wardcare.co.za",        Role: "Nursing Sister"),
+        (Username: "scripts",      Email: "scripts@wardcare.co.za",       Role: "Script Manager"),
+        (Username: "consumables",  Email: "consumables@wardcare.co.za",   Role: "Consumables Manager"),
+        (Username: "wardadmin",    Email: "wardadmin@wardcare.co.za",     Role: "Ward Admin"),
     };
 
-    foreach (var (username, email, role, first, last) in demoAccounts)
+    foreach (var (username, email, role) in demoAccounts)
     {
         try
         {
@@ -242,15 +242,6 @@ static async Task SeedDatabaseAsync(IServiceProvider services, IConfiguration co
             if (createResult.Succeeded)
             {
                 await userManager.AddToRoleAsync(demoUser, role);
-                dbContext.Staff.Add(new Staff
-                {
-                    FirstName      = first,
-                    LastName       = last,
-                    Role           = role,
-                    Email          = email,
-                    IdentityUserId = demoUser.Id,
-                    IsActive       = true
-                });
                 logger.LogInformation("Demo account '{Username}' ({Role}) created.", username, role);
             }
             else
@@ -264,5 +255,4 @@ static async Task SeedDatabaseAsync(IServiceProvider services, IConfiguration co
             logger.LogWarning(ex, "Failed creating demo account '{Username}'.", username);
         }
     }
-    await dbContext.SaveChangesAsync();
 }
