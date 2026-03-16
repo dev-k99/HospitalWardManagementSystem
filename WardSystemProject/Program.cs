@@ -217,6 +217,10 @@ static async Task SeedDatabaseAsync(IServiceProvider services, IConfiguration co
         logger.LogWarning(ex, "Could not create default ward.");
     }
 
+    // Clear any failed tracked entities from previous seed steps so
+    // the DbContext is in a clean state for Identity user creation.
+    dbContext.ChangeTracker.Clear();
+
     // ── Demo accounts — one per role, always seeded if absent ──
     // Safe to run repeatedly — skips any account that already exists.
     // Password: Demo@WardCare1!
