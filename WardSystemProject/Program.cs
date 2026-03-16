@@ -75,10 +75,13 @@ builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
-// ── Seed roles + default admin ────────────────────────────────────────────────
+// ── Auto-migrate + Seed ───────────────────────────────────────────────────────
+// Applies any pending EF Core migrations on startup (safe to run repeatedly).
 // Scoped block closes before app.Run() — scope is not held open for app lifetime.
 using (var scope = app.Services.CreateScope())
 {
+    var db = scope.ServiceProvider.GetRequiredService<WardSystemDBContext>();
+    db.Database.Migrate();
     await SeedDatabaseAsync(scope.ServiceProvider, app.Configuration);
 }
 
