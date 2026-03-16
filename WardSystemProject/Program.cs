@@ -217,55 +217,52 @@ static async Task SeedDatabaseAsync(IServiceProvider services, IConfiguration co
         logger.LogWarning(ex, "Could not create default ward.");
     }
 
-    // ── Demo accounts — one per role, created only in non-production environments ──
-    // These let recruiters and reviewers explore every dashboard without manual setup.
+    // ── Demo accounts — one per role, always seeded if absent ──
+    // Safe to run repeatedly — skips any account that already exists.
     // Password: Demo@WardCare1!
-    if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") != "Production")
+    var demoPassword = "Demo@WardCare1!";
+    var demoAccounts = new[]
     {
-        var demoPassword = "Demo@WardCare1!";
-        var demoAccounts = new[]
-        {
-            (Username: "doctor",       Email: "doctor@wardcare.co.za",       Role: "Doctor",               First: "Demo",   Last: "Doctor"),
-            (Username: "nurse",        Email: "nurse@wardcare.co.za",         Role: "Nurse",                First: "Demo",   Last: "Nurse"),
-            (Username: "sister",       Email: "sister@wardcare.co.za",        Role: "Nursing Sister",       First: "Demo",   Last: "Sister"),
-            (Username: "scripts",      Email: "scripts@wardcare.co.za",       Role: "Script Manager",       First: "Demo",   Last: "ScriptMgr"),
-            (Username: "consumables",  Email: "consumables@wardcare.co.za",   Role: "Consumables Manager",  First: "Demo",   Last: "ConsumablesMgr"),
-            (Username: "wardadmin",    Email: "wardadmin@wardcare.co.za",     Role: "Ward Admin",           First: "Demo",   Last: "WardAdmin"),
-        };
+        (Username: "doctor",       Email: "doctor@wardcare.co.za",       Role: "Doctor",               First: "Demo",   Last: "Doctor"),
+        (Username: "nurse",        Email: "nurse@wardcare.co.za",         Role: "Nurse",                First: "Demo",   Last: "Nurse"),
+        (Username: "sister",       Email: "sister@wardcare.co.za",        Role: "Nursing Sister",       First: "Demo",   Last: "Sister"),
+        (Username: "scripts",      Email: "scripts@wardcare.co.za",       Role: "Script Manager",       First: "Demo",   Last: "ScriptMgr"),
+        (Username: "consumables",  Email: "consumables@wardcare.co.za",   Role: "Consumables Manager",  First: "Demo",   Last: "ConsumablesMgr"),
+        (Username: "wardadmin",    Email: "wardadmin@wardcare.co.za",     Role: "Ward Admin",           First: "Demo",   Last: "WardAdmin"),
+    };
 
-        foreach (var (username, email, role, first, last) in demoAccounts)
+    foreach (var (username, email, role, first, last) in demoAccounts)
+    {
+        try
         {
-            try
+            if (await userManager.FindByNameAsync(username) != null) continue;
+
+            var demoUser = new IdentityUser { UserName = username, Email = email, EmailConfirmed = true };
+            var createResult = await userManager.CreateAsync(demoUser, demoPassword);
+            if (createResult.Succeeded)
             {
-                if (await userManager.FindByNameAsync(username) != null) continue;
-
-                var demoUser = new IdentityUser { UserName = username, Email = email, EmailConfirmed = true };
-                var createResult = await userManager.CreateAsync(demoUser, demoPassword);
-                if (createResult.Succeeded)
+                await userManager.AddToRoleAsync(demoUser, role);
+                dbContext.Staff.Add(new Staff
                 {
-                    await userManager.AddToRoleAsync(demoUser, role);
-                    dbContext.Staff.Add(new Staff
-                    {
-                        FirstName      = first,
-                        LastName       = last,
-                        Role           = role,
-                        Email          = email,
-                        IdentityUserId = demoUser.Id,
-                        IsActive       = true
-                    });
-                    logger.LogInformation("Demo account '{Username}' ({Role}) created.", username, role);
-                }
-                else
-                {
-                    logger.LogWarning("Could not create demo account '{Username}': {Errors}",
-                        username, string.Join(", ", createResult.Errors.Select(e => e.Description)));
-                }
+                    FirstName      = first,
+                    LastName       = last,
+                    Role           = role,
+                    Email          = email,
+                    IdentityUserId = demoUser.Id,
+                    IsActive       = true
+                });
+                logger.LogInformation("Demo account '{Username}' ({Role}) created.", username, role);
             }
-            catch (Exception ex)
+            else
             {
-                logger.LogWarning(ex, "Failed creating demo account '{Username}'.", username);
+                logger.LogWarning("Could not create demo account '{Username}': {Errors}",
+                    username, string.Join(", ", createResult.Errors.Select(e => e.Description)));
             }
         }
-        await dbContext.SaveChangesAsync();
+        catch (Exception ex)
+        {
+            logger.LogWarning(ex, "Failed creating demo account '{Username}'.", username);
+        }
     }
+    await dbContext.SaveChangesAsync();
 }
